@@ -1,0 +1,194 @@
+{
+  "waypoints": [
+    {
+      "anchorPoint": {
+        "x": 1.784356272757968,
+        "y": 4.442477898440538
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.108715101745321,
+        "y": 5.041176384694856
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [
+          "scoreCubeMid"
+        ],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.556335383785033,
+        "y": 4.64204406052531
+      },
+      "prevControl": {
+        "x": 4.513717018917359,
+        "y": 4.6303048745203235
+      },
+      "nextControl": {
+        "x": 4.513717018917359,
+        "y": 4.6303048745203235
+      },
+      "holonomicAngle": -5.000644597558394,
+      "isReversal": true,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 1.784356272757968,
+        "y": 5.041176384694856
+      },
+      "prevControl": {
+        "x": 1.9780528418402472,
+        "y": 4.442477898440538
+      },
+      "nextControl": {
+        "x": 1.9780528418402472,
+        "y": 4.442477898440538
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": true,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.81459747589474,
+        "y": 3.7968226681662736
+      },
+      "prevControl": {
+        "x": 6.515248232767582,
+        "y": 4.87095818762255
+      },
+      "nextControl": {
+        "x": 6.515248232767582,
+        "y": 4.87095818762255
+      },
+      "holonomicAngle": -60.724745722747386,
+      "isReversal": true,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 1.78,
+        "y": 4.44
+      },
+      "prevControl": {
+        "x": 3.8798009746480813,
+        "y": 4.700739990550244
+      },
+      "nextControl": {
+        "x": 3.8798009746480813,
+        "y": 4.700739990550244
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": true,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.961337300957072,
+        "y": 2.6111648816626234
+      },
+      "prevControl": {
+        "x": 6.42720433773018,
+        "y": 5.182046616754695
+      },
+      "nextControl": null,
+      "holonomicAngle": -79.43898930880357,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    }
+  ],
+  "markers": [
+    {
+      "position": 1.0,
+      "names": [
+        "pickupCubeLow"
+      ]
+    },
+    {
+      "position": 2.0,
+      "names": [
+        "scoreCubeLow"
+      ]
+    },
+    {
+      "position": 3.0,
+      "names": [
+        "pickupCubeLow"
+      ]
+    },
+    {
+      "position": 4.0,
+      "names": [
+        "scoreCubeLow"
+      ]
+    },
+    {
+      "position": 0.0,
+      "names": [
+        "pickupCubeLow"
+      ]
+    },
+    {
+      "position": 0.0,
+      "names": [
+        "scoreCubeMid"
+      ]
+    },
+    {
+      "position": 0.0,
+      "names": [
+        "scoreCubeMid"
+      ]
+    }
+  ]
+}
