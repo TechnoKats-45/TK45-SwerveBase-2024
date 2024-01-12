@@ -36,12 +36,10 @@ public class RobotContainer
 {
     /* Subsystems */
     public final Swerve s_Swerve = new Swerve();
-    private final Intake s_Intake = new Intake();
-    private final Arm s_Arm = new Arm();
+    private final Intake s_Intake = new Intake(); // TODO - Change to actual subsystems
+    private final Arm s_Arm = new Arm();          // TODO - Change to actual subsystems
 
     private final SendableChooser<Command> autoChooser;
-
-    //public Command autoCode = Commands.sequence(new PrintCommand("no auto selected"));
 
     /* Controllers */
     private final Joystick driver = new Joystick(0);
@@ -53,8 +51,8 @@ public class RobotContainer
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);               // B BUTTON
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);  // LEFT BUMPER  // TODO - change binding
 
     /* Variables */
     boolean driveStatus = false;
@@ -68,8 +66,10 @@ public class RobotContainer
       NamedCommands.registerCommand("marker2", Commands.print("Passed marker 2"));  // TODO - Change to actual commands
       NamedCommands.registerCommand("print hello", Commands.print("hello"));        // TODO - Change to actual commands
       
-      s_Swerve.setDefaultCommand(
-        new TeleopSwerve(
+      s_Swerve.setDefaultCommand
+      (
+        new TeleopSwerve
+        (
           s_Swerve, 
           () -> -driver.getRawAxis(translationAxis), 
           () -> -driver.getRawAxis(strafeAxis), 
@@ -99,8 +99,9 @@ public class RobotContainer
       // Configure the button bindings
       configureButtonBindings();
 
-      autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
-      SmartDashboard.putData("Auto Mode", autoChooser);
+      // Build an auto chooser. This will use Commands.none() as the default option.
+      autoChooser = AutoBuilder.buildAutoChooser();
+      SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     /**
@@ -123,7 +124,7 @@ public class RobotContainer
       // Add a button to run pathfinding commands to SmartDashboard
       SmartDashboard.putData
       (
-        "Pathfind to Pickup Pos", AutoBuilder.pathfindToPose
+        "Pathfind to Pickup Pos", AutoBuilder.pathfindToPose  // TODO - Update to actual
         (
           new Pose2d(14.0, 6.5, Rotation2d.fromDegrees(0)), 
           new PathConstraints
@@ -137,7 +138,7 @@ public class RobotContainer
       );
       SmartDashboard.putData
       (
-        "Pathfind to Scoring Pos", AutoBuilder.pathfindToPose
+        "Pathfind to Scoring Pos", AutoBuilder.pathfindToPose // TODO - Update to actual
         (
           new Pose2d(2.15, 3.0, Rotation2d.fromDegrees(180)), 
           new PathConstraints
@@ -152,7 +153,7 @@ public class RobotContainer
 
       // Add a button to SmartDashboard that will create and follow an on-the-fly path
       // This example will simply move the robot 2m in the +X field direction
-      SmartDashboard.putData
+      SmartDashboard.putData  // TODO - Update to actual
       (
           "On-the-fly path", Commands.runOnce(() -> 
           {
@@ -200,6 +201,7 @@ public class RobotContainer
       Constants.gyroOffset = s_Swerve.gyro.getPitch().getValue(); // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
       //s_Swerve.zeroGyro();
       s_Swerve.gyro.setYaw(180);
+
       return autoChooser.getSelected();
     }
 }
