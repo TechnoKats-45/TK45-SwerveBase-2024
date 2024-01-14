@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot 
 {
-  public static CTREConfigs ctreConfigs;
+  //public static CTREConfigs ctreConfigs;
 
   private Command m_autonomousCommand;
 
@@ -30,7 +30,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
-    ctreConfigs = new CTREConfigs();
+    //ctreConfigs = new CTREConfigs();
     
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
@@ -45,7 +45,7 @@ public class Robot extends TimedRobot
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
-   @Override
+  @Override
   public void robotPeriodic() 
   {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled

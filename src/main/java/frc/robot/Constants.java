@@ -121,11 +121,11 @@ public final class Constants
 
         /* Swerve Profiling Values */
         /** Meters per Second */    // Controls the translational speed and acceleration of the robot (left joystick)
-        public static final double maxSpeed = 4.1;
-        public static final double maxAccel = 4.1;
+        public static final double maxSpeed = 1;  // was 4.1
+        public static final double maxAccel = 1;  // was 4.1
 
         /** Radians per Second */ // Controls the rotational speed of the robot (right joystick)
-        public static final double maxAngularVelocity = 10;
+        public static final double maxAngularVelocity = 3; // was 10
         
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -140,7 +140,7 @@ public final class Constants
             public static final int driveMotorID = 13;
             public static final int angleMotorID = 23;
             public static final int canCoderID = 33;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-78.22); // TK 45 - Zeroed in Phoenix Tuner
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
@@ -150,7 +150,7 @@ public final class Constants
             public static final int driveMotorID = 10;
             public static final int angleMotorID = 20;
             public static final int canCoderID = 30;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(26.71+180); // TK 45 - Zeroed in Phoenix Tuner
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
         
@@ -160,7 +160,7 @@ public final class Constants
             public static final int driveMotorID = 12;
             public static final int angleMotorID = 22;
             public static final int canCoderID = 32;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(111.53); // TK 45 - Zeroed in Phoenix Tuner
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
@@ -170,7 +170,7 @@ public final class Constants
             public static final int driveMotorID = 11;
             public static final int angleMotorID = 21;
             public static final int canCoderID = 31;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(7.03); // TK 45 - Zeroed in Phoenix Tuner
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
