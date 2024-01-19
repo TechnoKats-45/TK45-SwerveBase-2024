@@ -294,4 +294,9 @@ public class Swerve extends SubsystemBase
             currentRotation = currentRotation.plus(new Rotation2d(angularVelRps * 0.02));
         }
     }
+
+    public void autoAimX()
+    {
+        // TODO - Write this to auto aim X based on vision
+    }
 }

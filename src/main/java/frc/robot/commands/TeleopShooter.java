@@ -10,7 +10,7 @@ public class TeleopShooter extends Command
     private Joystick operator;
     private Joystick driver;
 
-    /** Creates a new TeleopRoller. */
+    /** Creates a new TeleopShooter. */
     public TeleopShooter(Shooter s_Shooter, Joystick operator, Joystick driver) 
     {
         this.s_Shooter = s_Shooter;

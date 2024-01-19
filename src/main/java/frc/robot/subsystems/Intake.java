@@ -3,6 +3,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -24,11 +27,17 @@ import com.revrobotics.RelativeEncoder;
 
 public class Intake extends SubsystemBase 
 {
+    // TODO - Add 2x photoelectric sensors to intake
+
     private CANSparkMax intake;
+    private DigitalInput sensor1;
+    private DigitalInput sensor2;
 
     public Intake() 
     {
         intake = new CANSparkMax(Constants.IntakeID, MotorType.kBrushless);
+        sensor1 = new DigitalInput(Constants.Sensor1Port);
+        sensor2 = new DigitalInput(Constants.Sensor2Port);
     }
 
     public void setSpeed(double speed)  // For external speed setting
@@ -48,5 +57,10 @@ public class Intake extends SubsystemBase
         {
             intake.set(0);
         }
+    }
+
+    public void autoIntake()
+    {
+        // TODO - Create intakeNote() in intake subsystem   // using sensors and vision and stuff
     }
 }

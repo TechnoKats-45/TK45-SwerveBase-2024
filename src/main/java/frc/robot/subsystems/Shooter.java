@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import edu.wpi.first.math.controller.PIDController;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -39,5 +39,10 @@ public class Shooter extends SubsystemBase
         {
             shooter.set(0);
         }
+    }
+
+    public void fireWhenReady()
+    {
+        // TODO - Create fireWhenReady() in shooter subsystem   // using sensors and vision and stuff
     }
 }

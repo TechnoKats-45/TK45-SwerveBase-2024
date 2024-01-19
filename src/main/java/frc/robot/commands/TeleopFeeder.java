@@ -10,7 +10,7 @@ public class TeleopFeeder extends Command
     private Joystick operator;
     private Joystick driver;
 
-    /** Creates a new TeleopRoller. */
+    /** Creates a new TeleopFeeder. */
     public TeleopFeeder(Feeder s_Feeder, Joystick operator, Joystick driver) 
     {
         this.s_Feeder = s_Feeder;

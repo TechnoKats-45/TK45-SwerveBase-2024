@@ -36,12 +36,14 @@ public class Feeder extends SubsystemBase
     public void runFeeder(Joystick opJoystick, Joystick drJoystick)
     {
         //if button pressed -> run Feeder
-        if(opJoystick.getRawButton(XboxController.Button.kA.value)) // TODO - Update button // Feeder button pressed
+        if(opJoystick.getRawButton(XboxController.Button.kA.value)) // TODO - Update button config // Feeder button pressed
         {
+            // Run Feeder
             feeder.set(0.5);
         }
         else    // Feeder button not pressed
         {
+            // Stop Feeder
             feeder.set(0);
         }
     }

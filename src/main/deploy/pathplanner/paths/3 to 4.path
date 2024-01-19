@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.12,
+        "y": 4.12
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.2107939338596565,
+        "y": 2.031467215408734
+      },
+      "isLocked": false,
+      "linkedName": "(Home) Three"
+    },
+    {
+      "anchor": {
+        "x": 7.549052426039315,
+        "y": 0.791265747528612
+      },
+      "prevControl": {
+        "x": 5.863996083810886,
+        "y": 0.8586680012177487
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "(Away) four"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Home",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

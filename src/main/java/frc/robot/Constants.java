@@ -20,6 +20,9 @@ public final class Constants
 
     /* Intake Constants */
     public static final int IntakeID = 40;
+    public static final double intakeSpeed = 0.5; // TODO - Adjust intake speed
+    public static final int Sensor1Port = 0;   
+    public static final int Sensor2Port = 1;
 
     /* Feeder Constants */
     public static final int FeederID = 50;

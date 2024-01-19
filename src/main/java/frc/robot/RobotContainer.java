@@ -24,7 +24,6 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.math.util.Units;
 
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -40,6 +39,7 @@ public class RobotContainer
     private final Intake s_Intake = new Intake();
     private final Shooter s_Shooter = new Shooter();
     private final Feeder s_Feeder = new Feeder();
+    private final Vision s_Vision = new Vision();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -53,7 +53,7 @@ public class RobotContainer
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);               // B BUTTON
+    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);               // B BUTTON     // TODO - change binding
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);  // LEFT BUMPER  // TODO - change binding
 
     /* Operator Buttons */
@@ -71,10 +71,10 @@ public class RobotContainer
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
     {
-      // Register named commands
-      NamedCommands.registerCommand("marker1", Commands.print("Passed marker 1"));  // TODO - Change to actual commands
-      NamedCommands.registerCommand("marker2", Commands.print("Passed marker 2"));  // TODO - Change to actual commands
-      NamedCommands.registerCommand("print hello", Commands.print("hello"));        // TODO - Change to actual commands
+      NamedCommands.registerCommand("autoIntake", Commands.run(() -> s_Intake.autoIntake()));
+      NamedCommands.registerCommand("autoAimX", Commands.run(() -> s_Swerve.autoAimX()));
+      NamedCommands.registerCommand("autoAimY", Commands.run(() -> s_Shoulder.autoAimY()));          
+      NamedCommands.registerCommand("fireWhenReady", Commands.run(() -> s_Shooter.fireWhenReady()));
       
       s_Swerve.setDefaultCommand
       (
@@ -118,6 +118,26 @@ public class RobotContainer
         )
       );
 
+      s_Shooter.setDefaultCommand
+      (
+        new TeleopShooter
+        (
+          s_Shooter,
+          operator,
+          driver
+        )
+      );
+
+      s_Vision.setDefaultCommand
+      (
+        new TeleopVision
+        (
+          s_Vision,
+          operator,
+          driver
+        )
+      );
+      
       // Configure the button bindings
       configureButtonBindings();
 
@@ -132,78 +152,10 @@ public class RobotContainer
      * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
-
     private void configureButtonBindings() 
     {
       //Driver Buttons (and op buttons) 
       zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-
-      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-      // Add a button to run the example auto to SmartDashboard, this will also be in the auto chooser built above
-      //SmartDashboard.putData("Example Auto", new PathPlannerAuto("Example Auto"));
-
-      // Add a button to run pathfinding commands to SmartDashboard
-      SmartDashboard.putData
-      (
-        "Pathfind to Pickup Pos", AutoBuilder.pathfindToPose  // TODO - Update to actual
-        (
-          new Pose2d(14.0, 6.5, Rotation2d.fromDegrees(0)), 
-          new PathConstraints
-          (
-              4.0, 4.0, 
-            Units.degreesToRadians(360), Units.degreesToRadians(540)
-          ), 
-          0, 
-          2.0
-        )
-      );
-      SmartDashboard.putData
-      (
-        "Pathfind to Scoring Pos", AutoBuilder.pathfindToPose // TODO - Update to actual
-        (
-          new Pose2d(2.15, 3.0, Rotation2d.fromDegrees(180)), 
-          new PathConstraints
-          (
-            4.0, 4.0, 
-            Units.degreesToRadians(360), Units.degreesToRadians(540)
-          ), 
-          0, 
-          0
-        )
-      );
-
-      // Add a button to SmartDashboard that will create and follow an on-the-fly path
-      // This example will simply move the robot 2m in the +X field direction
-      SmartDashboard.putData  // TODO - Update to actual
-      (
-          "On-the-fly path", Commands.runOnce(() -> 
-          {
-            Pose2d currentPose = s_Swerve.getPose();
-        
-            // The rotation component in these poses represents the direction of travel
-            Pose2d startPos = new Pose2d(currentPose.getTranslation(), new Rotation2d());
-            Pose2d endPos = new Pose2d(currentPose.getTranslation().plus(new Translation2d(2.0, 0.0)), new Rotation2d());
-
-            List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(startPos, endPos);
-            PathPlannerPath path = new PathPlannerPath
-            (
-              bezierPoints, 
-              new PathConstraints
-              (
-                4.0, 4.0, 
-                Units.degreesToRadians(360), Units.degreesToRadians(540)
-              ),  
-              new GoalEndState(0.0, currentPose.getRotation())
-            );
-
-            // Prevent this path from being flipped on the red alliance, since the given positions are already correct
-            path.preventFlipping = true;
-
-            AutoBuilder.followPath(path).schedule();
-          }
-        )
-      );
     }
 
     public void printValues()

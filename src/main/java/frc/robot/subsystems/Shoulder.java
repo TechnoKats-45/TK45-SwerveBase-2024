@@ -80,9 +80,27 @@ public class Shoulder extends SubsystemBase
         return m_alternateEncoder.getPosition(); // TODO - do math?
     }
 
-    public void setAngle(double angle)  // Auto / Tele
+    public void setAngle(double angle)  // For external angle setting
     {
         m_pidController.setReference(angle, CANSparkMax.ControlType.kPosition); // Sets internal PID to new position
         target = angle;
+    }
+
+    public void moveAngle(Joystick opJoystick, Joystick drJoystick)
+    {
+        //if button pressed -> run shooter
+        if(opJoystick.getRawButton(XboxController.Button.kA.value))       // TODO - Update button // Shooter button pressed UP
+        {
+            setAngle(0);   // TODO - update angle
+        }
+        else if(opJoystick.getRawButton(XboxController.Button.kA.value))    // TODO - TODO - Update button // Shooter button pressed DOWN
+        {
+            setAngle(0);  // TODO - update angle
+        }
+    }
+
+    public void autoAimY()
+    {
+        // TODO - Create autoAimY() in shoulder subsystem   // using sensors and stuff
     }
 }
