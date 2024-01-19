@@ -4,8 +4,10 @@ import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 
 /** Sets status frames for the CTRE CANCoder. */
-public class CANCoderUtil {
-  public enum CCUsage {
+public class CANCoderUtil 
+{
+  public enum CCUsage 
+  {
     kAll,
     kSensorDataOnly,
     kFaultsOnly,
@@ -23,7 +25,8 @@ public class CANCoderUtil {
    * @param usage The status frame feedback to enable. kAll is the default when a CANCoder
    *     isconstructed.
    */
-  public static void setCANCoderBusUsage(CANCoder cancoder, CCUsage usage) {
+  public static void setCANCoderBusUsage(CANCoder cancoder, CCUsage usage) 
+  {
     if (usage == CCUsage.kAll) {
       cancoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 10);
       cancoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 10);

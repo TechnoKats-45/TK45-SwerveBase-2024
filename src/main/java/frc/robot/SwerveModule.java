@@ -15,15 +15,10 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 
 import com.revrobotics.CANSparkMax;
-//import com.revrobotics.SparkMaxPIDController;             // 2023 - Deprecated
 import com.revrobotics.SparkPIDController;                      // ^ 2024 - Replacement
-//import com.revrobotics.CANSparkMax.ControlType;           // 2023 - Deprecated
 import com.revrobotics.CANSparkBase.ControlType;                // ^ 2024 - Replacement
-//import com.revrobotics.CANSparkMaxLowLevel.MotorType;     // 2023 - Deprecated
 import com.revrobotics.CANSparkLowLevel.MotorType;              // ^ 2024 - Replacement
 import com.revrobotics.RelativeEncoder;
-
-
 
 public class SwerveModule 
 {
@@ -33,7 +28,6 @@ public class SwerveModule
 
     private CANSparkMax mAngleMotor;
     private CANSparkMax mDriveMotor;
-
 
     private RelativeEncoder driveEncoder;
     private RelativeEncoder integratedAngleEncoder;

@@ -3,7 +3,7 @@ package frc.robot;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
-//import com.revrobotics.CANSparkMax.IdleMode;      // 2023 - Deprecated
+//import com.revrobotics.CANSparkMax.IdleMode;          // 2023 - Deprecated
 import com.revrobotics.CANSparkBase.IdleMode;           // ^ 2024 - Replacement
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -19,25 +19,18 @@ public final class Constants
     public static final double stickDeadband = 0.1;
 
     /* Intake Constants */
-    public static final int IntakeLeftID = 40;  // TODO - REMOVE
-    public static final int IntakeRightID = 41; // TODO - REMOVE
+    public static final int IntakeID = 40;
 
-    /* Arm Constants */   
-    public static final int ArmID = 60;  // TODO - REMOVE
-    public static final int ArmEncoderID = 61;   // TODO - REMOVE
+    /* Feeder Constants */
+    public static final int FeederID = 50;
 
-    public static final double ARM_P = .02;  // TODO - REMOVE
-    public static final double ARM_I = 0;    // TODO - REMOVE
-    public static final double ARM_D = 0;    // TODO - REMOVE
-    
-    public static final double ARM_REVERSE_LIMIT = 45;      // TK 45 - CHANGE VALUE TO ACTUAL REVERSE LIMIT // TODO - REMOVE
-    public static final double ARM_FORWARD_LIMIT = -45;     // TK 45 - CHANGE VALUE TO ACTUAL FORWARD LIMIT  // TODO - REMOVE
+    /* Shoulder Constants */   
+    public static final int ShoulderID = 60;
 
-    /* Arm Presets */
-    public static final double ARM_LOW_FRONT_SCORE = 0;   // TK 45 - Change Value to actual front low preset    // TODO - REMOVE
-    public static final double ARM_MID_FRONT_SCORE = 60;    // TK 45 - Change Value to actual front low preset  // TODO - REMOVE
-    public static final double ARM_TOP = 95;    // TODO - REMOVE
+    /* Shooter Constants */
+    public static final int ShooterID = 70;
 
+    /* Gyro Constants */
     public static double gyroOffset = 0;
 
     public static final class Swerve 
@@ -45,8 +38,7 @@ public final class Constants
         public static final int pigeonID = 50;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW- (DO NOT USE, ENABLES ROBOT-CENTRIC)
 
-        public static final COTSFalconSwerveConstants chosenModule =  
-            COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
+        public static final COTSFalconSwerveConstants chosenModule = COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
         /* Drivetrain Constants */
         public static final double trackWidth = Units.inchesToMeters(22);   // TODO - UPDATE

@@ -36,8 +36,10 @@ public class RobotContainer
 {
     /* Subsystems */
     public final Swerve s_Swerve = new Swerve();
-    private final Intake s_Intake = new Intake(); // TODO - Change to actual subsystems
-    private final Arm s_Arm = new Arm();          // TODO - Change to actual subsystems
+    private final Shoulder s_Shoulder = new Shoulder();
+    private final Intake s_Intake = new Intake();
+    private final Shooter s_Shooter = new Shooter();
+    private final Feeder s_Feeder = new Feeder();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -53,6 +55,14 @@ public class RobotContainer
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);               // B BUTTON
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);  // LEFT BUMPER  // TODO - change binding
+
+    /* Operator Buttons */
+    private final JoystickButton intakeIn = new JoystickButton(operator, XboxController.Button.kA.value);       // TODO - Update Button Config
+    private final JoystickButton intakeOut = new JoystickButton(operator, XboxController.Button.kA.value);      // TODO - Update Button Config
+    private final JoystickButton speakerAim = new JoystickButton(operator, XboxController.Button.kA.value);     // TODO - Update Button Config
+    private final JoystickButton shooterSpin = new JoystickButton(operator, XboxController.Button.kA.value);    // TODO - Update Button Config
+    private final JoystickButton ampOut = new JoystickButton(operator, XboxController.Button.kA.value);         // TODO - Update Button Config
+    private final JoystickButton feederFeed = new JoystickButton(operator, XboxController.Button.kA.value);     // TODO - Update Button Config
 
     /* Variables */
     boolean driveStatus = false;
@@ -78,20 +88,32 @@ public class RobotContainer
         )
       );
 
-      s_Intake.setDefaultCommand(
-        new TeleopIntake(
+      s_Intake.setDefaultCommand
+      (
+        new TeleopIntake
+        (
           s_Intake,
           operator,
           driver
         )      
       );
 
-      s_Arm.setDefaultCommand(
-        new TeleopArm(
-          s_Arm,
+      s_Feeder.setDefaultCommand
+      (
+        new TeleopFeeder
+        (
+          s_Feeder,
           operator,
-          operator.getRawButton(XboxController.Button.kA.value),
-          operator.getRawButton(XboxController.Button.kY.value),
+          driver
+        )
+      );
+
+      s_Shoulder.setDefaultCommand
+      (
+        new TeleopShoulder
+        (
+          s_Shoulder,
+          operator,
           driver
         )
       );
