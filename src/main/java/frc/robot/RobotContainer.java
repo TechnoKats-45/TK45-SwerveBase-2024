@@ -76,8 +76,11 @@ public class RobotContainer
       NamedCommands.registerCommand("autoAimY", Commands.run(() -> s_Shoulder.autoAimY()));          
       NamedCommands.registerCommand("fireWhenReady", Commands.run(() -> s_Shooter.fireWhenReady()));
       
+      
       s_Swerve.setDefaultCommand
       (
+
+        
         new TeleopSwerve
         (
           s_Swerve, 
@@ -88,11 +91,12 @@ public class RobotContainer
         )
       );
 
+      /*
       s_Intake.setDefaultCommand
       (
         new TeleopIntake
         (
-          s_Intake,
+          s_Intake, 
           operator,
           driver
         )      
@@ -137,9 +141,11 @@ public class RobotContainer
           driver
         )
       );
-      
+      */
+
       // Configure the button bindings
       configureButtonBindings();
+      s_Swerve.gyro.setYaw(0);
 
       // Build an auto chooser. This will use Commands.none() as the default option.
       autoChooser = AutoBuilder.buildAutoChooser();

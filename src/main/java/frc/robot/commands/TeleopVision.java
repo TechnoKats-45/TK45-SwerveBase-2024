@@ -19,7 +19,7 @@ public class TeleopVision extends Command
         this.s_Vision = s_Vision;
         this.operator = operator;
         this.driver = driver;
-        addRequirements(s_Vision, s_Swerve);
+        //addRequirements(s_Vision, s_Swerve);
         // Called when the command is initially scheduled.
     }
 

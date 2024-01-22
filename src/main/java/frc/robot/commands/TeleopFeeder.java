@@ -16,7 +16,7 @@ public class TeleopFeeder extends Command
         this.s_Feeder = s_Feeder;
         this.operator = operator;
         this.driver = driver;
-        addRequirements(s_Feeder);
+        // addRequirements(s_Feeder);
         // Called when the command is initially scheduled.
     }
 

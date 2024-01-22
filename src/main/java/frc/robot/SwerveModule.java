@@ -20,6 +20,7 @@ import com.revrobotics.CANSparkBase.ControlType;                // ^ 2024 - Repl
 import com.revrobotics.CANSparkLowLevel.MotorType;              // ^ 2024 - Replacement
 import com.revrobotics.RelativeEncoder;
 
+
 public class SwerveModule 
 {
     public int moduleNumber;

@@ -16,7 +16,7 @@ public class TeleopShooter extends Command
         this.s_Shooter = s_Shooter;
         this.operator = operator;
         this.driver = driver;
-        addRequirements(s_Shooter);
+        //addRequirements(s_Shooter);
         // Called when the command is initially scheduled.
     }
 

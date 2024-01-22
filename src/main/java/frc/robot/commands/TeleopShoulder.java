@@ -16,7 +16,7 @@ public class TeleopShoulder extends Command
         this.s_Shoulder = s_Shoulder;
         this.operator = operator;
         this.driver = driver;
-        addRequirements(s_Shoulder);
+        //addRequirements(s_Shoulder);
     }
 
     @Override
