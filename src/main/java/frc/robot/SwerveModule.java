@@ -14,14 +14,11 @@ import frc.lib.math.OnboardModuleState;
 import frc.lib.util.CANCoderUtil;
 import frc.lib.util.CANCoderUtil.CCUsage;
 import com.ctre.phoenix.sensors.CANCoder;
-import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;                     
 import com.revrobotics.CANSparkBase.ControlType;                
 import com.revrobotics.CANSparkLowLevel.MotorType;              
 import com.revrobotics.RelativeEncoder;
-
-import frc.robot.CTREConfigs;
 
 public class SwerveModule 
 {
