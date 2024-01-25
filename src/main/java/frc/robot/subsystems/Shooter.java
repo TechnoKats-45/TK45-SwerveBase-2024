@@ -40,9 +40,4 @@ public class Shooter extends SubsystemBase
             shooter.set(0);
         }
     }
-
-    public void fireWhenReady()
-    {
-        // TODO - Create fireWhenReady() in shooter subsystem   // using sensors and vision and stuff
-    }
 }

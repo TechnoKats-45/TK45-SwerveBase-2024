@@ -74,13 +74,11 @@ public class RobotContainer
       NamedCommands.registerCommand("autoIntake", Commands.run(() -> s_Intake.autoIntake()));
       NamedCommands.registerCommand("autoAimX", Commands.run(() -> s_Swerve.autoAimX()));
       NamedCommands.registerCommand("autoAimY", Commands.run(() -> s_Shoulder.autoAimY()));          
-      NamedCommands.registerCommand("fireWhenReady", Commands.run(() -> s_Shooter.fireWhenReady()));
+      //NamedCommands.registerCommand("fireWhenReady", Commands.run(() -> s_Shooter.fireWhenReady()));
       
       
       s_Swerve.setDefaultCommand
       (
-
-        
         new TeleopSwerve
         (
           s_Swerve, 
