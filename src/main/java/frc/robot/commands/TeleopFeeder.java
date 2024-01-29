@@ -16,7 +16,7 @@ public class TeleopFeeder extends Command
         this.s_Feeder = s_Feeder;
         this.operator = operator;
         this.driver = driver;
-        // addRequirements(s_Feeder);
+        addRequirements(s_Feeder);
         // Called when the command is initially scheduled.
     }
 
@@ -24,7 +24,20 @@ public class TeleopFeeder extends Command
     @Override
     public void execute() 
     {
-        s_Feeder.runFeeder(operator, driver);   // TODO - Update to Feed Command
+        s_Feeder.runFeeder(operator, driver);
     }
 
+    @Override
+    public boolean isFinished() 
+    {
+        if (s_Feeder.detectGamePiece()) // Run until gamepiece detected, then stop
+        {
+            s_Feeder.setSpeed(0);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

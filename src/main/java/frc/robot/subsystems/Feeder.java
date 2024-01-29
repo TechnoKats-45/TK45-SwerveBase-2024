@@ -21,10 +21,17 @@ import com.revrobotics.RelativeEncoder;
 public class Feeder extends SubsystemBase 
 {
     private CANSparkMax feeder;
+    private DigitalInput FeederSensor1Port;
 
     public Feeder()
     {
         feeder = new CANSparkMax(Constants.FeederID, MotorType.kBrushless);
+        FeederSensor1Port = new DigitalInput(Constants.FeederSensor1Port);
+    }
+
+    public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
+    {
+        return FeederSensor1Port.get();
     }
 
     public void setSpeed(double speed)  // For external speed setting

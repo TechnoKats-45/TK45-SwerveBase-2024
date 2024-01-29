@@ -22,7 +22,7 @@ public class TeleopIntake extends Command
     this.s_Intake = s_Intake;
     this.operator = operator;
     this.driver = driver;
-    //addRequirements(s_Intake);
+    addRequirements(s_Intake);
 
   // Called when the command is initially scheduled.
   }
@@ -32,5 +32,19 @@ public class TeleopIntake extends Command
   public void execute() 
   {
     s_Intake.runIntake(operator, driver);
+  }
+
+  @Override
+  public boolean isFinished() 
+  {
+    if (s_Intake.detectGamePiece()) // Run until gamepiece detected, then stop
+    {
+      s_Intake.setSpeed(0);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 }

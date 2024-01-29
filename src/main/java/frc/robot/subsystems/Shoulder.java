@@ -89,18 +89,18 @@ public class Shoulder extends SubsystemBase
     public void moveAngle(Joystick opJoystick, Joystick drJoystick)
     {
         //if button pressed -> run shooter
-        if(opJoystick.getRawButton(XboxController.Button.kA.value))       // TODO - Update button // Shooter button pressed UP
+        if(opJoystick.getRawButton(XboxController.Button.kY.value))       // TODO - Update button // Shooter button pressed UP
         {
-            setAngle(0);   // TODO - update angle
+            setAngle(0);   // TODO - update angle   // 45?
         }
         else if(opJoystick.getRawButton(XboxController.Button.kA.value))    // TODO - TODO - Update button // Shooter button pressed DOWN
         {
-            setAngle(0);  // TODO - update angle
+            setAngle(0);  // TODO - update angle    // -45?
         }
     }
 
     public void autoAimY()
     {
-        // TODO - Create autoAimY() in shoulder subsystem   // using sensors and stuff
+        // TODO - Create autoAimY() in commands   // using sensors and stuff
     }
 }

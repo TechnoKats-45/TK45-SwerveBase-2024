@@ -27,17 +27,20 @@ import com.revrobotics.RelativeEncoder;
 
 public class Intake extends SubsystemBase 
 {
-    // TODO - Add 2x photoelectric sensors to intake
+    // TODO - Add 1-2 photoelectric sensors to intake
 
     private CANSparkMax intake;
-    private DigitalInput sensor1;
-    private DigitalInput sensor2;
+    private DigitalInput intakeSensor;
 
     public Intake() 
     {
         intake = new CANSparkMax(Constants.IntakeID, MotorType.kBrushless);
-        sensor1 = new DigitalInput(Constants.Sensor1Port);
-        sensor2 = new DigitalInput(Constants.Sensor2Port);
+        intakeSensor = new DigitalInput(Constants.IntakeSensor1Port);
+    }
+
+    public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
+    {
+        return intakeSensor.get();
     }
 
     public void setSpeed(double speed)  // For external speed setting
