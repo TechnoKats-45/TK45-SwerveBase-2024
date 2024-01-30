@@ -52,7 +52,7 @@ public class AutoIntake extends Command
             s_Intake.setSpeed(.25);           // TODO - Update to actual speed
             s_Feeder.setSpeed(.25);           // TODO - Update to actual speed
         }
-        else    // Game piece not found - Intake then load intp Feeder
+        else    // Game piece not found - Intake then load into Feeder
         {
             // Run intake inwards
             s_Intake.setSpeed(1);   // Run inwards at full speed // TODO - Update to actual speed

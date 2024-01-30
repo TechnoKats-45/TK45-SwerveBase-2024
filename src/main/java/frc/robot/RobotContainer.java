@@ -39,7 +39,7 @@ public class RobotContainer
     private final Intake s_Intake = new Intake();
     private final Shooter s_Shooter = new Shooter();
     private final Feeder s_Feeder = new Feeder();
-    private final Vision s_Vision = new Vision();
+    private final Limelight limelight = new Limelight();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -57,12 +57,12 @@ public class RobotContainer
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);  // LEFT BUMPER  // TODO - change binding
 
     /* Operator Buttons */
-    private final JoystickButton intakeIn = new JoystickButton(operator, XboxController.Button.kA.value);       // TODO - Update Button Config
-    private final JoystickButton intakeOut = new JoystickButton(operator, XboxController.Button.kA.value);      // TODO - Update Button Config
-    private final JoystickButton speakerAim = new JoystickButton(operator, XboxController.Button.kA.value);     // TODO - Update Button Config
-    private final JoystickButton shooterSpin = new JoystickButton(operator, XboxController.Button.kA.value);    // TODO - Update Button Config
-    private final JoystickButton ampOut = new JoystickButton(operator, XboxController.Button.kA.value);         // TODO - Update Button Config
-    private final JoystickButton feederFeed = new JoystickButton(operator, XboxController.Button.kA.value);     // TODO - Update Button Config
+    private final JoystickButton intakeIn = new JoystickButton(operator, XboxController.Button.kA.value);         // TODO - Update Button Config  // Left Bumper
+    private final JoystickButton intakeOut = new JoystickButton(operator, XboxController.Button.kA.value);        // TODO - Update Button Config
+    private final JoystickButton speakerPreset = new JoystickButton(operator, XboxController.Button.kY.value);    // TODO - Update Button Config  // Y Button
+    private final JoystickButton shooterSpin = new JoystickButton(operator, XboxController.Button.kA.value);      // TODO - Update Button Config
+    private final JoystickButton ampPreset = new JoystickButton(operator, XboxController.Button.kA.value);        // TODO - Update Button Config  // A Button
+    private final JoystickButton feederFeed = new JoystickButton(operator, XboxController.Button.kA.value);       // TODO - Update Button Config
 
     /* Variables */
     boolean driveStatus = false;
@@ -73,9 +73,7 @@ public class RobotContainer
     {
       NamedCommands.registerCommand("autoIntake", Commands.run(() -> s_Intake.autoIntake()));
       NamedCommands.registerCommand("autoAimX", Commands.run(() -> s_Swerve.autoAimX()));
-      NamedCommands.registerCommand("autoAimY", Commands.run(() -> s_Shoulder.autoAimY()));          
-      //NamedCommands.registerCommand("fireWhenReady", Commands.run(() -> s_Shooter.fireWhenReady()));
-      
+      NamedCommands.registerCommand("autoAimY", Commands.run(() -> s_Shoulder.autoAimY()));   
       
       s_Swerve.setDefaultCommand
       (
@@ -89,7 +87,6 @@ public class RobotContainer
         )
       );
 
-      /*
       s_Intake.setDefaultCommand
       (
         new TeleopIntake
@@ -130,16 +127,10 @@ public class RobotContainer
         )
       );
 
-      s_Vision.setDefaultCommand
-      (
-        new TeleopVision
-        (
-          s_Vision,
-          operator,
-          driver
-        )
-      );
-      */
+      limelight.setDefaultCommand(
+        new TeleopLimelight(limelight)
+    );
+      
 
       // Configure the button bindings
       configureButtonBindings();
@@ -150,16 +141,23 @@ public class RobotContainer
       SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
-    /**
-     * Use this method to define your button->command mappings. Buttons can be created by
-     * instantiating a {@link GenericHID} or one of its subclasses ({@link
-     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-     * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-     */
-    private void configureButtonBindings() 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    private void configureButtonBindings() // TODO - Update Button Config
     {
-      //Driver Buttons (and op buttons) 
+      // Driver Buttons
       zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+      
+      // Operator Buttons
+      ampPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
+
+      speakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
+      
+      intakeIn.onTrue(  // Do I want to do this?  Or should this all be a command???  // TODO - Figure out what to do here
+        Commands.sequence(
+          new InstantCommand(() -> s_Intake.setSpeed(Constants.intakeSpeed)),
+          new InstantCommand(() -> s_Shoulder.setAngle(Constants.handoffAngle)),
+          new InstantCommand(() -> s_Feeder.feedUntilSeen(Constants.feederSpeed))));  // TODO - Figure out what to do here
     }
 
     public void printValues()

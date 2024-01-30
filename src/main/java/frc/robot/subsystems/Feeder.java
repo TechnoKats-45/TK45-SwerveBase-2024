@@ -54,4 +54,12 @@ public class Feeder extends SubsystemBase
             feeder.set(0);
         }
     }
+
+    public void feedUntilSeen()
+    {
+        if(FeederSensor1Port.get())
+        {
+            
+        }
+    }
 }
