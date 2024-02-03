@@ -41,8 +41,7 @@ public class RobotContainer
     private final Feeder s_Feeder = new Feeder();
     private final Limelight limelight = new Limelight();
 
-
-    private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> chooser; 
 
     /* Controllers */
     private final Joystick driver = new Joystick(0);
@@ -73,7 +72,7 @@ public class RobotContainer
     public RobotContainer() 
     {
       NamedCommands.registerCommand("autoIntake", Commands.run(() -> s_Intake.autoIntake()));
-      NamedCommands.registerCommand("autoAimX", Commands.run(() -> s_Swerve.autoAimX()));
+      //NamedCommands.registerCommand("autoAimX", Commands.run(() -> s_Swerve.autoAimX()));
       NamedCommands.registerCommand("autoAimY", Commands.run(() -> s_Shoulder.autoAimY()));   
       
       s_Swerve.setDefaultCommand
@@ -141,9 +140,8 @@ public class RobotContainer
       configureButtonBindings();
       s_Swerve.gyro.setYaw(0);
 
-      // Build an auto chooser. This will use Commands.none() as the default option.
-      autoChooser = AutoBuilder.buildAutoChooser();
-      SmartDashboard.putData("Auto Chooser", autoChooser);
+      chooser = AutoBuilder.buildAutoChooser("Test");
+      SmartDashboard.putData("Auto Choices", chooser);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,9 +162,8 @@ public class RobotContainer
           new InstantCommand(() -> s_Shoulder.setAngle(Constants.handoffAngle)),
           new InstantCommand(() -> s_Feeder.feedUntilSeen(Constants.feederSpeed))));  // TODO - Figure out what to do here
     */
-        }
+    }
     
-
     public void printValues()
     {
         SmartDashboard.putNumber("yaw", s_Swerve.gyro.getYaw());
@@ -181,10 +178,6 @@ public class RobotContainer
      */
     public Command getAutonomousCommand() 
     {
-      Constants.gyroOffset = s_Swerve.gyro.getPitch();
-      //s_Swerve.zeroGyro();
-      s_Swerve.gyro.setYaw(180);
-
-      return autoChooser.getSelected();
+      return chooser.getSelected();
     }
 }

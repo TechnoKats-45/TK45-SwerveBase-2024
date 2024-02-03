@@ -72,7 +72,7 @@ public class Shoulder extends SubsystemBase
 
     public void periodic()
     {
-        SmartDashboard.putNumber("Arm Angle", getAngle());
+        //SmartDashboard.putNumber("Arm Angle", getAngle());
     }
 
     public double getAngle()

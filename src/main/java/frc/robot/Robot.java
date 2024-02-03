@@ -16,11 +16,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot 
 {
-  private Command m_autonomousCommand;
+  private Command autonomousCommand;
 
-  public static CTREConfigs ctreConfigs;  // THIS IS UNHAPPY
+  public static CTREConfigs ctreConfigs;
 
-  private RobotContainer m_robotContainer;
+  private RobotContainer robotContainer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -33,7 +33,7 @@ public class Robot extends TimedRobot
     
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    robotContainer = new RobotContainer();
   }
 
   /**
@@ -52,7 +52,7 @@ public class Robot extends TimedRobot
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    m_robotContainer.printValues();
+    robotContainer.printValues();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -66,11 +66,12 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();  // Comment this out if Auto breaks thing (no auto) JTL 10-5-23
+    autonomousCommand = robotContainer.getAutonomousCommand();  // Comment this out if Auto breaks thing (no auto) JTL 10-5-23
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (autonomousCommand != null) 
+    {
+      autonomousCommand.schedule();
     }
   }
 
@@ -88,9 +89,9 @@ public class Robot extends TimedRobot
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) 
+    if (autonomousCommand != null) 
     {
-      m_autonomousCommand.cancel();
+      autonomousCommand.cancel();
     }
   }
 

@@ -17,6 +17,9 @@ public final class Constants
 {
     public static final double stickDeadband = 0.1;
 
+    public static double MINIMUM_ANGLE = -180;
+    public static double MAXIMUM_ANGLE = 180;
+
     /* Vision Constants */
 
     // Constants such as camera and target height stored. Change per robot and goal!
@@ -55,19 +58,22 @@ public final class Constants
         public static final COTSFalconSwerveConstants chosenModule = COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(26);
-        public static final double wheelBase = Units.inchesToMeters(26);
+        public static final double TRACK_WIDTH = Units.inchesToMeters(26);
+        public static final double WHEEL_BASE = Units.inchesToMeters(26);
+        public static final double CENTER_TO_WHEEL = Math.sqrt(Math.pow(WHEEL_BASE / 2.0, 2) + Math.pow(TRACK_WIDTH / 2.0, 2));
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics 
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
         public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics
         (
-            new Translation2d(wheelBase / 2.0, trackWidth / 2.0), 
-            new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
-            new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-            new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0)
+            new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0), 
+            new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
+            new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+            new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0)
         );
+
+        
 
         /* Swerve Voltage Compensation */
         public static final double voltageComp = 12.0;
@@ -118,8 +124,7 @@ public final class Constants
         public static final double driveKA = (0.34757 / 12);
 
         /* Drive Motor Conversion Factors */
-        public static final double driveConversionPositionFactor =
-        wheelCircumference / driveGearRatio;
+        public static final double driveConversionPositionFactor = wheelCircumference / driveGearRatio;
         public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
         public static final double angleConversionFactor = 360.0 / angleGearRatio;
 
@@ -127,8 +132,8 @@ public final class Constants
 
         /* Swerve Profiling Values */
         /** Meters per Second */    // Controls the translational speed and acceleration of the robot (left joystick)
-        public static final double maxSpeed = 5;  // was 4.1
-        public static final double maxAccel = 1;  // was 4.1
+        public static final double MAX_SPEED = 5;  // was 4.1
+        public static final double MAX_ACCEL = 1;  // was 4.1
 
         /** Radians per Second */ // Controls the rotational speed of the robot (right joystick)
         public static final double maxAngularVelocity = 5; // was 10
@@ -146,8 +151,8 @@ public final class Constants
             public static final int driveMotorID = 13;
             public static final int angleMotorID = 23;
             public static final int canCoderID = 33;
-            //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(102.48+180-0.703);      // FOR PRACTICE BOT
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(6.15+180);  // FOR COMP BOT  // TODO - UPDATE THIS
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(102.48+180-0.703);      // FOR PRACTICE BOT
+            //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(6.15+180);  // FOR COMP BOT  // TODO - UPDATE THIS
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
@@ -157,8 +162,8 @@ public final class Constants
             public static final int driveMotorID = 10;
             public static final int angleMotorID = 20;
             public static final int canCoderID = 30;
-            //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(25.84+180);
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-73.04+180);  // FOR COMP BOT  // TODO - UPDATE THIS
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(25.84+180);   // PRACTICE BOT
+            //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-73.04+180);  // FOR COMP BOT  // TODO - UPDATE THIS
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
         
@@ -168,8 +173,8 @@ public final class Constants
             public static final int driveMotorID = 12;
             public static final int angleMotorID = 22;
             public static final int canCoderID = 32;
-            //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-50.889+180-18.281);
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-92.9+180);  // FOR COMP BOT  // TODO - UPDATE THIS
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-50.889+180-18.281);  // PRACTICE BOT
+            //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-92.9);  // FOR COMP BOT  // TODO - UPDATE THIS
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
@@ -179,8 +184,8 @@ public final class Constants
             public static final int driveMotorID = 11;
             public static final int angleMotorID = 21;
             public static final int canCoderID = 31;
-            //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-170.508+180);
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(134.21+180);  // FOR COMP BOT  // TODO - UPDATE THIS
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-170.508+180);    // PRACTICE BOT
+            //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(134.21);  // FOR COMP BOT  // TODO - UPDATE THIS
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
@@ -188,24 +193,19 @@ public final class Constants
         (
             new PIDConstants(5.0, 0, 0), // Translation constants 
             new PIDConstants(5.0, 0, 0), // Rotation constants 
-            maxSpeed, 
-            new Translation2d(wheelBase / 2.0, trackWidth / 2.0).getNorm(), // Drive base radius (distance from center to furthest module) 
+            MAX_SPEED, 
+            new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0).getNorm(), // Drive base radius (distance from center to furthest module) 
             new ReplanningConfig()
         );
     }
 
-    public static final class AutoConstants //TODO: The below constants are used in the example auto, and must be tuned to specific robot
+    public static final class Auto 
     {
-        public static final double slowVel = 1.5;
-        public static final double slowAccel = 1.5;
-        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
-    
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
-    
-        /* Constraint for the motion profilied robot angle controller */
-        public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+        public static final double AUTO_DRIVE_P = 0.1;
+        public static final double AUTO_DRIVE_I = 0.0;
+        public static final double AUTO_DRIVE_D = 0.0;
+        public static final double AUTO_ANGLE_P = 0.1;
+        public static final double AUTO_ANGLE_I = 0.0;
+        public static final double AUTO_ANGLE_D = 0.0;
     }
 }
