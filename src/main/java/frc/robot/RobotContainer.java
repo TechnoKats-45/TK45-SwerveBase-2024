@@ -41,6 +41,7 @@ public class RobotContainer
     private final Feeder s_Feeder = new Feeder();
     private final Limelight limelight = new Limelight();
 
+
     private final SendableChooser<Command> autoChooser;
 
     /* Controllers */
@@ -87,6 +88,7 @@ public class RobotContainer
         )
       );
 
+      /*
       s_Intake.setDefaultCommand
       (
         new TeleopIntake
@@ -127,9 +129,12 @@ public class RobotContainer
         )
       );
 
-      limelight.setDefaultCommand(
+      limelight.setDefaultCommand
+      (
         new TeleopLimelight(limelight)
-    );
+      );
+
+      */
       
 
       // Configure the button bindings
@@ -152,19 +157,21 @@ public class RobotContainer
       ampPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
 
       speakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
-      
+    /*
       intakeIn.onTrue(  // Do I want to do this?  Or should this all be a command???  // TODO - Figure out what to do here
         Commands.sequence(
           new InstantCommand(() -> s_Intake.setSpeed(Constants.intakeSpeed)),
           new InstantCommand(() -> s_Shoulder.setAngle(Constants.handoffAngle)),
           new InstantCommand(() -> s_Feeder.feedUntilSeen(Constants.feederSpeed))));  // TODO - Figure out what to do here
-    }
+    */
+        }
+    
 
     public void printValues()
     {
-        SmartDashboard.putNumber("yaw", s_Swerve.gyro.getYaw().getValue());     // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
-        SmartDashboard.putNumber("pitch", s_Swerve.gyro.getPitch().getValue()); // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
-        SmartDashboard.putNumber("roll", s_Swerve.gyro.getRoll().getValue());   // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
+        SmartDashboard.putNumber("yaw", s_Swerve.gyro.getYaw());
+        SmartDashboard.putNumber("pitch", s_Swerve.gyro.getPitch()); 
+        SmartDashboard.putNumber("roll", s_Swerve.gyro.getRoll());
     }
 
     /**
@@ -174,7 +181,7 @@ public class RobotContainer
      */
     public Command getAutonomousCommand() 
     {
-      Constants.gyroOffset = s_Swerve.gyro.getPitch().getValue(); // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
+      Constants.gyroOffset = s_Swerve.gyro.getPitch();
       //s_Swerve.zeroGyro();
       s_Swerve.gyro.setYaw(180);
 

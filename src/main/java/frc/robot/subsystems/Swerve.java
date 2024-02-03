@@ -8,9 +8,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
-import com.ctre.phoenix6.hardware.Pigeon2;  // TODO - take back to phoenix5
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SimSwerveDrivetrain.SimSwerveModule;
-import com.ctre.phoenix6.configs.Pigeon2Configuration;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -26,6 +25,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+
 public class Swerve extends SubsystemBase 
 {
     private SimSwerveModule[] modules;
@@ -35,9 +37,14 @@ public class Swerve extends SubsystemBase
 
     private Field2d field = new Field2d();
 
+    private SysIdRoutine sysIdRoutine;
+
     public Swerve() 
     {
-        configPigeon();
+        gyro = new Pigeon2(Constants.Swerve.pigeonID);
+        
+        gyro.configFactoryDefault();
+        zeroGyro();
 
         mSwerveMods = new SwerveModule[] 
         {
@@ -106,25 +113,6 @@ public class Swerve extends SubsystemBase
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
     }    
-
-    /* Configured Pigeon IMU at startup */
-    private void configPigeon()
-    {        
-        /* Create new Pigeon2 IMU and assign CAN ID */
-        gyro = new Pigeon2(Constants.Swerve.pigeonID, "rio");
-        
-        /* Configure Pigeon2 */
-        var toApply = new Pigeon2Configuration();
-
-        /* User can change the configs if they want, or leave it empty for factory-default */
-        gyro.getConfigurator().apply(toApply);
-
-        /* Speed up signals to an appropriate rate */
-        gyro.getYaw().setUpdateFrequency(100);
-        gyro.getGravityVectorZ().setUpdateFrequency(100);
-        zeroGyro();
-    }
-
 
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) 
@@ -216,7 +204,7 @@ public class Swerve extends SubsystemBase
 
     public void resetPose(Pose2d pose) 
     { 
-        swerveOdometry.resetPosition(new Rotation2d(180 - gyro.getYaw().getValue(),gyro.getYaw().getValue()), getModulePositions(), pose);    // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
+        swerveOdometry.resetPosition(new Rotation2d(180 - gyro.getYaw(),gyro.getYaw()), getModulePositions(), pose);
     }
 
     public void resetOdometry(Pose2d pose) 
@@ -241,7 +229,7 @@ public class Swerve extends SubsystemBase
 
     public Rotation2d getYaw() 
     {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(180 - gyro.getYaw().getValue()) : Rotation2d.fromDegrees(gyro.getYaw().getValue()); // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
+        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(180 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw()); 
     }
 
     public void resetModulesToAbsolute()
@@ -273,7 +261,7 @@ public class Swerve extends SubsystemBase
         PIDController rotController = new PIDController(.1,0.0008,0.001);
         rotController.enableContinuousInput(-180, 180);
 
-        double rotate = rotController.calculate(gyro.getYaw().getValue(), target); // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
+        double rotate = rotController.calculate(gyro.getYaw(), target); // Added ".getValue()" to convert from "StatusSignalObject" to "Double" // JTL 1-11-24
 
         drive(new Translation2d(0, 0), -.25*rotate, false, true);        
     }

@@ -5,7 +5,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class CTREModuleState {
 
-  /**
+    /**
    * Minimize the change in heading the desired swerve module state would require by potentially
    * reversing the direction the wheel spins. Customized from WPILib's version to include placing
    * in appropriate scope for CTRE onboard control.
@@ -22,9 +22,9 @@ public class CTREModuleState {
         targetAngle = delta > 90 ? (targetAngle -= 180) : (targetAngle += 180);
     }        
     return new SwerveModuleState(targetSpeed, Rotation2d.fromDegrees(targetAngle));
-  }
+    }
 
-  /**
+    /**
      * @param scopeReference Current Angle
      * @param newAngle Target Angle
      * @return Closest angle within scope
