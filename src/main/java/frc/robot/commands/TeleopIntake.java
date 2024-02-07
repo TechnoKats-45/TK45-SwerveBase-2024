@@ -37,6 +37,8 @@ public class TeleopIntake extends Command
   @Override
   public boolean isFinished() 
   {
+    // COMMMENTED OUT FOR TESTING OF SUBSYSTEMS // TODO
+    /*
     if (s_Intake.detectGamePiece()) // Run until gamepiece detected, then stop
     {
       s_Intake.setSpeed(0);
@@ -47,4 +49,8 @@ public class TeleopIntake extends Command
       return false;
     }
   }
+  */
+    return false; // for test // TODO
+  }
 }
+

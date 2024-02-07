@@ -77,7 +77,7 @@ public class Shoulder extends SubsystemBase
 
     public double getAngle()
     {
-        return m_alternateEncoder.getPosition(); // TODO - do math?
+        return m_alternateEncoder.getPosition(); // TODO - do math? - hopefully not, depends on what Hex encoder returns
     }
 
     public void setAngle(double angle)  // For external angle setting
@@ -86,16 +86,20 @@ public class Shoulder extends SubsystemBase
         target = angle;
     }
 
-    public void moveAngle(Joystick opJoystick, Joystick drJoystick)
+    public void moveAngle(Joystick opJoystick, Joystick drJoystick) // TODO - Add smarts (auto aim, auto fed, auto angle when gamepiece in certan location)
     {
-        //if button pressed -> run shooter
+        //if button pressed -> go to shoulder preset
         if(opJoystick.getRawButton(XboxController.Button.kY.value))       // TODO - Update button // Shooter button pressed UP
         {
-            setAngle(0);   // TODO - update angle   // 45?
+            setAngle(-45);   // TODO - update angle   // 45?   // Speaker shoot angle (Assuming -45 for feed location)
         }
         else if(opJoystick.getRawButton(XboxController.Button.kA.value))    // TODO - TODO - Update button // Shooter button pressed DOWN
         {
-            setAngle(0);  // TODO - update angle    // -45?
+            setAngle(45);  // TODO - update angle    // -45?   // Amp shoot angle (Assuming -45 for feed location)
+        }
+        else
+        {
+            //  do nothing
         }
     }
 

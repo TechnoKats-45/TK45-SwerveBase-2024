@@ -53,16 +53,15 @@ public class RobotContainer
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);               // B BUTTON     // TODO - change binding
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);  // LEFT BUMPER  // TODO - change binding
+    private final JoystickButton drZeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);               // B BUTTON
+    private final JoystickButton drRobotCentric = new JoystickButton(driver, XboxController.Button.kX.value);           // X BUTTON 
 
     /* Operator Buttons */
-    private final JoystickButton intakeIn = new JoystickButton(operator, XboxController.Button.kA.value);         // TODO - Update Button Config  // Left Bumper
-    private final JoystickButton intakeOut = new JoystickButton(operator, XboxController.Button.kA.value);        // TODO - Update Button Config
-    private final JoystickButton speakerPreset = new JoystickButton(operator, XboxController.Button.kY.value);    // TODO - Update Button Config  // Y Button
-    private final JoystickButton shooterSpin = new JoystickButton(operator, XboxController.Button.kA.value);      // TODO - Update Button Config
-    private final JoystickButton ampPreset = new JoystickButton(operator, XboxController.Button.kA.value);        // TODO - Update Button Config  // A Button
-    private final JoystickButton feederFeed = new JoystickButton(operator, XboxController.Button.kA.value);       // TODO - Update Button Config
+    private final JoystickButton opIntakeIn = new JoystickButton(operator, XboxController.Button.kRightBumper.value);         // Right Bumper
+    private final JoystickButton opIntakeOut = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);         // Left Bumper
+    private final JoystickButton opSpeakerPreset = new JoystickButton(operator, XboxController.Button.kY.value);              // Y Button
+    private final JoystickButton opManualFire = new JoystickButton(operator, XboxController.Button.kStart.value);             // Right Trigger
+    private final JoystickButton opAmpPreset = new JoystickButton(operator, XboxController.Button.kA.value);                  // A Button
 
     /* Variables */
     boolean driveStatus = false;
@@ -83,11 +82,10 @@ public class RobotContainer
           () -> -driver.getRawAxis(translationAxis), 
           () -> -driver.getRawAxis(strafeAxis), 
           () -> -driver.getRawAxis(rotationAxis), 
-          () -> robotCentric.getAsBoolean()
+          () -> drRobotCentric.getAsBoolean()
         )
       );
-
-      /*
+      
       s_Intake.setDefaultCommand
       (
         new TeleopIntake
@@ -97,6 +95,8 @@ public class RobotContainer
           driver
         )      
       );
+
+      /*
 
       s_Feeder.setDefaultCommand
       (
@@ -146,15 +146,37 @@ public class RobotContainer
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    private void configureButtonBindings() // TODO - Update Button Config
+    private void configureButtonBindings() // TODO - Update Button Configs
     {
       // Driver Buttons
-      zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
+         * RT - Fire
+         * LT - Auto Aim
+         * RB - Auto Intake
+         * B - Reset Gyro
+         * X - Field / Robot Centeric Toggle
+         */
+      drZeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
       
       // Operator Buttons
-      ampPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
+         * Back - Manual Mode
+         * Start - Auto Mode
+         * Y - Speaker Preset
+         * A - Amp Preset
+         * RT - Manual Fire (Manual Mode)
+         * RB - Intake IN   (Manual Mode)
+         * LB - Intake OUT  (Manual Mode)
+         */
 
-      speakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
+      // A - Amp Preset
+      opAmpPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
+
+      // Y - Speaker Preset
+      opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
+
     /*
       intakeIn.onTrue(  // Do I want to do this?  Or should this all be a command???  // TODO - Figure out what to do here
         Commands.sequence(
@@ -169,6 +191,10 @@ public class RobotContainer
         SmartDashboard.putNumber("yaw", s_Swerve.gyro.getYaw());
         SmartDashboard.putNumber("pitch", s_Swerve.gyro.getPitch()); 
         SmartDashboard.putNumber("roll", s_Swerve.gyro.getRoll());
+        
+        SmartDashboard.putBoolean("Intake GamePiece Detected", s_Intake.detectGamePiece());
+        SmartDashboard.putBoolean("Feeder GamePiece Detected", s_Feeder.detectGamePiece());
+        SmartDashboard.putNumber("Shoulder Angle", s_Shoulder.getAngle());
     }
 
     /**

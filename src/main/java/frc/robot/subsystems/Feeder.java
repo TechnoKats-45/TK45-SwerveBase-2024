@@ -31,7 +31,7 @@ public class Feeder extends SubsystemBase
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
     {
-        return FeederSensor1Port.get();
+        return !FeederSensor1Port.get();
     }
 
     public void setSpeed(double speed)  // For external speed setting
@@ -43,7 +43,7 @@ public class Feeder extends SubsystemBase
     public void runFeeder(Joystick opJoystick, Joystick drJoystick)
     {
         //if button pressed -> run Feeder
-        if(opJoystick.getRawButton(XboxController.Button.kA.value)) // TODO - Update button config // Feeder button pressed
+        if(opJoystick.getRawButton(XboxController.Button.kStart.value)) // TODO - Update button config // Feeder button pressed
         {
             // Run Feeder
             feeder.set(0.5);

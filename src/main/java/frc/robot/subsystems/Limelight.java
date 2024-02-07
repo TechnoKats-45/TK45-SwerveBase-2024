@@ -1,70 +1,79 @@
 package frc.robot.subsystems;
+
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Limelight extends SubsystemBase {
-
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-
-    DoubleArraySubscriber ySub;
-    public double botPose[];
-    public double botPoseX;
-    public double botPoseZ;
-    public double tagX;
-    public double tagY;
-    public double tagPresent;
-    public int updates;
+public class Limelight extends SubsystemBase 
+{
+    private final DoubleArraySubscriber tagPoseTopic;
+    private NetworkTable table;
+    private double[] tagPose;
+    private int updates;
 
     public Limelight() 
     {
-        ySub = table.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[6]);
-        botPose = new double[6];
-        botPoseX = 0.0;
-        botPoseZ = 0.0;
-    }
-
-    public void refreshValues()
-    {
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        botPose = ySub.get(new double[6]);
-        tagPresent = table.getEntry("tv").getDouble(0);
+        tagPoseTopic = table.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[6]);
+        tagPose = new double[6];
     }
 
-    public double getRX()
+    @Override
+    public void periodic() 
     {
         refreshValues();
-        return botPose[0];
     }
 
+    public int getUpdates() 
+    {
+        return updates;
+    }
+
+    // X+ is to the right if you are looking at the tag
+    public double getRX() 
+    {
+        refreshValues();
+        return tagPose[0];
+    }
+
+    // Y+ is upwards
     public double getRY()
     {
         refreshValues();
-        return botPose[1];
+        return tagPose[1];
     }
 
-    public double getRZ()
+    // Z+ is perpendicular to the plane of the limelight (Z+ is towards tag on data
+    // side, Z- is on other side of robot)
+    public double getRZ() 
     {
         refreshValues();
-        return botPose[2];
+        return tagPose[2];
     }
 
     public double getPitch()
     {
         refreshValues();
-        return botPose[3];
+        return tagPose[3];
     }
 
-    public double getYaw()
+    public double getYaw() 
     {
         refreshValues();
-        return botPose[4];
+        return tagPose[4];
     }
 
-    public double getRoll()
+    public double getRoll() 
     {
         refreshValues();
-        return botPose[5];
+        return tagPose[5];
+    }
+
+    public void refreshValues()
+    {
+        table = NetworkTableInstance.getDefault().getTable("limelight");
+        tagPose = tagPoseTopic.get(new double[6]);
+        updates++;
     }
 }

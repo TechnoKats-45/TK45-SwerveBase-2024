@@ -15,7 +15,7 @@ import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants 
 {
-    public static final double stickDeadband = 0.1;
+    public static final double STICK_DEADBAND = 0.1;
 
     public static double MINIMUM_ANGLE = -180;
     public static double MAXIMUM_ANGLE = 180;
@@ -49,6 +49,13 @@ public final class Constants
 
     /* Gyro Constants */
     public static double gyroOffset = 0;
+
+    public static final class Limelight     // TODO - TUNE THIS
+    {
+        public static final double LIMELIGHT_P = 0.3;
+        public static final double LIMELIGHT_I = 0.0008;
+        public static final double LIMELIGHT_D = 0.001;
+    }
 
     public static final class Swerve 
     {

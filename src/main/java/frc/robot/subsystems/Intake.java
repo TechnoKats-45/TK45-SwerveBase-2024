@@ -40,21 +40,21 @@ public class Intake extends SubsystemBase
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
     {
-        return intakeSensor.get();
+        return !intakeSensor.get();
     }
 
     public void setSpeed(double speed)  // For external speed setting
     {
         // Speed Set: -1 to 1
-        intake.set(speed/100);  // Converts spped percent to -1 to 1 range
+        intake.set(speed/100);  // Converts speed percent to -1 to 1 range
     }
 
     public void runIntake(Joystick opJoystick, Joystick drJoystick)
     {
         //if button pressed -> run intake
-        if(opJoystick.getRawButton(XboxController.Button.kA.value)) // TODO - Update button // Intake button pressed
+        if(opJoystick.getRawButton(XboxController.Button.kRightBumper.value)) // TODO - Update button // Intake button pressed
         {
-            intake.set(0.5);
+            intake.set(0.75);   // TODO - adjust speed and maybe direction
         }
         else    // Intake button not pressed
         {
@@ -65,5 +65,11 @@ public class Intake extends SubsystemBase
     public void autoIntake()
     {
         // TODO - Create intakeNote() in intake subsystem   // using sensors and vision and stuff
+    }
+
+    public void periodic()
+    {
+        SmartDashboard.putBoolean("Intake GamePiece Detected", intakeSensor.get());
+
     }
 }

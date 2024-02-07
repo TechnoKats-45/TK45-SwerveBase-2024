@@ -31,7 +31,7 @@ public class Shooter extends SubsystemBase
     public void runShooter(Joystick opJoystick, Joystick drJoystick)
     {
         //if button pressed -> run shooter
-        if(opJoystick.getRawButton(XboxController.Button.kA.value)) // TODO - Update button // Shooter button pressed
+        if(opJoystick.getRawButton(XboxController.Axis.kRightTrigger.value)) // TODO - Update button // Shooter button pressed  // TODO - add auto shoot checks, change button and mybe direction
         {
             shooter.set(1);
         }
