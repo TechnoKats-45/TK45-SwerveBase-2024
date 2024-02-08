@@ -39,7 +39,7 @@ public class RobotContainer
     private final Intake s_Intake = new Intake();
     private final Shooter s_Shooter = new Shooter();
     private final Feeder s_Feeder = new Feeder();
-    private final Limelight limelight = new Limelight();
+    private final Limelight s_Limelight = new Limelight();
 
     private final SendableChooser<Command> chooser; 
 
@@ -195,6 +195,11 @@ public class RobotContainer
         SmartDashboard.putBoolean("Intake GamePiece Detected", s_Intake.detectGamePiece());
         SmartDashboard.putBoolean("Feeder GamePiece Detected", s_Feeder.detectGamePiece());
         SmartDashboard.putNumber("Shoulder Angle", s_Shoulder.getAngle());
+
+        SmartDashboard.putNumber("Limelight Updates", s_Limelight.getUpdates());
+        SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
+        SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
+        SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
     }
 
     /**

@@ -15,7 +15,7 @@ public class Limelight extends SubsystemBase
     public Limelight() 
     {
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        tagPoseTopic = table.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[6]);
+        tagPoseTopic = table.getDoubleArrayTopic("SpeakerCenter").subscribe(new double[6]);
         tagPose = new double[6];
     }
 
