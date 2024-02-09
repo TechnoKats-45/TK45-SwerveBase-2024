@@ -15,7 +15,7 @@ public class Limelight extends SubsystemBase
     public Limelight() 
     {
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        tagPoseTopic = table.getDoubleArrayTopic("SpeakerCenter").subscribe(new double[6]);
+        tagPoseTopic = table.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[6]); // TODO - Update topic name maybe JTL 2-9-24    // TRY ENABLNG 3D MODE IN GUI
         tagPose = new double[6];
     }
 
@@ -28,6 +28,12 @@ public class Limelight extends SubsystemBase
     public int getUpdates() 
     {
         return updates;
+    }
+
+    // Try this Instead -JTL 2-9-24
+    public double getTV() // Whether the limelight has any valid targets (0 or 1)
+    {
+        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     }
 
     // X+ is to the right if you are looking at the tag

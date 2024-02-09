@@ -1,28 +1,18 @@
 package frc.robot;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.GoalEndState;
-import com.pathplanner.lib.path.PathConstraints;
-import com.pathplanner.lib.path.PathPlannerPath;
 
-import edu.wpi.first.wpilibj2.command.*;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import edu.wpi.first.math.util.Units;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -53,8 +43,11 @@ public class RobotContainer
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton drZeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);               // B BUTTON
-    private final JoystickButton drRobotCentric = new JoystickButton(driver, XboxController.Button.kX.value);           // X BUTTON 
+    private final JoystickButton drfireWhenReady = new JoystickButton(driver, XboxController.Axis.kRightTrigger.value);       // Right Trigger
+    private final JoystickButton drAutoAim = new JoystickButton(driver, XboxController.Axis.kLeftTrigger.value);              // Left Trigger
+    private final JoystickButton drAutoIntake = new JoystickButton(driver, XboxController.Button.kRightBumper.value);         // Right Bumper
+    private final JoystickButton drZeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);                     // B BUTTON
+    private final JoystickButton drRobotCentric = new JoystickButton(driver, XboxController.Button.kX.value);                 // X BUTTON
 
     /* Operator Buttons */
     private final JoystickButton opIntakeIn = new JoystickButton(operator, XboxController.Button.kRightBumper.value);         // Right Bumper
@@ -70,7 +63,7 @@ public class RobotContainer
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
     {
-      NamedCommands.registerCommand("autoIntake", Commands.run(() -> s_Intake.autoIntake()));
+      // TODO - add registered commands here
       //NamedCommands.registerCommand("autoAimX", Commands.run(() -> s_Swerve.autoAimX()));
       NamedCommands.registerCommand("autoAimY", Commands.run(() -> s_Shoulder.autoAimY()));   
       
@@ -154,10 +147,41 @@ public class RobotContainer
          * RT - Fire
          * LT - Auto Aim
          * RB - Auto Intake
-         * B - Reset Gyro
+         * B - Zero Gyro
          * X - Field / Robot Centeric Toggle
          */
+      drfireWhenReady.onTrue(new InstantCommand(() -> s_Shooter.fireWhenReady()));  // TODO - add this function
+
+      drAutoAim.whileTrue(Commands.parallel
+      (
+        new TeleopLimelightTurret // Auto Aim X - Swerve
+        (
+          s_Limelight,
+          s_Swerve,
+          () -> -driver.getRawAxis(translationAxis),
+          () -> -driver.getRawAxis(strafeAxis),
+          drRobotCentric
+        ),
+        new InstantCommand(() -> s_Shoulder.autoAimY()) // Auto Aim Y - Shoulder
+      ));
+
+      drAutoIntake.onTrue(Commands.parallel
+      (
+        new AutoIntake  // Enable AutoIntake
+        (
+          s_Intake,
+          s_Shoulder,
+          s_Feeder,
+          s_Shooter,
+          driver,
+          operator
+        ),
+        new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.handoffAngle)) // Set shoulder to handoff angle
+      ));
+
+
       drZeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+      //drRobotCentric.onTrue(new InstantCommand(() -> s_Swerve.toggleRobotCentric())); // TODO - add this function
       
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,10 +196,10 @@ public class RobotContainer
          */
 
       // A - Amp Preset
-      opAmpPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
+      opAmpPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
 
       // Y - Speaker Preset
-      opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
+      opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
 
     /*
       intakeIn.onTrue(  // Do I want to do this?  Or should this all be a command???  // TODO - Figure out what to do here
@@ -200,6 +224,9 @@ public class RobotContainer
         SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
         SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
         SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
+
+        SmartDashboard.putNumber("Target Detected", s_Limelight.getTV()); // If this works, then rewrite the other limelight functions following this: https://docs.limelightvision.io/docs/docs-limelight/apis/complete-networktables-api#apriltag-and-3d-data
+                                                                              // JTL: 2-9-24
     }
 
     /**

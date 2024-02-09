@@ -33,7 +33,7 @@ public class Shoulder extends SubsystemBase
 
     public Shoulder() 
     {
-        shoulder = new CANSparkMax(Constants.ShoulderID, MotorType.kBrushless);
+        shoulder = new CANSparkMax(Constants.Shoulder.ShoulderID, MotorType.kBrushless);
         shoulder.restoreFactoryDefaults();
 
         m_alternateEncoder = shoulder.getAlternateEncoder(kAltEncType, kCPR);

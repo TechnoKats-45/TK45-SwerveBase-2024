@@ -20,7 +20,7 @@ public class AutoIntake extends Command
     private Joystick driver;
 
     /** Creates a new TeleopFeeder. */
-    public AutoIntake(Feeder s_Feeder, Intake s_Intake, Shoulder s_Shoulder, Shooter s_Shooter, Joystick operator, Joystick driver) 
+    public AutoIntake(Intake s_Intake, Shoulder s_Shoulder, Feeder s_Feeder, Shooter s_Shooter, Joystick driver, Joystick operator) 
     {
         this.s_Feeder = s_Feeder;
         this.s_Intake = s_Intake;
@@ -37,27 +37,29 @@ public class AutoIntake extends Command
     @Override
     public void execute() 
     {
-        if(s_Feeder.detectGamePiece())          // Game piece in feeder - Hold
+        if(!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece()) // If gamepiece is NOT in intake and NOT in feeder
         {
-            s_Feeder.setSpeed(0);               // Stop feeder
-            s_Shooter.setSpeed(1);              // Spin up shooter  // TODO - move this earlier if spinup takes a while
-            // Wait for shoot command
-            // TODO - Add intake output slowly?  to prevent jamming
+            s_Intake.intakeUntilSeen();
+            s_Shoulder.setAngle(Constants.Shoulder.handoffAngle);
+            s_Feeder.setSpeed(0);
         }
-        else if(s_Intake.detectGamePiece())     // Game piece in intake - Load into Feeder
+        else if(s_Intake.detectGamePiece() && s_Feeder.detectGamePiece() && s_Shoulder.getAngle() != Constants.Shoulder.handoffAngle)  // If gamepiece IS in intake, but NOT in feeder, and shoulder angle is NOT correct.
         {
-            // Move shoulder to set point, then...
-            s_Shoulder.setAngle(Constants.handoffAngle); // TODO - Update to actual angle
-            // Move game piece to feeder
-            s_Intake.setSpeed(.25);           // TODO - Update to actual speed
-            s_Feeder.setSpeed(.25);           // TODO - Update to actual speed
+            s_Shoulder.setAngle(Constants.Shoulder.handoffAngle);
+            s_Intake.setSpeed(0);
         }
-        else    // Game piece not found - Intake then load into Feeder
+        else if(s_Intake.detectGamePiece() && s_Feeder.detectGamePiece() && s_Shoulder.getAngle() == Constants.Shoulder.handoffAngle)   // If gamepiece IS in intake, but NOT in feeder, and shoulder angle IS correct.
         {
-            // Run intake inwards
-            s_Intake.setSpeed(1);   // Run inwards at full speed // TODO - Update to actual speed
-            // TODO - Add move shoulder to set point
-            s_Shoulder.setAngle(Constants.handoffAngle); // TODO - Update to actual angle        
+            s_Intake.setSpeed(Constants.Intake.hanfoffSpeed);
+            s_Feeder.feedUntilSeen();
+        }
+        else if(!s_Intake.detectGamePiece() && s_Feeder.detectGamePiece())   // If gamepiece is NOT in intake, but IS in feeder
+        {
+            s_Intake.setSpeed(0);
+        }
+        else    // ERROR
+        {
+
         }
     }
 }

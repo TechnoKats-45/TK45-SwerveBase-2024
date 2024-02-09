@@ -38,7 +38,7 @@ public class AmpScore extends Command
         if(s_Feeder.detectGamePiece())
         {
             // Allow Amp Score
-            s_Shoulder.setAngle(Constants.ampScoreAngle); // Set shoulder to amp score angle    // TODO - Update to actual angle
+            s_Shoulder.setAngle(Constants.Shoulder.ampScoreAngle); // Set shoulder to amp score angle    // TODO - Update to actual angle
             // Output game piece when prompted (button press)
         }
         else

@@ -100,7 +100,8 @@ public class Swerve extends SubsystemBase
     }
 
     @Override
-    public void periodic() {
+    public void periodic() 
+    {
         swerveOdometry.update(getHeading(), getModulePositions());
         m_field.setRobotPose(swerveOdometry.getPoseMeters());
         for (SwerveModule mod : mSwerveMods) {
@@ -111,98 +112,128 @@ public class Swerve extends SubsystemBase
         }
     }
 
-    public Field2d getField2d() {
+    public Field2d getField2d() 
+    {
         return m_field;
     }
 
-    public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
-        SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(
-                fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                        translation.getX(),
-                        translation.getY(),
-                        rotation,
-                        getHeading()
-                )
-                        : new ChassisSpeeds(
-                                translation.getX(),
-                                translation.getY(),
-                                rotation
-                )
+    public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) 
+    {
+        SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates
+        (
+            fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds
+            (
+                translation.getX(),
+                translation.getY(),
+                rotation,
+                getHeading()
+            )
+            : new ChassisSpeeds
+            (
+                translation.getX(),
+                translation.getY(),
+                rotation
+            )
         );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.MAX_SPEED);
 
-        for (SwerveModule mod : mSwerveMods) {
+        for (SwerveModule mod : mSwerveMods)
+        {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
     }
 
-    public double getYaw() {
+    public void autoAimX()
+    {
+        // TODO - Add code to aim at the target // Replaced with Command TeleopLimelightTurret???
+    }
+
+    public double getYaw() 
+    {
         return gyro.getYaw();
     }
 
-    public Rotation2d getHeading() {
+    public Rotation2d getHeading() 
+    {
         return Rotation2d.fromDegrees(getYaw());
     }
 
-    public double getPitch() {
+    public double getPitch() 
+    {
         return gyro.getPitch();
     }
 
-    public double getRoll() {
+    public double getRoll() 
+    {
         return gyro.getRoll();
     }
 
-    public Pose2d getPose() {
+    public Pose2d getPose() 
+    {
         return swerveOdometry.getPoseMeters();
     }
 
-    public SwerveModuleState[] getModuleStates() {
+    public SwerveModuleState[] getModuleStates() 
+    {
         SwerveModuleState[] states = new SwerveModuleState[4];
-        for (SwerveModule mod : mSwerveMods) {
+        for (SwerveModule mod : mSwerveMods) 
+        {
             states[mod.moduleNumber] = mod.getState();
         }
         return states;
     }
 
-    public SwerveModulePosition[] getModulePositions() {
+    public SwerveModulePosition[] getModulePositions() 
+    {
         SwerveModulePosition[] positions = new SwerveModulePosition[4];
-        for (SwerveModule mod : mSwerveMods) {
+        for (SwerveModule mod : mSwerveMods) 
+        {
             positions[mod.moduleNumber] = mod.getPosition();
         }
         return positions;
     }
 
-    public void zeroGyro() {
+    public void zeroGyro() 
+    {
         gyro.setYaw(0);
     }
 
-    public void setModuleStates(SwerveModuleState[] desiredStates) {
+    public void setModuleStates(SwerveModuleState[] desiredStates) 
+    {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.MAX_SPEED);
 
-        for (SwerveModule mod : mSwerveMods) {
+        for (SwerveModule mod : mSwerveMods) 
+        {
             mod.setDesiredState(desiredStates[mod.moduleNumber], true);
         }
     }
 
-    public void resetOdometry(Pose2d pose) {
+    public void resetOdometry(Pose2d pose) 
+    {
         swerveOdometry.resetPosition(getHeading(), getModulePositions(), pose);
     }
 
-    public void resetModulesToAbsolute() {
-        for (SwerveModule mod : mSwerveMods) {
+    public void resetModulesToAbsolute() 
+    {
+        for (SwerveModule mod : mSwerveMods) 
+        {
             mod.resetToAbsolute();
         }
     }
 
     // Rotates by a passed amount of degrees
-    public void rotateDegrees(double target) {
-        try (
-                PIDController rotController = new PIDController(
+    public void rotateDegrees(double target) 
+    {
+        try 
+        (
+                PIDController rotController = new PIDController
+                (
                         Constants.Swerve.angleKP,
                         Constants.Swerve.angleKI,
                         Constants.Swerve.angleKD
                 )
-        ) {
+        ) 
+        {
             rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
 
             double rotate = rotController.calculate(getYaw(), getYaw() + target);

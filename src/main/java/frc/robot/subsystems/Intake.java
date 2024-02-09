@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.Servo;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -25,17 +27,16 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
+
 public class Intake extends SubsystemBase 
 {
-    // TODO - Add 1-2 photoelectric sensors to intake
-
     private CANSparkMax intake;
     private DigitalInput intakeSensor;
 
     public Intake() 
     {
-        intake = new CANSparkMax(Constants.IntakeID, MotorType.kBrushless);
-        intakeSensor = new DigitalInput(Constants.IntakeSensor1Port);
+        intake = new CANSparkMax(Constants.Intake.IntakeID, MotorType.kBrushless);
+        intakeSensor = new DigitalInput(Constants.Intake.IntakeSensor1Port);
     }
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
@@ -62,9 +63,20 @@ public class Intake extends SubsystemBase
         }
     }
 
-    public void autoIntake()
+    public void intakeUntilSeen()   // Intake until gamepiece is detected
     {
-        // TODO - Create intakeNote() in intake subsystem   // using sensors and vision and stuff
+        if(!intakeSensor.get())        // If gamepiece is not detected
+        {
+            intake.set(Constants.Intake.intakeSpeed);    // TODO - Check direction
+        }
+        else if(intakeSensor.get())    // If gamepiece is detected
+        {
+            intake.set(0);
+        }
+        else
+        {
+            // ERROR
+        }
     }
 
     public void periodic()

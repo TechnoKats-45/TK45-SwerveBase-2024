@@ -10,7 +10,8 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.Constants;
 import frc.robot.subsystems.Limelight;
 
-public class TeleopLimelightTurret extends Command {
+public class TeleopLimelightTurret extends Command 
+{
     private final Limelight limelight;
     private final Swerve swerve;
     private final DoubleSupplier translation;
@@ -71,7 +72,7 @@ public class TeleopLimelightTurret extends Command {
             double rotate = rotController.calculate
             (
                 swerve.getYaw(),
-                swerve.getYaw() + (limelight.getRX() < 0 ? -1 : 1) * Math.atan(Math.pow(limelight.getRX(), 2) / Math.pow(limelight.getRZ(), 2))
+                swerve.getYaw() + (limelight.getRX() < 0 ? -1 : 1) * Math.atan(Math.pow(limelight.getRX(), 2) / Math.pow(limelight.getRZ(), 2)) // TODO - potentially update Limelight commands
             );
 
             /* Drive */

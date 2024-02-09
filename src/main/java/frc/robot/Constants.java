@@ -28,34 +28,44 @@ public final class Constants
     // Angle between horizontal and the camera.
     final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(0);     // TODO - UPDATE
 
-    /* Intake Constants */
-    public static final int IntakeID = 40;
-    public static final double intakeSpeed = 1; // TODO - Adjust intake speed
-    public static final int IntakeSensor1Port = 1;   
-
-    /* Feeder Constants */
-    public static final int FeederID = 50;
-    public static final int FeederSensor1Port = 0;
-    public static final double feederSpeed = 0.25; // TODO - Adjust feeder speed
-
-    /* Shoulder Constants */   
-    public static final int ShoulderID = 60;
-    public static final int handoffAngle = 0;   // TODO - Update
-    public static final int ampScoreAngle = 0;  // TODO - Update
-    public static final int speakerScoreAngle = 0;   // TODO - Update
-
-    /* Shooter Constants */
-    public static final int ShooterID = 70;
-
-    /* Gyro Constants */
-    public static double gyroOffset = 0;
-
     public static final class Limelight     // TODO - TUNE THIS
     {
         public static final double LIMELIGHT_P = 0.3;
         public static final double LIMELIGHT_I = 0.0008;
         public static final double LIMELIGHT_D = 0.001;
     }
+
+    /* Intake Constants */
+    public static final class Intake 
+    {
+        public static final int IntakeID = 40;
+        public static final double intakeSpeed = 1; // TODO - Adjust intake speed
+        public static final int IntakeSensor1Port = 1;   
+        public static final double hanfoffSpeed = .5; // TODO - Adjust handoff speed
+    }
+
+    /* Feeder Constants */
+    public static final class Feeder 
+    {
+        public static final int FeederID = 50;
+        public static final int FeederSensor1Port = 0;
+        public static final double feederSpeed = 0.25; // TODO - Adjust feeder speed
+    }
+
+    /* Shoulder Constants */   
+    public static final class Shoulder 
+    {
+        public static final int ShoulderID = 60;
+        public static final int handoffAngle = 0;   // TODO - Update
+        public static final int ampScoreAngle = 0;  // TODO - Update
+        public static final int speakerScoreAngle = 0;   // TODO - Update
+    }
+
+    /* Shooter Constants */
+    public static final int ShooterID = 70;
+
+    /* Gyro Constants */
+    public static double gyroOffset = 0;
 
     public static final class Swerve 
     {

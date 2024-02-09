@@ -25,8 +25,8 @@ public class Feeder extends SubsystemBase
 
     public Feeder()
     {
-        feeder = new CANSparkMax(Constants.FeederID, MotorType.kBrushless);
-        FeederSensor1Port = new DigitalInput(Constants.FeederSensor1Port);
+        feeder = new CANSparkMax(Constants.Feeder.FeederID, MotorType.kBrushless);
+        FeederSensor1Port = new DigitalInput(Constants.Feeder.FeederSensor1Port);
     }
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
@@ -57,9 +57,17 @@ public class Feeder extends SubsystemBase
 
     public void feedUntilSeen()
     {
-        if(FeederSensor1Port.get())
+        if(!FeederSensor1Port.get())        // If gamepiece is not detected
         {
-            
+            feeder.set(0.5);    // TODO - Check direction
+        }
+        else if(FeederSensor1Port.get())    // If gamepiece is detected
+        {
+            feeder.set(0);
+        }
+        else
+        {
+            // ERROR
         }
     }
 }
