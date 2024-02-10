@@ -79,6 +79,7 @@ public class RobotContainer
         )
       );
       
+      /*
       s_Intake.setDefaultCommand
       (
         new TeleopIntake
@@ -88,6 +89,7 @@ public class RobotContainer
           driver
         )      
       );
+      */
 
       /*
 
@@ -221,12 +223,13 @@ public class RobotContainer
         SmartDashboard.putNumber("Shoulder Angle", s_Shoulder.getAngle());
 
         SmartDashboard.putNumber("Limelight Updates", s_Limelight.getUpdates());
-        SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
-        SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
-        SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
+        //SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
+        //SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
+        //SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
 
         SmartDashboard.putNumber("Target Detected", s_Limelight.getTV()); // If this works, then rewrite the other limelight functions following this: https://docs.limelightvision.io/docs/docs-limelight/apis/complete-networktables-api#apriltag-and-3d-data
                                                                               // JTL: 2-9-24
+                                                                              // IT WORKS! 2-10-24 JTL
     }
 
     /**

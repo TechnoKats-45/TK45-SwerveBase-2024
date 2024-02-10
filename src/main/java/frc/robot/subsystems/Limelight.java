@@ -36,6 +36,7 @@ public class Limelight extends SubsystemBase
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     }
 
+    /*
     // X+ is to the right if you are looking at the tag
     public double getRX() 
     {
@@ -76,6 +77,7 @@ public class Limelight extends SubsystemBase
         return tagPose[5];
     }
 
+    */
     public void refreshValues()
     {
         table = NetworkTableInstance.getDefault().getTable("limelight");

@@ -50,19 +50,21 @@ public class LimelightFollow extends Command
         /* Get Values, Deadband*/
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.STICK_DEADBAND);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.STICK_DEADBAND);
-        double distFactor = 0.2 * (s_limelight.getRZ() > 5 ? 5 : s_limelight.getRZ());
+        //double distFactor = 0.2 * (s_limelight.getRZ() > 5 ? 5 : s_limelight.getRZ());
 
         /* Get rotation */
-        PIDController rotController = new PIDController((1.0-(0.75*distFactor))*0.2, 0.0001, 0.000005);
-        rotController.enableContinuousInput(-180, 180);
-        double rotate = rotController.calculate(s_Swerve.gyro.getYaw(), s_Swerve.getYaw() + 15*s_limelight.getRX());    //TODO - Check this line of code
+        //PIDController rotController = new PIDController((1.0-(0.75*distFactor))*0.2, 0.0001, 0.000005);
+        //rotController.enableContinuousInput(-180, 180);
+        //double rotate = rotController.calculate(s_Swerve.gyro.getYaw(), s_Swerve.getYaw() + 15*s_limelight.getRX());    //TODO - Check this line of code
 
         /* Drive */
+        /*
         s_Swerve.drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED), 
             -rotate,
             !robotCentricSup.getAsBoolean(), 
             true
         );
+        */
     }
 }
