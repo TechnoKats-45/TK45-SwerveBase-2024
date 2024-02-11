@@ -68,11 +68,11 @@ public class TeleopLimelightTurret extends Command
         {
             rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
 
-            // TODO: verify angle
             double rotate = rotController.calculate
             (
-                swerve.getYaw()//,
-                //swerve.getYaw() + (limelight.getRX() < 0 ? -1 : 1) * Math.atan(Math.pow(limelight.getRX(), 2) / Math.pow(limelight.getRZ(), 2)) // TODO - potentially update Limelight commands
+                swerve.getYaw(),
+                swerve.getYaw() + (limelight.getX() < 0 ? -1 : 1) * Math.atan(Math.pow(limelight.getX(), 2) / Math.pow(limelight.getZ(), 2))
+                // TODO - Check above formula
             );
 
             /* Drive */

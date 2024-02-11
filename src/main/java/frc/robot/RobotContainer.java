@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -53,7 +54,8 @@ public class RobotContainer
     private final JoystickButton opIntakeIn = new JoystickButton(operator, XboxController.Button.kRightBumper.value);         // Right Bumper
     private final JoystickButton opIntakeOut = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);         // Left Bumper
     private final JoystickButton opSpeakerPreset = new JoystickButton(operator, XboxController.Button.kY.value);              // Y Button
-    private final JoystickButton opManualFire = new JoystickButton(operator, XboxController.Button.kStart.value);             // Right Trigger
+    private final JoystickButton opShoot = new JoystickButton(operator, XboxController.Axis.kRightTrigger.value);       // Right Trigger
+    private final JoystickButton opAmpFire = new JoystickButton(operator, XboxController.Axis.kLeftTrigger.value);            // Left Trigger
     private final JoystickButton opAmpPreset = new JoystickButton(operator, XboxController.Button.kA.value);                  // A Button
 
     /* Variables */
@@ -150,9 +152,17 @@ public class RobotContainer
          * LT - Auto Aim
          * RB - Auto Intake
          * B - Zero Gyro
-         * X - Field / Robot Centeric Toggle
+         * X - Field / Robot Centeric Toggle - NO
          */
-      drfireWhenReady.onTrue(new InstantCommand(() -> s_Shooter.fireWhenReady()));  // TODO - add this function
+
+      drfireWhenReady.onTrue(Commands.sequence
+      (
+        // If aligned X (swerve)
+        // If allgined Y (Shoulder)
+        // Then, allow to be shot
+      ));
+      
+      // TODO - write a function to light green LEDs if alligned and ready to be shot
 
       drAutoAim.whileTrue(Commands.parallel
       (
@@ -167,69 +177,55 @@ public class RobotContainer
         new InstantCommand(() -> s_Shoulder.autoAimY()) // Auto Aim Y - Shoulder
       ));
 
-      drAutoIntake.onTrue(Commands.parallel
+      drAutoIntake.onTrue(Commands.sequence
       (
-        new AutoIntake  // Enable AutoIntake
-        (
-          s_Intake,
-          s_Shoulder,
-          s_Feeder,
-          s_Shooter,
-          driver,
-          operator
-        ),
-        new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.handoffAngle)) // Set shoulder to handoff angle
-      ));
-
+        new AutoIntake(s_Intake, s_Feeder),
+        new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.handoffAngle)), // Set shoulder to handoff angle
+        new AutoFeed(s_Intake, s_Shoulder, s_Feeder)
+      )
+    );
 
       drZeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-      //drRobotCentric.onTrue(new InstantCommand(() -> s_Swerve.toggleRobotCentric())); // TODO - add this function
+      //drRobotCentric.onTrue(new InstantCommand(() -> s_Swerve.toggleRobotCentric())); // TODO - add this function??? - probably not
       
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
         /*
-         * Back - Manual Mode
-         * Start - Auto Mode
+         * Back - Manual Mode - ???
+         * Start - Auto Mode - ???
          * Y - Speaker Preset
          * A - Amp Preset
-         * RT - Manual Fire (Manual Mode)
+         * RT - Speaker Fire
+         * LT - Amp Fire
          * RB - Intake IN   (Manual Mode)
          * LB - Intake OUT  (Manual Mode)
          */
 
-      // A - Amp Preset
-      opAmpPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
-
       // Y - Speaker Preset
       opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
 
-    /*
-      intakeIn.onTrue(  // Do I want to do this?  Or should this all be a command???  // TODO - Figure out what to do here
-        Commands.sequence(
-          new InstantCommand(() -> s_Intake.setSpeed(Constants.intakeSpeed)),
-          new InstantCommand(() -> s_Shoulder.setAngle(Constants.handoffAngle)),
-          new InstantCommand(() -> s_Feeder.feedUntilSeen(Constants.feederSpeed))));  // TODO - Figure out what to do here
-    */
+      // A - Amp Preset
+      opAmpPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
+
+      // RT - Speaker and Amp Shoot (Depending on angle)
+      opShoot.onTrue(new ManualFire(s_Shoulder, s_Feeder));      
     }
     
     public void printValues()
     {
-        SmartDashboard.putNumber("yaw", s_Swerve.gyro.getYaw());
-        SmartDashboard.putNumber("pitch", s_Swerve.gyro.getPitch()); 
-        SmartDashboard.putNumber("roll", s_Swerve.gyro.getRoll());
+        SmartDashboard.putNumber("Swerve Yaw", s_Swerve.gyro.getYaw());
+        SmartDashboard.putNumber("Swerve Pitch", s_Swerve.gyro.getPitch()); 
+        SmartDashboard.putNumber("Swerve Roll", s_Swerve.gyro.getRoll());
         
         SmartDashboard.putBoolean("Intake GamePiece Detected", s_Intake.detectGamePiece());
         SmartDashboard.putBoolean("Feeder GamePiece Detected", s_Feeder.detectGamePiece());
         SmartDashboard.putNumber("Shoulder Angle", s_Shoulder.getAngle());
 
         SmartDashboard.putNumber("Limelight Updates", s_Limelight.getUpdates());
-        //SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
-        //SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
-        //SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
-
-        SmartDashboard.putNumber("Target Detected", s_Limelight.getTV()); // If this works, then rewrite the other limelight functions following this: https://docs.limelightvision.io/docs/docs-limelight/apis/complete-networktables-api#apriltag-and-3d-data
-                                                                              // JTL: 2-9-24
-                                                                              // IT WORKS! 2-10-24 JTL
+        SmartDashboard.putNumber("Target Detected", s_Limelight.getTV());
+        SmartDashboard.putNumber("LimeLight X", s_Limelight.getX());
+        SmartDashboard.putNumber("LimeLight Y", s_Limelight.getY());
+        SmartDashboard.putNumber("LimeLight Z", s_Limelight.getZ());
     }
 
     /**

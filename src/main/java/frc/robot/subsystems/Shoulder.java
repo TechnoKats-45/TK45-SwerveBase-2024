@@ -52,27 +52,18 @@ public class Shoulder extends SubsystemBase
          */
         m_pidController.setFeedbackDevice(m_alternateEncoder);
 
-        // PID coefficients // TODO - UPDATE THESE VALUES
-        kP = 0.1; 
-        kI = 1e-4;
-        kD = 1; 
-        kIz = 0; 
-        kFF = 0; 
-        kMaxOutput = 1; 
-        kMinOutput = -1;
-
         // set PID coefficients
-        m_pidController.setP(kP);
-        m_pidController.setI(kI);
-        m_pidController.setD(kD);
-        m_pidController.setIZone(kIz);
-        m_pidController.setFF(kFF);
-        m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+        m_pidController.setP(Constants.Shoulder.kP);
+        m_pidController.setI(Constants.Shoulder.kI);
+        m_pidController.setD(Constants.Shoulder.kD);
+        m_pidController.setIZone(Constants.Shoulder.kIz);
+        m_pidController.setFF(Constants.Shoulder.kFF);
+        m_pidController.setOutputRange(Constants.Shoulder.kMaxOutput, Constants.Shoulder.kMaxOutput);
     }
 
     public void periodic()
     {
-        //SmartDashboard.putNumber("Arm Angle", getAngle());
+
     }
 
     public double getAngle()

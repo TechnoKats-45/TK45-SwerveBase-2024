@@ -49,7 +49,9 @@ public final class Constants
     {
         public static final int FeederID = 50;
         public static final int FeederSensor1Port = 0;
-        public static final double feederSpeed = 0.25; // TODO - Adjust feeder speed
+        public static final double hanfoffSpeed = 0.5; // TODO - Adjust feeder speed
+        public static final double ampShootSpeed = 0.5; // TODO - Adjust amp shoot speed
+        public static final double speakerFeedSpeed = 1;
     }
 
     /* Shoulder Constants */   
@@ -57,8 +59,17 @@ public final class Constants
     {
         public static final int ShoulderID = 60;
         public static final int handoffAngle = 0;   // TODO - Update
-        public static final int ampScoreAngle = 0;  // TODO - Update
-        public static final int speakerScoreAngle = 0;   // TODO - Update
+        public static final int ampScoreAngle = -45;  // TODO - Update
+        public static final int speakerScoreAngle = 45;   // TODO - Update
+
+        // TODO - check values
+        public static final double kP = 0.1;
+        public static final double kI = 1e-4;
+        public static final double kD = 1; 
+        public static final double kIz = 0; 
+        public static final double kFF = 0; 
+        public static final double kMaxOutput = 1; 
+        public static final double kMinOutput = -1;
     }
 
     /* Shooter Constants */

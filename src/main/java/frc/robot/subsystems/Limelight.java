@@ -1,21 +1,20 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.DoubleArraySubscriber;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase 
 {
     private final DoubleArraySubscriber tagPoseTopic;
-    private NetworkTable table;
-    private double[] tagPose;
     private int updates;
+    private double[] tagPose;
 
+    
     public Limelight() 
     {
-        table = NetworkTableInstance.getDefault().getTable("limelight");
-        tagPoseTopic = table.getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[6]); // TODO - Update topic name maybe JTL 2-9-24    // TRY ENABLNG 3D MODE IN GUI
+        tagPose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
+        tagPoseTopic = NetworkTableInstance.getDefault().getTable("limelight").getDoubleArrayTopic("targetpose_robotspace").subscribe(new double[6]);
         tagPose = new double[6];
     }
 
@@ -30,58 +29,62 @@ public class Limelight extends SubsystemBase
         return updates;
     }
 
-    // Try this Instead -JTL 2-9-24
+    // This works! 2-10-24 JTL
     public double getTV() // Whether the limelight has any valid targets (0 or 1)
     {
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     }
 
-    /*
+    
     // X+ is to the right if you are looking at the tag
-    public double getRX() 
+    public double getX() 
     {
         refreshValues();
         return tagPose[0];
     }
 
     // Y+ is upwards
-    public double getRY()
+    public double getY()
     {
         refreshValues();
-        return tagPose[1];
+        return tagPose[1];   
     }
 
     // Z+ is perpendicular to the plane of the limelight (Z+ is towards tag on data
-    // side, Z- is on other side of robot)
-    public double getRZ() 
+    public double getZ() 
     {
         refreshValues();
         return tagPose[2];
     }
 
-    public double getPitch()
+    public double getRoll() 
     {
         refreshValues();
         return tagPose[3];
     }
-
-    public double getYaw() 
+    
+    public double getPitch()
     {
         refreshValues();
         return tagPose[4];
     }
 
-    public double getRoll() 
+    public double getYaw() 
     {
         refreshValues();
         return tagPose[5];
     }
 
-    */
-    public void refreshValues()
+    public double getLatency()
     {
-        table = NetworkTableInstance.getDefault().getTable("limelight");
+        refreshValues();
+        return tagPose[6];
+    }
+
+    public void refreshValues()
+    {        
         tagPose = tagPoseTopic.get(new double[6]);
+        tagPose = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
         updates++;
     }
 }
