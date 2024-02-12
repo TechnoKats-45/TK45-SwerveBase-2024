@@ -28,6 +28,7 @@ public class Swerve extends SubsystemBase
     private final SwerveModule[] mSwerveMods;
     public final Pigeon2 gyro;
     final Field2d m_field = new Field2d();
+    public double rotationTarget = 0;
 
     public Swerve() 
     {
@@ -142,11 +143,7 @@ public class Swerve extends SubsystemBase
         {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
-    }
-
-    public void autoAimX()
-    {
-        // TODO - Add code to aim at the target // Replaced with Command TeleopLimelightTurret???
+        rotationTarget = rotation;
     }
 
     public double getYaw() 
@@ -227,12 +224,12 @@ public class Swerve extends SubsystemBase
     {
         try 
         (
-                PIDController rotController = new PIDController
-                (
-                        Constants.Swerve.angleKP,
-                        Constants.Swerve.angleKI,
-                        Constants.Swerve.angleKD
-                )
+            PIDController rotController = new PIDController
+            (
+                Constants.Swerve.angleKP,
+                Constants.Swerve.angleKI,
+                Constants.Swerve.angleKD
+            )
         ) 
         {
             rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
@@ -240,6 +237,18 @@ public class Swerve extends SubsystemBase
             double rotate = rotController.calculate(getYaw(), getYaw() + target);
 
             drive(new Translation2d(0, 0), rotate, false, true);
+        }
+    }
+
+    public boolean isAligned() 
+    {
+        if (Math.abs(getHeading().getDegrees() - rotationTarget) <= 1) 
+        {
+            return true;
+        } 
+        else 
+        {
+            return false;
         }
     }
 }

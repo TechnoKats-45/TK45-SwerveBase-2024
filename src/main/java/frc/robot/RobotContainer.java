@@ -143,7 +143,7 @@ public class RobotContainer
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    private void configureButtonBindings() // TODO - Update Button Configs
+    private void configureButtonBindings()
     {
       // Driver Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,14 +152,11 @@ public class RobotContainer
          * LT - Auto Aim
          * RB - Auto Intake
          * B - Zero Gyro
-         * X - Field / Robot Centeric Toggle - NO
          */
 
-      drfireWhenReady.onTrue(Commands.sequence
+      drfireWhenReady.whileTrue(Commands.sequence
       (
-        // If aligned X (swerve)
-        // If allgined Y (Shoulder)
-        // Then, allow to be shot
+
       ));
       
       // TODO - write a function to light green LEDs if alligned and ready to be shot
@@ -174,7 +171,8 @@ public class RobotContainer
           () -> -driver.getRawAxis(strafeAxis),
           drRobotCentric
         ),
-        new InstantCommand(() -> s_Shoulder.autoAimY()) // Auto Aim Y - Shoulder
+        new AutoAimY(s_Shoulder, s_Limelight),   // Auto Aim Y - Shoulder
+        new InstantCommand(() -> s_Shooter.setSpeed(Constants.Shooter.shooterSpeed))
       ));
 
       drAutoIntake.onTrue(Commands.sequence
@@ -186,7 +184,6 @@ public class RobotContainer
     );
 
       drZeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-      //drRobotCentric.onTrue(new InstantCommand(() -> s_Swerve.toggleRobotCentric())); // TODO - add this function??? - probably not
       
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -222,10 +219,11 @@ public class RobotContainer
         SmartDashboard.putNumber("Shoulder Angle", s_Shoulder.getAngle());
 
         SmartDashboard.putNumber("Limelight Updates", s_Limelight.getUpdates());
-        SmartDashboard.putNumber("Target Detected", s_Limelight.getTV());
-        SmartDashboard.putNumber("LimeLight X", s_Limelight.getX());
-        SmartDashboard.putNumber("LimeLight Y", s_Limelight.getY());
-        SmartDashboard.putNumber("LimeLight Z", s_Limelight.getZ());
+        SmartDashboard.putBoolean("Target Detected", s_Limelight.tagExists());
+        SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
+        SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
+        SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
+        SmartDashboard.putNumber("LimeLight Lateral Offset", s_Limelight.getLateralOffset());
     }
 
     /**

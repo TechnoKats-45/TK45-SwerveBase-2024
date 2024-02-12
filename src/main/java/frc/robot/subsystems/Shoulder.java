@@ -58,12 +58,7 @@ public class Shoulder extends SubsystemBase
         m_pidController.setD(Constants.Shoulder.kD);
         m_pidController.setIZone(Constants.Shoulder.kIz);
         m_pidController.setFF(Constants.Shoulder.kFF);
-        m_pidController.setOutputRange(Constants.Shoulder.kMaxOutput, Constants.Shoulder.kMaxOutput);
-    }
-
-    public void periodic()
-    {
-
+        m_pidController.setOutputRange(-Constants.Shoulder.kMinOutput, Constants.Shoulder.kMaxOutput);
     }
 
     public double getAngle()
@@ -73,11 +68,12 @@ public class Shoulder extends SubsystemBase
 
     public void setAngle(double angle)  // For external angle setting
     {
+        // TODO - add safety checks
         m_pidController.setReference(angle, CANSparkMax.ControlType.kPosition); // Sets internal PID to new position
         target = angle;
     }
 
-    public void moveAngle(Joystick opJoystick, Joystick drJoystick) // TODO - Add smarts (auto aim, auto fed, auto angle when gamepiece in certan location)
+    public void moveAngle(Joystick opJoystick, Joystick drJoystick) // For manual control
     {
         //if button pressed -> go to shoulder preset
         if(opJoystick.getRawButton(XboxController.Button.kY.value))       // TODO - Update button // Shooter button pressed UP
@@ -94,8 +90,17 @@ public class Shoulder extends SubsystemBase
         }
     }
 
-    public void autoAimY()
+    public void setAlignedAngle(double x, double z, boolean tag)
     {
-        // TODO - Create autoAimY() in commands   // using sensors and stuff
+        //double dist = Math.hypot(x, z); // Calculates direct line distance from target
+        if(tag) // If tag exists
+        {
+            setAngle(Math.tan(z/x));    // Calculates angle to target based on X and Z Tangent (Opposite over Adjacent)
+        }
+    }
+
+    public boolean isAligned()
+    {
+        return (getAngle() == target);
     }
 }

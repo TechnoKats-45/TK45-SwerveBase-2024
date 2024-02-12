@@ -33,6 +33,7 @@ public final class Constants
         public static final double LIMELIGHT_P = 0.3;
         public static final double LIMELIGHT_I = 0.0008;
         public static final double LIMELIGHT_D = 0.001;
+        public static final double YAW_OFFSET = 0;
     }
 
     /* Intake Constants */
@@ -62,18 +63,31 @@ public final class Constants
         public static final int ampScoreAngle = -45;  // TODO - Update
         public static final int speakerScoreAngle = 45;   // TODO - Update
 
-        // TODO - check values
+        // TODO - tune PID
         public static final double kP = 0.1;
         public static final double kI = 1e-4;
         public static final double kD = 1; 
         public static final double kIz = 0; 
         public static final double kFF = 0; 
-        public static final double kMaxOutput = 1; 
-        public static final double kMinOutput = -1;
+        public static final double kMaxOutput = .2;     // TODO - Update this to 1 after testing
+        public static final double kMinOutput = -.2;    // TODO - Update this to 1 after testing
     }
 
     /* Shooter Constants */
-    public static final int ShooterID = 70;
+    public static final class Shooter 
+    {
+        public static final double shooterSpeed = 0.75; // TODO - Adjust shooter speed
+        public static final int ShooterID = 70;
+
+        // TODO - tune PID
+        public static final double kP = 0.1;
+        public static final double kI = 0;
+        public static final double kD = 0; 
+        public static final double kIz = 0; 
+        public static final double kFF = 0; 
+        public static final double kMaxOutput = 1; // TODO - check direction
+        public static final double kMinOutput = 0;
+    }
 
     /* Gyro Constants */
     public static double gyroOffset = 0;
