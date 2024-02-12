@@ -77,7 +77,7 @@ public final class Constants
     public static final class Shooter 
     {
         public static final double shooterSpeed = 0.75; // TODO - Adjust shooter speed
-        public static final int ShooterID = 70;
+        public static final int ShooterID = 55;
 
         // TODO - tune PID
         public static final double kP = 0.1;
