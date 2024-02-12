@@ -66,8 +66,8 @@ public class RobotContainer
     public RobotContainer() 
     {
       // TODO - add registered commands here
-      //NamedCommands.registerCommand("autoAimX", Commands.run(() -> s_Swerve.autoAimX()));
-      NamedCommands.registerCommand("autoAimY", Commands.run(() -> s_Shoulder.autoAimY()));   
+      NamedCommands.registerCommand("AutoFeed", new AutoFeed(s_Intake, s_Shoulder, s_Feeder));
+      NamedCommands.registerCommand("AutoIntake", new AutoIntake(s_Intake, s_Feeder));
       
       s_Swerve.setDefaultCommand
       (
