@@ -24,7 +24,7 @@ public class TeleopShooter extends Command
     @Override
     public void execute() 
     {
-        s_Shooter.runShooter(operator, driver);   // TODO - Update to Shoot Command
+        s_Shooter.runShooter(operator, driver);
     }
 
 }

@@ -76,13 +76,13 @@ public class Shoulder extends SubsystemBase
     public void moveAngle(Joystick opJoystick, Joystick drJoystick) // For manual control
     {
         //if button pressed -> go to shoulder preset
-        if(opJoystick.getRawButton(XboxController.Button.kY.value))       // TODO - Update button // Shooter button pressed UP
+        if(opJoystick.getRawButton(XboxController.Button.kY.value))         // Shooter button pressed UP
         {
-            setAngle(-45);   // TODO - update angle   // 45?   // Speaker shoot angle (Assuming -45 for feed location)
+            setAngle(Constants.Shoulder.speakerScoreAngle);   // TODO - update angle   // 45?   // Speaker shoot angle (Assuming -45 for feed location)
         }
-        else if(opJoystick.getRawButton(XboxController.Button.kA.value))    // TODO - TODO - Update button // Shooter button pressed DOWN
+        else if(opJoystick.getRawButton(XboxController.Button.kA.value))    // Shooter button pressed DOWN
         {
-            setAngle(45);  // TODO - update angle    // -45?   // Amp shoot angle (Assuming -45 for feed location)
+            setAngle(Constants.Shoulder.ampScoreAngle);  // TODO - update angle    // -45?   // Amp shoot angle (Assuming -45 for feed location)
         }
         else
         {
@@ -101,6 +101,13 @@ public class Shoulder extends SubsystemBase
 
     public boolean isAligned()
     {
-        return (getAngle() == target);
+        if (Math.abs(getAngle() - target) <= 1) // If within 1 degree of target
+        {
+            return true;
+        } 
+        else 
+        {
+            return false;
+        }
     }
 }

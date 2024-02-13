@@ -34,31 +34,15 @@ public class Feeder extends SubsystemBase
     public void runFeeder(Joystick opJoystick, Joystick drJoystick)
     {
         //if button pressed -> run Feeder
-        if(opJoystick.getRawButton(XboxController.Button.kStart.value)) // TODO - Update button config // Feeder button pressed
+        if(opJoystick.getRawButton(XboxController.Button.kLeftBumper.value)) // Feeder button pressed
         {
             // Run Feeder
-            feeder.set(0.5);
+            feeder.set(0.5);    // TODO - Check direction and speed
         }
         else    // Feeder button not pressed
         {
             // Stop Feeder
             feeder.set(0);
-        }
-    }
-
-    public void feedUntilSeen()
-    {
-        if(!FeederSensor1Port.get())        // If gamepiece is not detected
-        {
-            feeder.set(0.5);    // TODO - Check direction
-        }
-        else if(FeederSensor1Port.get())    // If gamepiece is detected
-        {
-            feeder.set(0);
-        }
-        else
-        {
-            // ERROR
         }
     }
 }

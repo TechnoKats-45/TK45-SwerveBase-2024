@@ -34,12 +34,12 @@ public class Intake extends SubsystemBase
         intake.set(speed);  // Converts speed percent to -1 to 1 range
     }
 
-    public void runIntake(Joystick opJoystick, Joystick drJoystick)
+    public void runIntake(Joystick opJoystick, Joystick drJoystick) // For manual control
     {
         //if button pressed -> run intake
-        if(opJoystick.getRawButton(XboxController.Button.kRightBumper.value)) // TODO - Update button // Intake button pressed
+        if(opJoystick.getRawButton(XboxController.Button.kRightBumper.value)) // Intake button pressed
         {
-            intake.set(0.75);   // TODO - adjust speed and maybe direction
+            intake.set(Constants.Intake.intakeSpeed);
         }
         else    // Intake button not pressed
         {
@@ -60,6 +60,7 @@ public class Intake extends SubsystemBase
         else
         {
             // ERROR
+            // TODO - add error handling / output
         }
     }
 

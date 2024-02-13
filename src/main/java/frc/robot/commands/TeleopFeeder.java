@@ -26,18 +26,4 @@ public class TeleopFeeder extends Command
     {
         s_Feeder.runFeeder(operator, driver);
     }
-
-    @Override
-    public boolean isFinished() 
-    {
-        if (s_Feeder.detectGamePiece()) // Run until gamepiece detected, then stop
-        {
-            s_Feeder.setSpeed(0);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 }

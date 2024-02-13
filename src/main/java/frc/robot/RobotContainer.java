@@ -80,8 +80,7 @@ public class RobotContainer
           () -> drRobotCentric.getAsBoolean()
         )
       );
-      
-      /*
+
       s_Intake.setDefaultCommand
       (
         new TeleopIntake
@@ -91,10 +90,7 @@ public class RobotContainer
           driver
         )      
       );
-      */
-
-      /*
-
+      
       s_Feeder.setDefaultCommand
       (
         new TeleopFeeder
@@ -125,11 +121,11 @@ public class RobotContainer
         )
       );
 
+      /*
       limelight.setDefaultCommand
       (
         new TeleopLimelight(limelight)
       );
-
       */
       
 
