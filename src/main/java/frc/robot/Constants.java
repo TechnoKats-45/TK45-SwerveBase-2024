@@ -89,6 +89,27 @@ public final class Constants
         public static final double kMinOutput = 0;
     }
 
+    /* Climber Constants */
+    public static final class Climber
+    {
+        public static final int ClimberID = 45;
+        public static final double climberSpeed = 1;     // TODO - Adjust climber speed
+        public static final double minimumExtension = 0;
+        public static final double maxExtension = 100;   // TODO - Update this value
+        public static final double chainGrabHeight = 99; // TODO - Update this value
+    
+        // TODO - tune PID
+        public static final double kP = 0.1;
+        public static final double kI = 1e-4;
+        public static final double kD = 1; 
+        public static final double kIz = 0; 
+        public static final double kFF = 0; 
+        public static final double kMaxOutput = .2;     // TODO - Update this to 1 after testing
+        public static final double kMinOutput = -.2;    // TODO - Update this to 1 after testing
+
+        public static final double kInchesPerRotation = 1; // TODO - Update this value
+    }
+
     /* Gyro Constants */
     public static double gyroOffset = 0;
 

@@ -58,7 +58,7 @@ public class Shoulder extends SubsystemBase
         m_pidController.setD(Constants.Shoulder.kD);
         m_pidController.setIZone(Constants.Shoulder.kIz);
         m_pidController.setFF(Constants.Shoulder.kFF);
-        m_pidController.setOutputRange(-Constants.Shoulder.kMinOutput, Constants.Shoulder.kMaxOutput);
+        m_pidController.setOutputRange(Constants.Shoulder.kMinOutput, Constants.Shoulder.kMaxOutput);
     }
 
     public double getAngle()
