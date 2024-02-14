@@ -18,6 +18,8 @@ public class Feeder extends SubsystemBase
     {
         feeder = new CANSparkMax(Constants.Feeder.FeederID, MotorType.kBrushless);
         FeederSensor1Port = new DigitalInput(Constants.Feeder.FeederSensor1Port);
+
+        feeder.setSmartCurrentLimit(20);
     }
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected

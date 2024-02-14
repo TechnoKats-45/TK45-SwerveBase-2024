@@ -54,7 +54,7 @@ public class RobotContainer
     private final JoystickButton opIntakeIn = new JoystickButton(operator, XboxController.Button.kRightBumper.value);         // Right Bumper
     private final JoystickButton opIntakeOut = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);         // Left Bumper
     private final JoystickButton opSpeakerPreset = new JoystickButton(operator, XboxController.Button.kY.value);              // Y Button
-    private final JoystickButton opShoot = new JoystickButton(operator, XboxController.Axis.kRightTrigger.value);       // Right Trigger
+    private final JoystickButton opShoot = new JoystickButton(operator, XboxController.Axis.kRightTrigger.value);             // Right Trigger
     private final JoystickButton opAmpFire = new JoystickButton(operator, XboxController.Axis.kLeftTrigger.value);            // Left Trigger
     private final JoystickButton opAmpPreset = new JoystickButton(operator, XboxController.Button.kA.value);                  // A Button
 
@@ -83,7 +83,7 @@ public class RobotContainer
         )
       );
 
-      /*
+      
       s_Intake.setDefaultCommand
       (
         new TeleopIntake
@@ -93,7 +93,7 @@ public class RobotContainer
           driver
         )      
       );
-      
+
       s_Feeder.setDefaultCommand
       (
         new TeleopFeeder
@@ -103,7 +103,7 @@ public class RobotContainer
           driver
         )
       );
-
+      
       s_Shoulder.setDefaultCommand
       (
         new TeleopShoulder
@@ -113,7 +113,7 @@ public class RobotContainer
           driver
         )
       );
-
+      
       s_Shooter.setDefaultCommand
       (
         new TeleopShooter
@@ -152,7 +152,7 @@ public class RobotContainer
          * B - Zero Gyro
          */
 
-      /* 
+      // RT - Automatic Fire
       drfireWhenReady.whileTrue(Commands.sequence
       (
 
@@ -160,6 +160,7 @@ public class RobotContainer
       
       // TODO - write a function to light green LEDs if alligned and ready to be shot
 
+      // LT - Automatic Aim (X and Y)
       drAutoAim.whileTrue(Commands.parallel
       (
         new TeleopLimelightTurret // Auto Aim X - Swerve
@@ -174,13 +175,13 @@ public class RobotContainer
         new InstantCommand(() -> s_Shooter.setSpeed(Constants.Shooter.shooterSpeed))
       ));
 
+      // RB - Automatic Intake / Set Feed Angle / Feed
       drAutoIntake.onTrue(Commands.sequence
       (
         new AutoIntake(s_Intake, s_Feeder),
-        new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.handoffAngle)), // Set shoulder to handoff angle
+        new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.handoffAngle)),
         new AutoFeed(s_Intake, s_Shoulder, s_Feeder)
-      )
-    );
+      ));
 
       drZeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
       
@@ -196,7 +197,7 @@ public class RobotContainer
          * RB - Intake IN   (Manual Mode)
          * LB - Intake OUT  (Manual Mode)
          */
-      /*
+
       // Y - Speaker Preset
       opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
 
@@ -205,7 +206,6 @@ public class RobotContainer
 
       // RT - Speaker and Amp Shoot (Depending on angle)
       opShoot.onTrue(new ManualFire(s_Shoulder, s_Feeder));      
-      */
     }
     
     public void printValues()
@@ -220,10 +220,10 @@ public class RobotContainer
 
         SmartDashboard.putNumber("Limelight Updates", s_Limelight.getUpdates());
         SmartDashboard.putBoolean("Target Detected", s_Limelight.tagExists());
-        //SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
-        //SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
-        //SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
-        //SmartDashboard.putNumber("LimeLight Lateral Offset", s_Limelight.getLateralOffset());
+        SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
+        SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
+        SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
+        SmartDashboard.putNumber("LimeLight Lateral Offset", s_Limelight.getLateralOffset());
         // TODO
     }
 
@@ -235,5 +235,10 @@ public class RobotContainer
     public Command getAutonomousCommand() 
     {
       return chooser.getSelected();
+    }
+
+    public void tunePIDs()
+    {
+      s_Shoulder.testModeCalibration();
     }
 }

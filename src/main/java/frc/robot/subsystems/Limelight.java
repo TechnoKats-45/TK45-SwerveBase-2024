@@ -57,8 +57,7 @@ public class Limelight extends SubsystemBase
     public double getRZ() 
     {
         refreshValues();
-        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0); // This does work
-        //return tagPose[2];    // This does not work
+        return tagPose[2];    // This does not work
     }
 
     public double getPitch() 

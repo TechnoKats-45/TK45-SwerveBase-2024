@@ -71,6 +71,13 @@ public final class Constants
         public static final double kFF = 0; 
         public static final double kMaxOutput = .2;     // TODO - Update this to 1 after testing
         public static final double kMinOutput = -.2;    // TODO - Update this to 1 after testing
+
+        // Feed Forward - // TODO - tune feed forward
+        public static final double kSVolts = 0.0;
+        public static final double kGVolts = 0.0;
+        public static final double kVVoltSecondPerRad = 0.0;
+        public static final double kAVoltSecondSquaredPerRad = 0.0;
+        public static final double kArmSlewRate = 0.0;
     }
 
     /* Shooter Constants */

@@ -27,6 +27,8 @@ public class Shooter extends SubsystemBase
     {
         shooter = new CANSparkMax(Constants.Shooter.ShooterID, MotorType.kBrushless);
 
+        shooter.setSmartCurrentLimit(40);
+
         /**
          * In order to use PID functionality for a controller, a SparkPIDController object
          * is constructed by calling the getPIDController() method on an existing

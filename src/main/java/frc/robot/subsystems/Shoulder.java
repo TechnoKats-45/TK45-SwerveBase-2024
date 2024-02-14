@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.PIDController;
 
@@ -18,8 +19,6 @@ import com.revrobotics.RelativeEncoder;
 public class Shoulder extends SubsystemBase
 {
     private CANSparkMax shoulder;
-    
-    public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
     double target = 0;
     int angle;
@@ -30,11 +29,13 @@ public class Shoulder extends SubsystemBase
     private static final int kCPR = 8192;   // Counts per revolution for REV Through Bore Encoder
 
     private RelativeEncoder m_alternateEncoder;
+    public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
     public Shoulder() 
     {
         shoulder = new CANSparkMax(Constants.Shoulder.ShoulderID, MotorType.kBrushless);
         shoulder.restoreFactoryDefaults();
+        shoulder.setSmartCurrentLimit(40);
 
         m_alternateEncoder = shoulder.getAlternateEncoder(kAltEncType, kCPR);
 
@@ -52,13 +53,35 @@ public class Shoulder extends SubsystemBase
          */
         m_pidController.setFeedbackDevice(m_alternateEncoder);
 
+        // PID coefficients // TODO - update values (TUNE)
+        kP = 0.1;
+        kI = 0;
+        kD = 0
+        
+        ; 
+        kIz = 0; 
+        kFF = 0; 
+        kMaxOutput = .2;        // TODO - Update this to 1 after testing
+        kMinOutput = -.2;       // TODO - Update this to 1 after testing
+
         // set PID coefficients
-        m_pidController.setP(Constants.Shoulder.kP);
-        m_pidController.setI(Constants.Shoulder.kI);
-        m_pidController.setD(Constants.Shoulder.kD);
-        m_pidController.setIZone(Constants.Shoulder.kIz);
-        m_pidController.setFF(Constants.Shoulder.kFF);
-        m_pidController.setOutputRange(Constants.Shoulder.kMinOutput, Constants.Shoulder.kMaxOutput);
+        m_pidController.setP(kP);
+        m_pidController.setI(kI);
+        m_pidController.setD(kD);
+        m_pidController.setIZone(kIz);
+        m_pidController.setFF(kFF); // Functionally the same as kV, just different units
+        m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+
+        // display PID coefficients on SmartDashboard
+        SmartDashboard.putNumber("P Gain", kP);
+        SmartDashboard.putNumber("I Gain", kI);
+        SmartDashboard.putNumber("D Gain", kD);
+        SmartDashboard.putNumber("I Zone", kIz);
+        SmartDashboard.putNumber("Feed Forward", kFF);
+        SmartDashboard.putNumber("Max Output", kMaxOutput);
+        SmartDashboard.putNumber("Min Output", kMinOutput);
+        SmartDashboard.putNumber("Set Rotations", 0);
+    
     }
 
     public double getAngle()
@@ -108,6 +131,30 @@ public class Shoulder extends SubsystemBase
         else 
         {
             return false;
+        }
+    }
+
+    public void testModeCalibration()
+    {
+        // read PID coefficients from SmartDashboard
+        double p = SmartDashboard.getNumber("P Gain", 0);
+        double i = SmartDashboard.getNumber("I Gain", 0);
+        double d = SmartDashboard.getNumber("D Gain", 0);
+        double iz = SmartDashboard.getNumber("I Zone", 0);
+        double ff = SmartDashboard.getNumber("Feed Forward", 0);
+        double max = SmartDashboard.getNumber("Max Output", 0);
+        double min = SmartDashboard.getNumber("Min Output", 0);
+    
+        // if PID coefficients on SmartDashboard have changed, write new values to controller
+        if((p != kP)) { m_pidController.setP(p); kP = p; }
+        if((i != kI)) { m_pidController.setI(i); kI = i; }
+        if((d != kD)) { m_pidController.setD(d); kD = d; }
+        if((iz != kIz)) { m_pidController.setIZone(iz); kIz = iz; }
+        if((ff != kFF)) { m_pidController.setFF(ff); kFF = ff; }
+        if((max != kMaxOutput) || (min != kMinOutput)) 
+        { 
+            m_pidController.setOutputRange(min, max); 
+            kMinOutput = min; kMaxOutput = max; 
         }
     }
 }
