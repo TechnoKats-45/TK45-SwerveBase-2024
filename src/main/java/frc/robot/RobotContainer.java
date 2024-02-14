@@ -66,9 +66,11 @@ public class RobotContainer
     public RobotContainer() 
     {
       // TODO - add registered commands here
+      /*
       NamedCommands.registerCommand("AutoFeed", new AutoFeed(s_Intake, s_Shoulder, s_Feeder));
       NamedCommands.registerCommand("AutoIntake", new AutoIntake(s_Intake, s_Feeder));
-      
+      */
+
       s_Swerve.setDefaultCommand
       (
         new TeleopSwerve
@@ -81,6 +83,7 @@ public class RobotContainer
         )
       );
 
+      /*
       s_Intake.setDefaultCommand
       (
         new TeleopIntake
@@ -128,7 +131,6 @@ public class RobotContainer
       );
       */
       
-
       // Configure the button bindings
       configureButtonBindings();
       s_Swerve.gyro.setYaw(0);
@@ -150,6 +152,7 @@ public class RobotContainer
          * B - Zero Gyro
          */
 
+      /* 
       drfireWhenReady.whileTrue(Commands.sequence
       (
 
@@ -167,7 +170,7 @@ public class RobotContainer
           () -> -driver.getRawAxis(strafeAxis),
           drRobotCentric
         ),
-        new AutoAimY(s_Shoulder, s_Limelight),   // Auto Aim Y - Shoulder
+        //new AutoAimY(s_Shoulder, s_Limelight),   // Auto Aim Y - Shoulder // TODO - MAKE THIS NOT PARALLEL
         new InstantCommand(() -> s_Shooter.setSpeed(Constants.Shooter.shooterSpeed))
       ));
 
@@ -193,7 +196,7 @@ public class RobotContainer
          * RB - Intake IN   (Manual Mode)
          * LB - Intake OUT  (Manual Mode)
          */
-
+      /*
       // Y - Speaker Preset
       opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
 
@@ -202,6 +205,7 @@ public class RobotContainer
 
       // RT - Speaker and Amp Shoot (Depending on angle)
       opShoot.onTrue(new ManualFire(s_Shoulder, s_Feeder));      
+      */
     }
     
     public void printValues()
@@ -216,10 +220,11 @@ public class RobotContainer
 
         SmartDashboard.putNumber("Limelight Updates", s_Limelight.getUpdates());
         SmartDashboard.putBoolean("Target Detected", s_Limelight.tagExists());
-        SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
-        SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
-        SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
-        SmartDashboard.putNumber("LimeLight Lateral Offset", s_Limelight.getLateralOffset());
+        //SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
+        //SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
+        //SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
+        //SmartDashboard.putNumber("LimeLight Lateral Offset", s_Limelight.getLateralOffset());
+        // TODO
     }
 
     /**

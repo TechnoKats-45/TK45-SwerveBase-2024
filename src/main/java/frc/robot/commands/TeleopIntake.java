@@ -14,11 +14,9 @@ public class TeleopIntake extends Command
   public TeleopIntake(Intake s_Intake, Joystick operator, Joystick driver) 
   {
     this.s_Intake = s_Intake;
+    addRequirements(s_Intake);
     this.operator = operator;
     this.driver = driver;
-    addRequirements(s_Intake);
-
-  // Called when the command is initially scheduled.
   }
 
 // Called every time the scheduler runs while the command is scheduled.
