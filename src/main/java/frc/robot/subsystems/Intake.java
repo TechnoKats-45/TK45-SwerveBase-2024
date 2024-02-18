@@ -22,7 +22,7 @@ public class Intake extends SubsystemBase
         intake = new CANSparkMax(Constants.Intake.IntakeID, MotorType.kBrushless);
         intakeSensor = new DigitalInput(Constants.Intake.IntakeSensor1Port);
 
-        intake.setSmartCurrentLimit(20);
+        intake.setSmartCurrentLimit(40);
     }
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected

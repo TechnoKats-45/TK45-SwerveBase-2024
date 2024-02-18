@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -166,20 +167,21 @@ public class RobotContainer
         new TeleopLimelightTurret // Auto Aim X - Swerve
         (
           s_Limelight,
+          s_Shoulder,
           s_Swerve,
           () -> -driver.getRawAxis(translationAxis),
           () -> -driver.getRawAxis(strafeAxis),
           drRobotCentric
         ),
         //new AutoAimY(s_Shoulder, s_Limelight),   // Auto Aim Y - Shoulder // TODO - MAKE THIS NOT PARALLEL
-        new InstantCommand(() -> s_Shooter.setSpeed(Constants.Shooter.shooterSpeed))
+        new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed))
       ));
 
       // RB - Automatic Intake / Set Feed Angle / Feed
       drAutoIntake.onTrue(Commands.sequence
       (
         new AutoIntake(s_Intake, s_Feeder),
-        new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.handoffAngle)),
+        new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle)),
         new AutoFeed(s_Intake, s_Shoulder, s_Feeder)
       ));
 
@@ -199,13 +201,16 @@ public class RobotContainer
          */
 
       // Y - Speaker Preset
-      opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
+      opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
 
       // A - Amp Preset
-      opAmpPreset.onTrue(new InstantCommand(() -> s_Shoulder.setAngle(Constants.Shoulder.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
+      opAmpPreset.onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
 
-      // RT - Speaker and Amp Shoot (Depending on angle)
-      opShoot.onTrue(new ManualFire(s_Shoulder, s_Feeder));      
+      // RT - Speaker and Amp Shoot (Depending on angle) - X FOR NOW FOR TESTING!
+      //driver.rightTrigger(0.1).whileTrue(new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed)));  // for CommandXboxController
+      opShoot.onTrue(new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed)));
+      opShoot.onFalse(new InstantCommand(() -> s_Shooter.setTarget(0)));
+        //opShoot.onTrue(new ManualFire(s_Shoulder, s_Feeder));    // TODO - added to defualt command to allow for .getRawAxis()to be used
     }
     
     public void printValues()
@@ -235,10 +240,5 @@ public class RobotContainer
     public Command getAutonomousCommand() 
     {
       return chooser.getSelected();
-    }
-
-    public void tunePIDs()
-    {
-      s_Shoulder.testModeCalibration();
     }
 }

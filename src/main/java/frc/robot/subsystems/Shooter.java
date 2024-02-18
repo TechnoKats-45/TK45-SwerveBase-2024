@@ -12,57 +12,57 @@ import edu.wpi.first.math.controller.PIDController;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
 public class Shooter extends SubsystemBase 
 {
     private CANSparkMax shooter;
+
     
-    private SparkPIDController m_pidController;
+    public double kP, kI, kD;
+    private PIDController pidController = new PIDController(kP, kI, kD);
 
     double target = 0;
     double speed;
 
+    private final RelativeEncoder shooterEncoder;
+
     public Shooter()
     {
         shooter = new CANSparkMax(Constants.Shooter.ShooterID, MotorType.kBrushless);
-
-        shooter.setSmartCurrentLimit(40);
-
-        /**
-         * In order to use PID functionality for a controller, a SparkPIDController object
-         * is constructed by calling the getPIDController() method on an existing
-         * CANSparkMax object
-         */
-        m_pidController = shooter.getPIDController();
-
-        // set PID coefficients
-        m_pidController.setP(Constants.Shooter.kP);
-        m_pidController.setI(Constants.Shooter.kI);
-        m_pidController.setD(Constants.Shooter.kD);
-        m_pidController.setIZone(Constants.Shooter.kIz);
-        m_pidController.setFF(Constants.Shooter.kFF);
-        m_pidController.setOutputRange(-Constants.Shooter.kMinOutput, Constants.Shooter.kMaxOutput);
+        shooter.setSmartCurrentLimit(60);
+        shooterEncoder = shooter.getEncoder();
     }
 
-    public void setSpeed(double speed)  // For external speed setting
+    public void holdTarget() 
     {
-        // TODO - add safety checks
-        m_pidController.setReference(speed, CANSparkMax.ControlType.kVelocity); // Sets internal PID to new velocity
+        shooter.set(pidController.calculate(getSpeed(), target));
+    }
+
+    public double getSpeed()
+    {
+        return shooterEncoder.getVelocity();
+    }
+
+    public void setTarget(double speed)
+    {
         target = speed;
     }
 
     public void runShooter(Joystick opJoystick, Joystick drJoystick)
     {
-        //if button pressed -> run shooter
-        if(opJoystick.getRawButton(XboxController.Axis.kRightTrigger.value)) // Shooter button pressed
+        if(opJoystick.getRawButton(XboxController.Axis.kRightTrigger.value)) // Shooter button pressed  // If still doesnt work, change to getRawAxis and add " >= Constants.STICK_DEADBAND"
         {
-            shooter.set(Constants.Shooter.shooterSpeed);
+            setTarget(Constants.Shooter.shooterSpeed);
         }
         else    // Shooter button not pressed
         {
-            shooter.set(0);
+            setTarget(0);
         }
+
+        // HOPEFULLY WE CAN DELETE EVERYTHNG ABOVE THIS
+        holdTarget();
     }
 
     public void fireWhenReady()

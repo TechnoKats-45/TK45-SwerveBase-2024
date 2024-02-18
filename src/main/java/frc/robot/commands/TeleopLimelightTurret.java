@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Swerve;
 import frc.robot.Constants;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Shoulder;
 
 public class TeleopLimelightTurret extends Command {
     private final Limelight limelight;
+    private final Shoulder s_Shoulder;
     private final Swerve swerve;
     private final DoubleSupplier translationSup;
     private final DoubleSupplier strafeSup;
@@ -19,6 +21,7 @@ public class TeleopLimelightTurret extends Command {
     public TeleopLimelightTurret
     (
         Limelight limelight,
+        Shoulder s_Shoulder,
         Swerve swerve,
         DoubleSupplier translationSup,
         DoubleSupplier strafeSup,
@@ -26,6 +29,7 @@ public class TeleopLimelightTurret extends Command {
     ) 
     {
         this.limelight = limelight;
+        this.s_Shoulder = s_Shoulder;
         this.swerve = swerve;
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
@@ -69,6 +73,9 @@ public class TeleopLimelightTurret extends Command {
                     !robotCentricSup.getAsBoolean(),
                     true
                 );
+
+                s_Shoulder.setAlignedAngle(limelight.getRX(), limelight.getRZ(), limelight.tagExists());    // TODO - test this
+
             }
         }
     }

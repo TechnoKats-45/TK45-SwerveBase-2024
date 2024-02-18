@@ -114,7 +114,5 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic() // Should operate the same as teleopPeriodic, just with test mode 
   {
-    //robotContainer.printValues();
-    robotContainer.tunePIDs(); // TODO - this might break things
   }
 }

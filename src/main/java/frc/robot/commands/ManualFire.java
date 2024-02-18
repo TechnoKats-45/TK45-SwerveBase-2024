@@ -30,7 +30,7 @@ public class ManualFire extends Command
         }
         else if(s_Shoulder.getAngle() < 0)  // If in amp mode -> Feeder pointing up
         {
-            s_Feeder.setSpeed(Constants.Feeder.ampShootSpeed);
+            s_Feeder.setSpeed(1);   // change to "Constants.Feeder.ampShootSpeed"
         }
         else
         {

@@ -3,7 +3,7 @@ package frc.robot;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
-import com.revrobotics.CANSparkBase.IdleMode;           // ^ 2024 - Replacement
+import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -40,7 +40,7 @@ public final class Constants
     public static final class Intake 
     {
         public static final int IntakeID = 40;
-        public static final double intakeSpeed = 1; // TODO - Adjust intake speed
+        public static final double intakeSpeed = -1; // TODO - Adjust intake speed
         public static final int IntakeSensor1Port = 1;   
         public static final double hanfoffSpeed = .5; // TODO - Adjust handoff speed
     }
@@ -59,9 +59,10 @@ public final class Constants
     public static final class Shoulder 
     {
         public static final int ShoulderID = 60;
-        public static final int handoffAngle = 0;   // TODO - Update
-        public static final int ampScoreAngle = -45;  // TODO - Update
-        public static final int speakerScoreAngle = 45;   // TODO - Update
+        public static final int handoffAngle = 3;   // TODO - Update
+        public static final int ampScoreAngle = 130;  // TODO - Update
+        public static final int speakerScoreAngle = 3;   // TODO - Update
+        public static final int ShoulderEncoderPort = 2;
 
         // TODO - tune PID
         public static final double kP = 0.1;
@@ -83,7 +84,7 @@ public final class Constants
     /* Shooter Constants */
     public static final class Shooter 
     {
-        public static final double shooterSpeed = 0.75; // TODO - Adjust shooter speed
+        public static final double shooterSpeed = 0.5; // TODO - Adjust shooter speed
         public static final int ShooterID = 55;
 
         // TODO - tune PID
