@@ -115,7 +115,7 @@ public final class Constants
         public static final double kMaxOutput = .2;     // TODO - Update this to 1 after testing
         public static final double kMinOutput = -.2;    // TODO - Update this to 1 after testing
 
-        public static final double kInchesPerRotation = 1; // TODO - Update this value
+        public static final double kInchesPerRotation = 2; // TODO - Update this value
     }
 
     /* Gyro Constants */

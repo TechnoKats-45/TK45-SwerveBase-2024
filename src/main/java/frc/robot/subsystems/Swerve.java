@@ -16,6 +16,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -244,5 +246,17 @@ public class Swerve extends SubsystemBase
         {
             return false;
         }
+    }
+
+    public void diagnostics()
+    {
+        ShuffleboardTab tab = Shuffleboard.getTab("Swerve");
+        tab.add("Gyro Yaw", getYaw());
+        tab.add("Gyro Pitch", getPitch());
+        tab.add("Gyro Roll", getRoll());
+        tab.add("Swerve X", getPose().getX());
+        tab.add("Swerve Y", getPose().getY());
+        tab.add("Swerve Heading", getPose().getRotation().getDegrees());
+        tab.add("Aligned", isAligned());
     }
 }

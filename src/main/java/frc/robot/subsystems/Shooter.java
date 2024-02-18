@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -19,7 +21,6 @@ public class Shooter extends SubsystemBase
 {
     private CANSparkMax shooter;
 
-    
     public double kP, kI, kD;
     private PIDController pidController = new PIDController(kP, kI, kD);
 
@@ -54,5 +55,12 @@ public class Shooter extends SubsystemBase
     {
         // TODO - Add code to check if shooter is ready to fire
         // TODO - Add code to fire
+    }
+
+    public void diagnostics()
+    {
+        ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
+        tab.add("Shooter Speed", getSpeed());
+        tab.add("Shooter Target", target);
     }
 }

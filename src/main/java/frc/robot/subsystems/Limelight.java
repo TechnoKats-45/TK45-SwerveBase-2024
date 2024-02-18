@@ -4,6 +4,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -96,5 +98,16 @@ public class Limelight extends SubsystemBase
         table = NetworkTableInstance.getDefault().getTable("limelight");
         tagPose = tagPoseTopic.get(new double[6]);
         updates++;
+    }
+
+    public void diagnostics()
+    {
+        ShuffleboardTab tab = Shuffleboard.getTab("Limelight");
+        tab.add("Limelight Updates", getUpdates());
+        tab.add("Target Detected", tagExists());
+        tab.add("LimeLight X", getRX());
+        tab.add("LimeLight Y", getRY());
+        tab.add("LimeLight Z", getRZ());
+        tab.add("LimeLight Lateral Offset", getLateralOffset());
     }
 }

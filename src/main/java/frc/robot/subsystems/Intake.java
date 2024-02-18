@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
@@ -59,9 +61,9 @@ public class Intake extends SubsystemBase
         }
     }
 
-    public void periodic()
+    public void diagnostics()
     {
-        SmartDashboard.putBoolean("Intake GamePiece Detected", intakeSensor.get());
-
+        ShuffleboardTab tab = Shuffleboard.getTab("Intake");
+        tab.add("Intake Sensor", detectGamePiece());
     }
 }

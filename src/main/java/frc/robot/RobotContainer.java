@@ -3,7 +3,6 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -59,14 +58,9 @@ public class RobotContainer
 
       s_Swerve.setDefaultCommand
       (
-        new TeleopSwerve
-        (
-          s_Swerve, 
-          driver
-        )
+        new TeleopSwerve(s_Swerve, driver)
       );
 
-      
       s_Intake.setDefaultCommand
       (
         new InstantCommand(() -> s_Intake.holdTarget())
@@ -152,7 +146,7 @@ public class RobotContainer
       operator.y().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
 
       // A - Amp Preset
-      operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
+      operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));     // Move to amp preset angle (when against amp wall)
 
       // RT - Speaker and Amp Shoot (Depending on angle) - X FOR NOW FOR TESTING!
       operator.rightTrigger().whileTrue(Commands.parallel
@@ -167,21 +161,12 @@ public class RobotContainer
     
     public void printValues()
     {
-        SmartDashboard.putNumber("Swerve Yaw", s_Swerve.gyro.getYaw());
-        SmartDashboard.putNumber("Swerve Pitch", s_Swerve.gyro.getPitch()); 
-        SmartDashboard.putNumber("Swerve Roll", s_Swerve.gyro.getRoll());
-        
-        SmartDashboard.putBoolean("Intake GamePiece Detected", s_Intake.detectGamePiece());
-        SmartDashboard.putBoolean("Feeder GamePiece Detected", s_Feeder.detectGamePiece());
-        SmartDashboard.putNumber("Shoulder Angle", s_Shoulder.getAngle());
-
-        SmartDashboard.putNumber("Limelight Updates", s_Limelight.getUpdates());
-        SmartDashboard.putBoolean("Target Detected", s_Limelight.tagExists());
-        SmartDashboard.putNumber("LimeLight X", s_Limelight.getRX());
-        SmartDashboard.putNumber("LimeLight Y", s_Limelight.getRY());
-        SmartDashboard.putNumber("LimeLight Z", s_Limelight.getRZ());
-        SmartDashboard.putNumber("LimeLight Lateral Offset", s_Limelight.getLateralOffset());
-        // TODO
+      s_Feeder.diagnostics();
+      s_Intake.diagnostics();
+      s_Shoulder.diagnostics();
+      s_Swerve.diagnostics();
+      s_Shooter.diagnostics();
+      s_Limelight.diagnostics();
     }
 
     /**

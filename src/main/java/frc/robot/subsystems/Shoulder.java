@@ -3,6 +3,8 @@ import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.PIDController;
@@ -25,7 +27,7 @@ public class Shoulder extends SubsystemBase
 
     public double kP, kI, kD;
     private DutyCycleEncoder m_absoluteEncoder;
-    private PIDController pidController = new PIDController(kP, kI, kD);
+    private PIDController m_pidController = new PIDController(kP, kI, kD);
 
     public Shoulder() 
     {
@@ -49,7 +51,7 @@ public class Shoulder extends SubsystemBase
 
     public void holdTarget() 
     {
-        shoulder.set(pidController.calculate(getAngle(), target));
+        shoulder.set(m_pidController.calculate(getAngle(), target));
     }
 
     public void setAlignedAngle(double x, double z, boolean tag)
@@ -76,5 +78,12 @@ public class Shoulder extends SubsystemBase
     public void setTarget(double setPoint)  // Assigns a new target angle
     {
         target = setPoint;
+    }
+
+    public void diagnostics()
+    {
+        ShuffleboardTab tab = Shuffleboard.getTab("Shoulder");
+        tab.add("Shoulder Angle", getAngle());
+        tab.add("Shoulder Target", target);
     }
 }

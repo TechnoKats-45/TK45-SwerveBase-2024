@@ -5,6 +5,8 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -36,5 +38,11 @@ public class Feeder extends SubsystemBase
     public void holdTarget()    // For holding the gamepiece
     {
         feeder.set(target);
+    }
+
+    public void diagnostics()
+    {
+        ShuffleboardTab tab = Shuffleboard.getTab("Feeder");
+        tab.add("Feeder Sensor", detectGamePiece());
     }
 }
