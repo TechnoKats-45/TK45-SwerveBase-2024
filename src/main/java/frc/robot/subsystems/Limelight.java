@@ -51,7 +51,7 @@ public class Limelight extends SubsystemBase
     public double getRY() 
     {
         refreshValues();
-        return tagPose[1];
+        return tagPose[1] + Constants.Limelight.HEIGHT_OFFSET;  // TODO - update this
     }
 
     // Z+ is perpendicular to the plane of the limelight (Z+ is towards tag on data

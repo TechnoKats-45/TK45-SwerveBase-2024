@@ -31,6 +31,7 @@ public class RobotContainer
     private final Shooter s_Shooter = new Shooter();
     private final Feeder s_Feeder = new Feeder();
     private final Limelight s_Limelight = new Limelight();
+    private final Climber s_Climber = new Climber();
 
     private final SendableChooser<Command> chooser; 
 
@@ -96,7 +97,9 @@ public class RobotContainer
       SmartDashboard.putData("Auto Choices", chooser);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
     
     private void configureButtonBindings()
     {
@@ -106,8 +109,8 @@ public class RobotContainer
       // RT - Automatic Fire
       driver.rightTrigger().whileTrue(Commands.sequence
       (
-        
-      ));      // TODO - write a function to light green LEDs if alligned and ready to be shot
+        new AutoFire() // TODO - update this
+      ));
     
       // LT - Automatic Aim (X and Y)
       driver.leftTrigger().whileTrue(Commands.parallel
@@ -148,7 +151,7 @@ public class RobotContainer
       // A - Amp Preset
       operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));     // Move to amp preset angle (when against amp wall)
 
-      // RT - Speaker and Amp Shoot (Depending on angle) - X FOR NOW FOR TESTING!
+      // RT - Speaker and Amp Shoot (Depending on angle)
       operator.rightTrigger().whileTrue(Commands.parallel
       (
         new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed))
@@ -161,12 +164,13 @@ public class RobotContainer
     
     public void printValues()
     {
+      s_Climber.diagnostics();
       s_Feeder.diagnostics();
       s_Intake.diagnostics();
+      s_Limelight.diagnostics();
+      s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
       s_Swerve.diagnostics();
-      s_Shooter.diagnostics();
-      s_Limelight.diagnostics();
     }
 
     /**

@@ -34,6 +34,7 @@ public final class Constants
         public static final double LIMELIGHT_I = 0.0008;
         public static final double LIMELIGHT_D = 0.001;
         public static final double YAW_OFFSET = 0;
+        public static final double HEIGHT_OFFSET = 2; // TODO - Update this value
     }
 
     /* Intake Constants */
@@ -143,8 +144,6 @@ public final class Constants
             new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
             new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0)
         );
-
-        
 
         /* Swerve Voltage Compensation */
         public static final double voltageComp = 12.0;
