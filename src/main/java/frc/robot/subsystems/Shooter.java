@@ -50,21 +50,6 @@ public class Shooter extends SubsystemBase
         target = speed;
     }
 
-    public void runShooter(Joystick opJoystick, Joystick drJoystick)
-    {
-        if(opJoystick.getRawButton(XboxController.Axis.kRightTrigger.value)) // Shooter button pressed  // If still doesnt work, change to getRawAxis and add " >= Constants.STICK_DEADBAND"
-        {
-            setTarget(Constants.Shooter.shooterSpeed);
-        }
-        else    // Shooter button not pressed
-        {
-            setTarget(0);
-        }
-
-        // HOPEFULLY WE CAN DELETE EVERYTHNG ABOVE THIS
-        holdTarget();
-    }
-
     public void fireWhenReady()
     {
         // TODO - Add code to check if shooter is ready to fire

@@ -26,7 +26,7 @@ public class AutoIntake extends Command
     {
         if(!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece())  // Check to see if we have a gamepiece already
         {
-            s_Intake.setSpeed(Constants.Intake.intakeSpeed);
+            s_Intake.setTarget(Constants.Intake.intakeSpeed);
         }
         else
         {

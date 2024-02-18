@@ -36,28 +36,13 @@ public class RobotContainer
     private final SendableChooser<Command> chooser; 
 
     /* Controllers */
-    private final Joystick driver = new Joystick(0);
-    private final Joystick operator = new Joystick(1);
+    private final CommandXboxController driver = new CommandXboxController(0);
+    private final CommandXboxController operator = new CommandXboxController(1);
 
     /* Drive Controls */  // For Swerve
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
-
-    /* Driver Buttons */
-    private final JoystickButton drfireWhenReady = new JoystickButton(driver, XboxController.Axis.kRightTrigger.value);       // Right Trigger
-    private final JoystickButton drAutoAim = new JoystickButton(driver, XboxController.Axis.kLeftTrigger.value);              // Left Trigger
-    private final JoystickButton drAutoIntake = new JoystickButton(driver, XboxController.Button.kRightBumper.value);         // Right Bumper
-    private final JoystickButton drZeroGyro = new JoystickButton(driver, XboxController.Button.kB.value);                     // B BUTTON
-    private final JoystickButton drRobotCentric = new JoystickButton(driver, XboxController.Button.kX.value);                 // X BUTTON
-
-    /* Operator Buttons */
-    private final JoystickButton opIntakeIn = new JoystickButton(operator, XboxController.Button.kRightBumper.value);         // Right Bumper
-    private final JoystickButton opIntakeOut = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);         // Left Bumper
-    private final JoystickButton opSpeakerPreset = new JoystickButton(operator, XboxController.Button.kY.value);              // Y Button
-    private final JoystickButton opShoot = new JoystickButton(operator, XboxController.Axis.kRightTrigger.value);             // Right Trigger
-    private final JoystickButton opAmpFire = new JoystickButton(operator, XboxController.Axis.kLeftTrigger.value);            // Left Trigger
-    private final JoystickButton opAmpPreset = new JoystickButton(operator, XboxController.Button.kA.value);                  // A Button
 
     /* Variables */
     boolean driveStatus = false;
@@ -77,52 +62,29 @@ public class RobotContainer
         new TeleopSwerve
         (
           s_Swerve, 
-          () -> -driver.getRawAxis(translationAxis), 
-          () -> -driver.getRawAxis(strafeAxis), 
-          () -> -driver.getRawAxis(rotationAxis), 
-          () -> drRobotCentric.getAsBoolean()
+          driver
         )
       );
 
       
       s_Intake.setDefaultCommand
       (
-        new TeleopIntake
-        (
-          s_Intake, 
-          operator,
-          driver
-        )      
+        new InstantCommand(() -> s_Intake.holdTarget())
       );
 
       s_Feeder.setDefaultCommand
       (
-        new TeleopFeeder
-        (
-          s_Feeder,
-          operator,
-          driver
-        )
+        new InstantCommand(() -> s_Feeder.holdTarget())
       );
       
       s_Shoulder.setDefaultCommand
       (
-        new TeleopShoulder
-        (
-          s_Shoulder,
-          operator,
-          driver
-        )
+        new InstantCommand(() -> s_Shoulder.holdTarget())
       );
       
       s_Shooter.setDefaultCommand
       (
-        new TeleopShooter
-        (
-          s_Shooter,
-          operator,
-          driver
-        )
+        new InstantCommand(() -> s_Shooter.holdTarget())
       );
 
       /*
@@ -146,23 +108,15 @@ public class RobotContainer
     {
       // Driver Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /*
-         * RT - Fire
-         * LT - Auto Aim
-         * RB - Auto Intake
-         * B - Zero Gyro
-         */
 
       // RT - Automatic Fire
-      drfireWhenReady.whileTrue(Commands.sequence
+      driver.rightTrigger().whileTrue(Commands.sequence
       (
-
-      ));
-      
-      // TODO - write a function to light green LEDs if alligned and ready to be shot
-
+        
+      ));      // TODO - write a function to light green LEDs if alligned and ready to be shot
+    
       // LT - Automatic Aim (X and Y)
-      drAutoAim.whileTrue(Commands.parallel
+      driver.leftTrigger().whileTrue(Commands.parallel
       (
         new TeleopLimelightTurret // Auto Aim X - Swerve
         (
@@ -170,47 +124,45 @@ public class RobotContainer
           s_Shoulder,
           s_Swerve,
           () -> -driver.getRawAxis(translationAxis),
-          () -> -driver.getRawAxis(strafeAxis),
-          drRobotCentric
+          () -> -driver.getRawAxis(strafeAxis)
         ),
         //new AutoAimY(s_Shoulder, s_Limelight),   // Auto Aim Y - Shoulder // TODO - MAKE THIS NOT PARALLEL
         new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed))
       ));
 
       // RB - Automatic Intake / Set Feed Angle / Feed
-      drAutoIntake.onTrue(Commands.sequence
+      driver.rightBumper().onTrue(Commands.sequence
       (
         new AutoIntake(s_Intake, s_Feeder),
         new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle)),
         new AutoFeed(s_Intake, s_Shoulder, s_Feeder)
       ));
 
-      drZeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+      driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+      
+
+
+
+
       
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /*
-         * Back - Manual Mode - ???
-         * Start - Auto Mode - ???
-         * Y - Speaker Preset
-         * A - Amp Preset
-         * RT - Speaker Fire
-         * LT - Amp Fire
-         * RB - Intake IN   (Manual Mode)
-         * LB - Intake OUT  (Manual Mode)
-         */
 
       // Y - Speaker Preset
-      opSpeakerPreset.onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
+      operator.y().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
 
       // A - Amp Preset
-      opAmpPreset.onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
+      operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));         // Move to amp preset angle (when against amp wall)
 
       // RT - Speaker and Amp Shoot (Depending on angle) - X FOR NOW FOR TESTING!
-      //driver.rightTrigger(0.1).whileTrue(new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed)));  // for CommandXboxController
-      opShoot.onTrue(new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed)));
-      opShoot.onFalse(new InstantCommand(() -> s_Shooter.setTarget(0)));
-        //opShoot.onTrue(new ManualFire(s_Shoulder, s_Feeder));    // TODO - added to defualt command to allow for .getRawAxis()to be used
+      operator.rightTrigger().whileTrue(Commands.parallel
+      (
+        new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed))
+        //new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.speakerScoreAngle))
+      ));
+
+      // LB - Manual Intake
+      operator.leftBumper().whileTrue(new InstantCommand(() -> s_Intake.setTarget(Constants.Intake.intakeSpeed)));
     }
     
     public void printValues()

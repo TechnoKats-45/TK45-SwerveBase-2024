@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -16,6 +17,7 @@ public class Intake extends SubsystemBase
 {
     private CANSparkMax intake;
     private DigitalInput intakeSensor;
+    private double target;
 
     public Intake() 
     {
@@ -30,23 +32,14 @@ public class Intake extends SubsystemBase
         return !intakeSensor.get();
     }
 
-    public void setSpeed(double speed)  // For external speed setting
+    public void setTarget(double speed)  // For external speed setting
     {
-        // Speed Set: -1 to 1
-        intake.set(speed);  // Converts speed percent to -1 to 1 range
+        target = speed;
     }
 
-    public void runIntake(Joystick opJoystick, Joystick drJoystick) // For manual control
+    public void holdTarget()    // For holding the gamepiece
     {
-        //if button pressed -> run intake
-        if(opJoystick.getRawButton(XboxController.Button.kRightBumper.value)) // Intake button pressed
-        {
-            intake.set(Constants.Intake.intakeSpeed);
-        }
-        else    // Intake button not pressed
-        {
-            intake.set(0);
-        }
+        intake.set(target);
     }
 
     public void intakeUntilSeen()   // Intake until gamepiece is detected

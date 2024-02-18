@@ -13,12 +13,12 @@ public class Feeder extends SubsystemBase
 {
     private CANSparkMax feeder;
     private DigitalInput FeederSensor1Port;
+    private double target;
 
     public Feeder()
     {
         feeder = new CANSparkMax(Constants.Feeder.FeederID, MotorType.kBrushless);
         FeederSensor1Port = new DigitalInput(Constants.Feeder.FeederSensor1Port);
-
         feeder.setSmartCurrentLimit(40);
     }
 
@@ -33,18 +33,8 @@ public class Feeder extends SubsystemBase
         feeder.set(speed);  // Converts spped percent to -1 to 1 range
     }
 
-    public void runFeeder(Joystick opJoystick, Joystick drJoystick)
+    public void holdTarget()    // For holding the gamepiece
     {
-        //if button pressed -> run Feeder
-        if(opJoystick.getRawButton(XboxController.Button.kLeftBumper.value)) // Feeder button pressed
-        {
-            // Run Feeder
-            feeder.set(0.5);    // TODO - Check direction and speed // TODO - use constant
-        }
-        else    // Feeder button not pressed
-        {
-            // Stop Feeder
-            feeder.set(0);
-        }
+        feeder.set(target);
     }
 }

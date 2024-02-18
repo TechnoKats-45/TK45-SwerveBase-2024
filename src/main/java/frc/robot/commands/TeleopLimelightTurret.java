@@ -10,13 +10,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shoulder;
 
-public class TeleopLimelightTurret extends Command {
+public class TeleopLimelightTurret extends Command 
+{
     private final Limelight limelight;
     private final Shoulder s_Shoulder;
     private final Swerve swerve;
     private final DoubleSupplier translationSup;
     private final DoubleSupplier strafeSup;
-    private final BooleanSupplier robotCentricSup;
 
     public TeleopLimelightTurret
     (
@@ -24,8 +24,7 @@ public class TeleopLimelightTurret extends Command {
         Shoulder s_Shoulder,
         Swerve swerve,
         DoubleSupplier translationSup,
-        DoubleSupplier strafeSup,
-        BooleanSupplier robotCentricSup
+        DoubleSupplier strafeSup
     ) 
     {
         this.limelight = limelight;
@@ -33,7 +32,6 @@ public class TeleopLimelightTurret extends Command {
         this.swerve = swerve;
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
-        this.robotCentricSup = robotCentricSup;
         addRequirements(this.limelight, swerve);
     }
     
@@ -70,7 +68,6 @@ public class TeleopLimelightTurret extends Command {
                 (
                     new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED),
                     rotate,
-                    !robotCentricSup.getAsBoolean(),
                     true
                 );
 
