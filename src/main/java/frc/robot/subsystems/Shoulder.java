@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
@@ -25,9 +26,12 @@ public class Shoulder extends SubsystemBase
     double target = 0;
     int angle;
 
-    public double kP, kI, kD;
+    public double kP, kI, kD, kS, kG, kV, kA, feedForward;
+    private double position = 0, velocity = 0, acceleration = 0;
     private DutyCycleEncoder m_absoluteEncoder;
-    private PIDController m_pidController = new PIDController(kP, kI, kD);
+    private PIDController m_pidController;
+    private ArmFeedforward m_feedforward;
+
 
     public Shoulder() 
     {
@@ -35,6 +39,9 @@ public class Shoulder extends SubsystemBase
         shoulder.restoreFactoryDefaults();
         shoulder.setSmartCurrentLimit(40);
         shoulder.setInverted(true);
+
+        m_feedforward = new ArmFeedforward(kS, kG, kV, kA);
+        m_pidController = new PIDController(kP, kI, kD);
         
         m_absoluteEncoder = new DutyCycleEncoder(Constants.Shoulder.ShoulderEncoderPort);
     }
@@ -51,7 +58,8 @@ public class Shoulder extends SubsystemBase
 
     public void holdTarget() 
     {
-        shoulder.set(m_pidController.calculate(getAngle(), target));
+        feedForward = m_feedforward.calculate(position, velocity, acceleration);
+        shoulder.set((m_pidController.calculate(getAngle(), target) + feedForward) * Constants.Shoulder.speedMultiplier);
     }
 
     public void setAlignedAngle(double x, double z, boolean tag)
