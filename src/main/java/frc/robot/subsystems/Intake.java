@@ -1,10 +1,7 @@
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -37,28 +34,19 @@ public class Intake extends SubsystemBase
     public void setTarget(double speed)  // For external speed setting
     {
         target = speed;
+        SmartDashboard.putNumber("Intake Set Speed", speed);
     }
 
-    public void holdTarget()    // For holding the gamepiece
+    public void holdTarget()    // For maintaining speed
     {
         intake.set(target);
+        SmartDashboard.putNumber("Intake Target", target);
     }
 
-    public void intakeUntilSeen()   // Intake until gamepiece is detected
+    public void runIntake(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
     {
-        if(!intakeSensor.get())        // If gamepiece is not detected
-        {
-            intake.set(Constants.Intake.intakeSpeed);    // TODO - Check direction
-        }
-        else if(intakeSensor.get())    // If gamepiece is detected
-        {
-            intake.set(0);
-        }
-        else
-        {
-            // ERROR
-            // TODO - add error handling / output
-        }
+        setTarget(speed);
+        holdTarget();
     }
 
     public void diagnostics()

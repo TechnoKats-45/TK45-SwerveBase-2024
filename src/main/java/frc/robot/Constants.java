@@ -60,11 +60,12 @@ public final class Constants
     public static final class Shoulder 
     {
         public static final int ShoulderID = 60;
-        public static final int handoffAngle = 3;   // TODO - Update
-        public static final int ampScoreAngle = 130;  // TODO - Update
-        public static final int speakerScoreAngle = 3;   // TODO - Update
+        public static final double handoffAngle = 278.5;   // TODO - Update
+        public static final int ampScoreAngle = 111;  // TODO - Update
+        public static final double speakerScoreAngle = 278.5;   // TODO - Update
         public static final int ShoulderEncoderPort = 2;
-        public static final double speedMultiplier = 0.25; // TODO - Adjust speed multiplier
+        public static final double speedMultiplier = 0.50; // TODO - Adjust speed multiplier
+        public static final double ShoulderEncoderOffset = -276; // TODO - Update this value
     }
 
     /* Shooter Constants */
@@ -91,6 +92,7 @@ public final class Constants
         public static final double minimumExtension = 0;
         public static final double maxExtension = 100;   // TODO - Update this value
         public static final double chainGrabHeight = 99; // TODO - Update this value
+        public static final int ClimberEncoderPort = 3;
     
         // TODO - tune PID
         public static final double kP = 0.1;

@@ -28,8 +28,6 @@ public class Climber extends SubsystemBase
     double target = 0;
     int angle;
 
-    private DutyCycleEncoder m_alternateEncoder;
-
     public Climber()
     {
         climber = new CANSparkMax(Constants.Climber.ClimberID, MotorType.kBrushless);
@@ -37,12 +35,12 @@ public class Climber extends SubsystemBase
         climber.setSmartCurrentLimit(40);
         climber.setInverted(false);
 
-        m_absoluteEncoder = new DutyCycleEncoder(Constants.Shoulder.ShoulderEncoderPort);
+        m_absoluteEncoder = new DutyCycleEncoder(Constants.Climber.ClimberEncoderPort);
     }
 
     public double getHeight()
     {
-        return m_alternateEncoder.getAbsolutePosition() * 360* Constants.Climber.kInchesPerRotation;    // TODO - update InchesPerRotation
+        return m_absoluteEncoder.getAbsolutePosition() * 360* Constants.Climber.kInchesPerRotation;    // TODO - update InchesPerRotation
     }
 
     public void setTarget(double height)  // For external height setting

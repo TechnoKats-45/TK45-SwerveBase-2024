@@ -11,13 +11,8 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
-import com.revrobotics.SparkMaxAlternateEncoder;
-import com.revrobotics.SparkPIDController;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
 
 public class Shoulder extends SubsystemBase
 {
@@ -44,6 +39,7 @@ public class Shoulder extends SubsystemBase
         m_pidController = new PIDController(kP, kI, kD);
         
         m_absoluteEncoder = new DutyCycleEncoder(Constants.Shoulder.ShoulderEncoderPort);
+        m_absoluteEncoder.setPositionOffset(Constants.Shoulder.ShoulderEncoderOffset);
     }
 
     public double getAngle()
@@ -51,7 +47,7 @@ public class Shoulder extends SubsystemBase
         return m_absoluteEncoder.getAbsolutePosition() * 360;
     }
 
-    public void moveAngle(Joystick opJoystick, Joystick drJoystick) // For manual control
+    public void moveAngle(Joystick opJoystick, Joystick drJoystick) 
     {
         holdTarget();   // Hold target angle // Button readings should happen in RobotContainer
     }
@@ -59,7 +55,7 @@ public class Shoulder extends SubsystemBase
     public void holdTarget() 
     {
         feedForward = m_feedforward.calculate(position, velocity, acceleration);
-        shoulder.set((m_pidController.calculate(getAngle(), target) + feedForward) * Constants.Shoulder.speedMultiplier);
+        shoulder.set((m_pidController.calculate(getAngle(), target)) * Constants.Shoulder.speedMultiplier); // add back in "+ feedforward"
     }
 
     public void setAlignedAngle(double x, double z, boolean tag)
@@ -90,8 +86,12 @@ public class Shoulder extends SubsystemBase
 
     public void diagnostics()
     {
+        /*
         ShuffleboardTab tab = Shuffleboard.getTab("Shoulder");
         tab.add("Shoulder Angle", getAngle());
         tab.add("Shoulder Target", target);
+        */
+
+        SmartDashboard.putNumber("Shoulder Angle", getAngle());
     }
 }

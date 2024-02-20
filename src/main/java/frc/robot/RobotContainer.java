@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -64,22 +64,22 @@ public class RobotContainer
 
       s_Intake.setDefaultCommand
       (
-        new InstantCommand(() -> s_Intake.holdTarget())
+        new TeleopIntake(s_Intake)
       );
 
       s_Feeder.setDefaultCommand
       (
-        new InstantCommand(() -> s_Feeder.holdTarget())
+        new TeleopFeeder(s_Feeder)
       );
       
       s_Shoulder.setDefaultCommand
       (
-        new InstantCommand(() -> s_Shoulder.holdTarget())
+        new TeleopShoulder(s_Shoulder)
       );
       
       s_Shooter.setDefaultCommand
       (
-        new InstantCommand(() -> s_Shooter.holdTarget())
+        new TeleopShooter(s_Shooter)
       );
 
       /*
@@ -152,25 +152,24 @@ public class RobotContainer
       operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));     // Move to amp preset angle (when against amp wall)
 
       // RT - Speaker and Amp Shoot (Depending on angle)
-      operator.rightTrigger().whileTrue(Commands.parallel
-      (
-        new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed))
-        //new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.speakerScoreAngle))
-      ));
+      operator.rightTrigger().whileTrue(new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed)));
 
       // LB - Manual Intake
-      operator.leftBumper().whileTrue(new InstantCommand(() -> s_Intake.setTarget(Constants.Intake.intakeSpeed)));
+      operator.leftBumper().whileTrue(new RunCommand(() -> s_Intake.runIntake(Constants.Intake.intakeSpeed)));
+
+      // RB - Manual Feeder
+      operator.rightBumper().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(Constants.Feeder.hanfoffSpeed)));
     }
     
     public void printValues()
     {
-      s_Climber.diagnostics();
-      s_Feeder.diagnostics();
-      s_Intake.diagnostics();
-      s_Limelight.diagnostics();
+      //s_Climber.diagnostics();
+      //s_Feeder.diagnostics();
+      //s_Intake.diagnostics();
+      //s_Limelight.diagnostics();
       s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
-      s_Swerve.diagnostics();
+      //s_Swerve.diagnostics();
     }
 
     /**

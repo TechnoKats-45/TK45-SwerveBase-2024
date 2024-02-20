@@ -29,7 +29,7 @@ public class Feeder extends SubsystemBase
         return !FeederSensor1Port.get();
     }
 
-    public void setSpeed(double speed)  // For external speed setting
+    public void setTarget(double speed)  // For external speed setting
     {
         // Speed Set: -1 to 1
         feeder.set(speed);  // Converts spped percent to -1 to 1 range
@@ -38,6 +38,12 @@ public class Feeder extends SubsystemBase
     public void holdTarget()    // For holding the gamepiece
     {
         feeder.set(target);
+    }
+
+    public void runFeeder(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
+    {
+        setTarget(speed);
+        holdTarget();
     }
 
     public void diagnostics()

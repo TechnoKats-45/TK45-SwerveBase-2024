@@ -59,8 +59,16 @@ public class Shooter extends SubsystemBase
 
     public void diagnostics()
     {
+        /*
         ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
         tab.add("Shooter Speed", getSpeed());
         tab.add("Shooter Target", target);
+        */
+        SmartDashboard.putNumber("Shooter Current", getCurrent());
+    }
+
+    public double getCurrent()
+    {
+        return shooter.getOutputCurrent();
     }
 }
