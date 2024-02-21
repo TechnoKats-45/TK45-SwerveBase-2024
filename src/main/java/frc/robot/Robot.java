@@ -36,9 +36,6 @@ public class Robot extends TimedRobot
   public void robotInit()
   {
     ctreConfigs = new CTREConfigs();
-
-    SmartDashboard.putBoolean("REACHED", false);
-    SmartDashboard.putBoolean("TEST INTAKE", false); // TODO - remove this line - for testing only
     
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.

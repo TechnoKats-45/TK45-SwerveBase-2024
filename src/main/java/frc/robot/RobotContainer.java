@@ -33,8 +33,6 @@ public class RobotContainer
     private final Limelight s_Limelight = new Limelight();
     private final Climber s_Climber = new Climber();
 
-    private final AutoIntake c_AutoIntake = new AutoIntake(s_Intake, s_Feeder);
-
     private final SendableChooser<Command> chooser; 
 
     /* Controllers */
@@ -53,10 +51,10 @@ public class RobotContainer
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
     {
-      // TODO - add registered commands here
       /*
+      // TODO - add registered commands here
       NamedCommands.registerCommand("AutoFeed", new AutoFeed(s_Intake, s_Shoulder, s_Feeder));
-      NamedCommands.registerCommand("AutoIntake", new AutoIntake(s_Intake, s_Feeder));
+      NamedCommands.registerCommand("AutoIntake", new AutoIntake(s_Intake, s_Feeder).until(() -> s_Feeder.detectGamePiece()));
       */
 
       s_Swerve.setDefaultCommand
@@ -130,27 +128,20 @@ public class RobotContainer
           () -> -driver.getRawAxis(translationAxis),
           () -> -driver.getRawAxis(strafeAxis)
         ),
-        //new AutoAimY(s_Shoulder, s_Limelight),   // Auto Aim Y - Shoulder // TODO - MAKE THIS NOT PARALLEL
+        //new AutoAimY(s_Shoulder, s_Limelight),   // Auto Aim Y - Shoulder // TODO - MAKE THIS NOT PARALLEL - add to TeleopLimelightTurret?
         new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed))
       ));
 
-      // RB - Automatic Intake / Set Feed Angle / Feed
-      driver.rightBumper().onTrue
+      driver.rightBumper().onTrue // THIS WORKS // TODO - NEEDS TUNED
       (
         Commands.sequence
         (
-          Commands.parallel
-          (
-            new AutoIntake(s_Intake, s_Feeder),
-            new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle))
-          ).until(c_AutoIntake::isFinished),
-          new AutoFeed(s_Intake, s_Shoulder, s_Feeder)  // TODO - fix this - it's skipping right to auotfeed before auto intake is done
+          new AutoIntake(s_Intake, s_Feeder, s_Shoulder), // Also sets / holds shoulder angle
+          new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle
         )
       );
-
-      driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); // This works
       
-
+      driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); // THIS WORKS
 
 
 
@@ -171,23 +162,23 @@ public class RobotContainer
       operator.leftBumper().whileTrue(new RunCommand(() -> s_Intake.runIntake(Constants.Intake.intakeSpeed)));
 
       // RB - Manual Feeder
-      operator.rightBumper().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(Constants.Feeder.hanfoffSpeed)));
+      operator.rightBumper().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(Constants.Feeder.handoffSpeed)));
 
       // LT - Manual Feeder
       operator.leftTrigger().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-.5)));
 
       // Down on D-Pad - Clmbers Down
-      operator.povDown().whileTrue(new RunCommand(() -> s_Climber.runClimber(0.25)));
+      operator.povDown().whileTrue(new InstantCommand(() -> s_Climber.setTarget(10)));
 
       // Up on D-Pad - Climbers Up
-      operator.povUp().whileTrue(new RunCommand(() -> s_Climber.runClimber(-0.25)));
+      operator.povUp().whileTrue(new InstantCommand(() -> s_Climber.setTarget(0)));
     }
     
     public void printValues()
     {
       //s_Climber.diagnostics();
       //s_Feeder.diagnostics();
-      //s_Intake.diagnostics();
+      s_Intake.diagnostics();
       //s_Limelight.diagnostics();
       s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
