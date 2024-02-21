@@ -149,34 +149,42 @@ public class RobotContainer
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      // Y - Speaker Preset
+      // Y - Amp Preset
       operator.y().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));    // Move to speaker preset angle (when against sub wall)
 
-      // A - Amp Preset
+      // A - Handoff / Speaker Preset
       operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle)));     // Move to amp preset angle (when against amp wall)
 
-      // RT - Speaker and Amp Shoot (Depending on angle)
+      // RT - Spin Shooter
       operator.rightTrigger().whileTrue(new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed)));
 
-      // LB - Manual Intake
+      // LB - Manual Intake IN
       operator.leftBumper().whileTrue(new RunCommand(() -> s_Intake.runIntake(Constants.Intake.intakeSpeed)));
 
-      // RB - Manual Feeder
-      operator.rightBumper().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(Constants.Feeder.handoffSpeed)));
+      // RB - Manual Intake OUT
+      operator.rightBumper().whileTrue(new RunCommand(() -> s_Intake.runIntake(.25)));
 
-      // LT - Manual Feeder
-      operator.leftTrigger().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-.5)));
+      // D-PAD UP - Manual Feeder
+      operator.povUp().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(Constants.Feeder.handoffSpeed)));
 
-      // Down on D-Pad - Clmbers Down
-      operator.povDown().whileTrue(new InstantCommand(() -> s_Climber.setTarget(10)));
+      // D-PAD DOWN - Manual Feeder
+      operator.povDown().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-.5)));
 
-      // Up on D-Pad - Climbers Up
-      operator.povUp().whileTrue(new InstantCommand(() -> s_Climber.setTarget(0)));
+      // Right Stick Down - Clmbers Down
+      //operator.leftStick().whileTrue(new InstantCommand(() -> s_Climber.setTarget(10)));
+
+      // Right Stick Up- Climbers Up
+      //operator.leftStick().whileTrue(new InstantCommand(() -> s_Climber.setTarget(0)));
+
+      // Left Stick Up - Arm Up (Toward Back)
+      // TODO
+
+      // Left Stick Down - Arm Down (Toward Front)
     }
     
     public void printValues()
     {
-      //s_Climber.diagnostics();
+      s_Climber.diagnostics();
       //s_Feeder.diagnostics();
       s_Intake.diagnostics();
       //s_Limelight.diagnostics();

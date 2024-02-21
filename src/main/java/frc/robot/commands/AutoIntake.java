@@ -28,6 +28,7 @@ public class AutoIntake extends Command
     @Override
     public void execute() 
     {
+        SmartDashboard.putBoolean("AUTO INTAKE", true);
         s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
         s_Shoulder.holdTarget();  // Hold the shoulder at the target angle
 
@@ -44,6 +45,7 @@ public class AutoIntake extends Command
 
     public boolean isFinished()
     {
+        SmartDashboard.putBoolean("Intake is Finished", true);
         return s_Intake.detectGamePiece();  // End when GamePiece is detected in intake
     }
 }

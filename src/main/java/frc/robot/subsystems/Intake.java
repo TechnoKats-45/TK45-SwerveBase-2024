@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
     {
-        SmartDashboard.putBoolean("Intake Detect", !intakeSensor.get());
+        SmartDashboard.putBoolean("Intake Sensor", !intakeSensor.get());
         return !intakeSensor.get();
     }
 
@@ -52,8 +52,6 @@ public class Intake extends SubsystemBase
 
     public void diagnostics()
     {
-        SmartDashboard.putNumber("Intake Current", intake.getOutputCurrent());
-        SmartDashboard.putNumber("Intake Voltage", intake.getBusVoltage());
-        SmartDashboard.putBoolean("Intake Sensor", detectGamePiece());
+
     }
 }

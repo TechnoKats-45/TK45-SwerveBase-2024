@@ -61,7 +61,7 @@ public final class Constants
     {
         public static final int ShoulderID = 60;
         public static final double handoffAngle = 28;           // TODO - Update
-        public static final double ampScoreAngle = 224.8;       // TODO - Update
+        public static final double ampScoreAngle = 227;       // TODO - Update
         public static final double speakerScoreAngle = 28;      // TODO - Update
         public static final int ShoulderEncoderPort = 2;
         public static final double ShoulderEncoderOffset = 270; // TODO - Update this value
@@ -102,7 +102,7 @@ public final class Constants
         public static final double kMaxOutput = .2;     // TODO - Update this to 1 after testing
         public static final double kMinOutput = -.2;    // TODO - Update this to 1 after testing
 
-        public static final double kInchesPerRotation = 2; // TODO - Update this value
+        public static final double kInchesPerRotation = 1; // TODO - Update this value
     }
 
     /* Gyro Constants */

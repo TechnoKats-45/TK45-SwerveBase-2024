@@ -57,12 +57,6 @@ public class Shooter extends SubsystemBase
         target = speed;
     }
 
-    public void fireWhenReady()
-    {
-        // TODO - Add code to check if shooter is ready to fire
-        // TODO - Add code to fire
-    }
-
     public void diagnostics()
     {
         /*
