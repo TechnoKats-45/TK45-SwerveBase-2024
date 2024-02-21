@@ -28,6 +28,7 @@ public class Intake extends SubsystemBase
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
     {
+        SmartDashboard.putBoolean("Intake Detect", !intakeSensor.get());
         return !intakeSensor.get();
     }
 

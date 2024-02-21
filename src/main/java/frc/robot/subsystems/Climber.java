@@ -53,6 +53,11 @@ public class Climber extends SubsystemBase
         climber.set(m_pidController.calculate(getHeight(), target));
     }
 
+    public void runClimber(double speed)
+    {
+        climber.set(speed);
+    }
+
     public void diagnostics()
     {
         ShuffleboardTab tab = Shuffleboard.getTab("Climber");

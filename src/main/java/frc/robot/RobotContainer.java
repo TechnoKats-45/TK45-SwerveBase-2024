@@ -33,6 +33,8 @@ public class RobotContainer
     private final Limelight s_Limelight = new Limelight();
     private final Climber s_Climber = new Climber();
 
+    private final AutoIntake c_AutoIntake = new AutoIntake(s_Intake, s_Feeder);
+
     private final SendableChooser<Command> chooser; 
 
     /* Controllers */
@@ -82,6 +84,11 @@ public class RobotContainer
         new TeleopShooter(s_Shooter)
       );
 
+      s_Climber.setDefaultCommand
+      (
+        new TeleopClimber(s_Climber)
+      );
+
       /*
       limelight.setDefaultCommand
       (
@@ -128,14 +135,20 @@ public class RobotContainer
       ));
 
       // RB - Automatic Intake / Set Feed Angle / Feed
-      driver.rightBumper().onTrue(Commands.sequence
+      driver.rightBumper().onTrue
       (
-        new AutoIntake(s_Intake, s_Feeder),
-        new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle)),
-        new AutoFeed(s_Intake, s_Shoulder, s_Feeder)
-      ));
+        Commands.sequence
+        (
+          Commands.parallel
+          (
+            new AutoIntake(s_Intake, s_Feeder),
+            new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle))
+          ).until(c_AutoIntake::isFinished),
+          new AutoFeed(s_Intake, s_Shoulder, s_Feeder)  // TODO - fix this - it's skipping right to auotfeed before auto intake is done
+        )
+      );
 
-      driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+      driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); // This works
       
 
 
@@ -146,19 +159,28 @@ public class RobotContainer
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       // Y - Speaker Preset
-      operator.y().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.speakerScoreAngle))); // Move to speaker preset angle (when against sub wall)
+      operator.y().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));    // Move to speaker preset angle (when against sub wall)
 
       // A - Amp Preset
-      operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));     // Move to amp preset angle (when against amp wall)
+      operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle)));     // Move to amp preset angle (when against amp wall)
 
       // RT - Speaker and Amp Shoot (Depending on angle)
-      operator.rightTrigger().whileTrue(new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed)));
+      operator.rightTrigger().whileTrue(new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed)));
 
       // LB - Manual Intake
       operator.leftBumper().whileTrue(new RunCommand(() -> s_Intake.runIntake(Constants.Intake.intakeSpeed)));
 
       // RB - Manual Feeder
       operator.rightBumper().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(Constants.Feeder.hanfoffSpeed)));
+
+      // LT - Manual Feeder
+      operator.leftTrigger().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-.5)));
+
+      // Down on D-Pad - Clmbers Down
+      operator.povDown().whileTrue(new RunCommand(() -> s_Climber.runClimber(0.25)));
+
+      // Up on D-Pad - Climbers Up
+      operator.povUp().whileTrue(new RunCommand(() -> s_Climber.runClimber(-0.25)));
     }
     
     public void printValues()
@@ -172,9 +194,15 @@ public class RobotContainer
       //s_Swerve.diagnostics();
     }
 
+    public void subsystemInit()
+    {
+      s_Shoulder.setTarget(s_Shoulder.getAngle());
+    }
+
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
+     * 
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() 

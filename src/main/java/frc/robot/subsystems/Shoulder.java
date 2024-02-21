@@ -21,7 +21,7 @@ public class Shoulder extends SubsystemBase
     double target = 0;
     int angle;
 
-    public double kP, kI, kD, kS, kG, kV, kA, feedForward;
+    public double kP = .01, kI = 0.0001, kD = 0, kS, kG, kV, kA, feedForward;
     private double position = 0, velocity = 0, acceleration = 0;
     private DutyCycleEncoder m_absoluteEncoder;
     private PIDController m_pidController;
@@ -37,9 +37,10 @@ public class Shoulder extends SubsystemBase
 
         m_feedforward = new ArmFeedforward(kS, kG, kV, kA);
         m_pidController = new PIDController(kP, kI, kD);
-        
+
         m_absoluteEncoder = new DutyCycleEncoder(Constants.Shoulder.ShoulderEncoderPort);
-        m_absoluteEncoder.setPositionOffset(Constants.Shoulder.ShoulderEncoderOffset);
+
+        target = getAngle();    // TODO - change to handoff angle eventually
     }
 
     public double getAngle()
@@ -54,8 +55,22 @@ public class Shoulder extends SubsystemBase
 
     public void holdTarget() 
     {
-        feedForward = m_feedforward.calculate(position, velocity, acceleration);
-        shoulder.set((m_pidController.calculate(getAngle(), target)) * Constants.Shoulder.speedMultiplier); // add back in "+ feedforward"
+        //feedForward = m_feedforward.calculate(position, velocity, acceleration);
+        //shoulder.set((m_pidController.calculate(getAngle(), target))); // add back in "+ feedforward"   // removed  * Constants.Shoulder.speedMultiplier
+        //SmartDashboard.putNumber("Arm Set", ((m_pidController.calculate(m_absoluteEncoder.getAbsolutePosition(), target)) * Constants.Shoulder.speedMultiplier));
+
+        double pidOutput = m_pidController.calculate(getAngle(), target);
+        double maxSpeed = 0.75; // Example maximum speed value. Adjust this to your needs.  // TODO - use constant
+
+        // Limit the speed to the range [-maxSpeed, maxSpeed]
+        double limitedSpeed = Math.max(-maxSpeed, Math.min(maxSpeed, pidOutput));
+
+        // Set the motor speed with the limited value
+        shoulder.set(limitedSpeed);
+
+        SmartDashboard.putNumber("LIMITED SET", limitedSpeed);
+        SmartDashboard.putNumber("ARM SET", m_pidController.calculate(getAngle(), target));
+        SmartDashboard.putNumber("Set Target", target);
     }
 
     public void setAlignedAngle(double x, double z, boolean tag)

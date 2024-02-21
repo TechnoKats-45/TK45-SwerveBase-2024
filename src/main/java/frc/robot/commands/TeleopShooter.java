@@ -27,6 +27,6 @@ public class TeleopShooter extends Command
     @Override
     public void execute() 
     {
-        s_Shooter.holdTarget();
+        s_Shooter.runShooter(0);
     }
 }

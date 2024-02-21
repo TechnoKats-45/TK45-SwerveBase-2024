@@ -27,10 +27,10 @@ public class AutoFeed extends Command
     @Override
     public void execute() 
     {
-        if(!s_Feeder.detectGamePiece() && s_Intake.detectGamePiece() && s_Shoulder.getAngle() == Constants.Shoulder.handoffAngle)   // If no GP in feeder, and yes GP in intake, and yes shoulder angle correct
+        if(!s_Feeder.detectGamePiece() && s_Intake.detectGamePiece() && s_Shoulder.isAligned())   // If no GP in feeder, and yes GP in intake, and yes shoulder angle correct
         {
             s_Intake.setTarget(Constants.Intake.hanfoffSpeed);
-            s_Feeder.setSpeed(Constants.Feeder.hanfoffSpeed);
+            s_Feeder.setTarget(Constants.Feeder.hanfoffSpeed);
         }
         else
         {

@@ -26,11 +26,11 @@ public class ManualFire extends Command
     {
         if(s_Shoulder.getAngle() >= 0)   // If in speaker mode -> Shooter pointing up
         {
-            s_Feeder.setSpeed(Constants.Feeder.speakerFeedSpeed);
+            s_Feeder.setTarget(Constants.Feeder.speakerFeedSpeed);
         }
         else if(s_Shoulder.getAngle() < 0)  // If in amp mode -> Feeder pointing up
         {
-            s_Feeder.setSpeed(1);   // change to "Constants.Feeder.ampShootSpeed"
+            s_Feeder.setTarget(1);   // change to "Constants.Feeder.ampShootSpeed"
         }
         else
         {

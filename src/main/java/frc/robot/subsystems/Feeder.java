@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -31,13 +32,14 @@ public class Feeder extends SubsystemBase
 
     public void setTarget(double speed)  // For external speed setting
     {
-        // Speed Set: -1 to 1
-        feeder.set(speed);  // Converts spped percent to -1 to 1 range
+        target = speed;
+        //SmartDashboard.putNumber("Feeder Set Speed", speed);
     }
 
     public void holdTarget()    // For holding the gamepiece
     {
         feeder.set(target);
+        //SmartDashboard.putNumber("Feeder Target", target);
     }
 
     public void runFeeder(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL

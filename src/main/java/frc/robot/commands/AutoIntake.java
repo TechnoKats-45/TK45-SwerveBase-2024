@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
@@ -26,7 +27,7 @@ public class AutoIntake extends Command
     {
         if(!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece())  // Check to see if we have a gamepiece already
         {
-            s_Intake.setTarget(Constants.Intake.intakeSpeed);
+            s_Intake.runIntake(Constants.Intake.intakeSpeed);
         }
         else
         {
@@ -37,6 +38,7 @@ public class AutoIntake extends Command
 
     public boolean isFinished()
     {
+        SmartDashboard.putBoolean("REACHED", true);
         return s_Intake.detectGamePiece();  // End when GamePiece is detected in intake
     }
 }

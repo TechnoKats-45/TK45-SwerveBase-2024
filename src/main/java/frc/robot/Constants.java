@@ -41,9 +41,9 @@ public final class Constants
     public static final class Intake 
     {
         public static final int IntakeID = 40;
-        public static final double intakeSpeed = -1; // TODO - Adjust intake speed
+        public static final double intakeSpeed = -.75; // TODO - Adjust intake speed
         public static final int IntakeSensor1Port = 1;   
-        public static final double hanfoffSpeed = .5; // TODO - Adjust handoff speed
+        public static final double hanfoffSpeed = -.25; // TODO - Adjust handoff speed
     }
 
     /* Feeder Constants */
@@ -51,7 +51,7 @@ public final class Constants
     {
         public static final int FeederID = 50;
         public static final int FeederSensor1Port = 0;
-        public static final double hanfoffSpeed = 0.5; // TODO - Adjust feeder speed
+        public static final double hanfoffSpeed = 1; // TODO - Adjust feeder speed
         public static final double ampShootSpeed = 0.5; // TODO - Adjust amp shoot speed
         public static final double speakerFeedSpeed = 1;
     }
@@ -60,12 +60,12 @@ public final class Constants
     public static final class Shoulder 
     {
         public static final int ShoulderID = 60;
-        public static final double handoffAngle = 278.5;   // TODO - Update
-        public static final int ampScoreAngle = 111;  // TODO - Update
-        public static final double speakerScoreAngle = 278.5;   // TODO - Update
+        public static final double handoffAngle = 28;           // TODO - Update
+        public static final double ampScoreAngle = 224.8;            // TODO - Update
+        public static final double speakerScoreAngle = 28;      // TODO - Update\[]
         public static final int ShoulderEncoderPort = 2;
-        public static final double speedMultiplier = 0.50; // TODO - Adjust speed multiplier
-        public static final double ShoulderEncoderOffset = -276; // TODO - Update this value
+        public static final double speedMultiplier = 0.25;      // TODO - Adjust speed multiplier
+        public static final double ShoulderEncoderOffset = 270; // TODO - Update this value
     }
 
     /* Shooter Constants */
@@ -189,7 +189,7 @@ public final class Constants
 
         /* Swerve Profiling Values */
         /** Meters per Second */    // Controls the translational speed and acceleration of the robot (left joystick)
-        public static final double MAX_SPEED = 5;  // was 4.1
+        public static final double MAX_SPEED = 1;  // was 4.1
         public static final double MAX_ACCEL = 1;  // was 4.1
 
         /** Radians per Second */ // Controls the rotational speed of the robot (right joystick)

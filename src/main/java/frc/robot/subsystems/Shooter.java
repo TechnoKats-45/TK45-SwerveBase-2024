@@ -21,7 +21,7 @@ public class Shooter extends SubsystemBase
 {
     private CANSparkMax shooter;
 
-    public double kP, kI, kD;
+    public double kP = 1, kI = 0, kD = 0;
     private PIDController pidController = new PIDController(kP, kI, kD);
 
     double target = 0;
@@ -38,7 +38,13 @@ public class Shooter extends SubsystemBase
 
     public void holdTarget() 
     {
-        shooter.set(pidController.calculate(getSpeed(), target));
+        shooter.set(target);    //pidController.calculate(getSpeed(), target)   // IDK why this wasn't working // TODO
+    }
+
+    public void runShooter(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
+    {
+        setTarget(speed);
+        holdTarget();
     }
 
     public double getSpeed()
