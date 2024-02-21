@@ -52,7 +52,8 @@ public class Intake extends SubsystemBase
 
     public void diagnostics()
     {
-        ShuffleboardTab tab = Shuffleboard.getTab("Intake");
-        tab.add("Intake Sensor", detectGamePiece());
+        SmartDashboard.putNumber("Intake Current", intake.getOutputCurrent());
+        SmartDashboard.putNumber("Intake Voltage", intake.getBusVoltage());
+        SmartDashboard.putBoolean("Intake Sensor", detectGamePiece());
     }
 }
