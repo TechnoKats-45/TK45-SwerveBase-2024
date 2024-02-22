@@ -89,9 +89,9 @@ public class RobotContainer
       );
 
       /*
-      limelight.setDefaultCommand
+      s_Limelight.setDefaultCommand
       (
-        new TeleopLimelight(limelight)
+        new TeleopLimelight(s_Limelight)
       );
       */
       
@@ -112,13 +112,13 @@ public class RobotContainer
       // Driver Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      // RT - Automatic Fire
+      // Right Trigger - Automatic Fire
       driver.rightTrigger().whileTrue(Commands.sequence
       (
-        new AutoFire() // TODO - update this
+        new AutoFire(s_Feeder, s_Limelight, s_Shoulder) // TODO - update this ???
       ));
     
-      // LT - Automatic Aim (X and Y)
+      // Left Trigger - Automatic Aim (X and Y), and spin up shooter
       driver.leftTrigger().whileTrue(Commands.parallel
       (
         new TeleopLimelightTurret // Auto Aim X - Swerve
@@ -129,36 +129,20 @@ public class RobotContainer
           () -> -driver.getRawAxis(translationAxis),
           () -> -driver.getRawAxis(strafeAxis)
         ),
-        //new AutoAimY(s_Shoulder, s_Limelight),   // Auto Aim Y - Shoulder // TODO - MAKE THIS NOT PARALLEL - add to TeleopLimelightTurret?
-        new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed))
+        new InstantCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
       ));
 
-      
-      driver.rightBumper().onTrue // THIS does not WORK anymore // TODO - NEEDS TUNED
+      // Right Bumper - Automatic Intake, Feed, and Shoulder Angle
+      driver.rightBumper().onTrue // THIS WORKS
       (
         Commands.sequence
         (
-          new AutoIntake(s_Intake, s_Feeder, s_Shoulder), // Also sets / holds shoulder angle
+          new AutoIntake(s_Intake, s_Feeder, s_Shoulder).until(s_Intake::detectGamePiece), // Also sets shoulder angle
           new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
         )
       );
       
-
-      /*
-      driver.rightBumper().onTrue // This works
-      (
-        new SequentialCommandGroup
-        (
-          new RunCommand(() -> s_Intake.runIntake(-.75), s_Intake).until(s_Intake::detectGamePiece),
-          new RunCommand(() -> s_Feeder.runFeeder(-.5), s_Feeder).until(s_Feeder::detectGamePiece)
-        )
-      );
-      */
-
-      
-      
-
-
+      // B Button - Zero Gyro
       driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); // THIS WORKS
 
 
@@ -167,39 +151,51 @@ public class RobotContainer
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      // Y - Speaker Preset
+      // Y - Speaker Preset X
       operator.y().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle)));    // Move to speaker preset angle (when against sub wall)
 
-      // A - Amp Preset
+      // A - Amp Preset X
       operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle)));     // Move to amp preset angle (when against amp wall)
 
-      // RT - Speaker and Amp Shoot (Depending on angle)
+      // Right Tri - Spin Shooter
       operator.rightTrigger().whileTrue(new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed)));
 
-      // LB - Manual Intake
+      // Left Bumper - Manual Intake IN
       operator.leftBumper().whileTrue(new RunCommand(() -> s_Intake.runIntake(Constants.Intake.intakeSpeed)));
 
-      // RB - Manual Feeder
-      operator.rightBumper().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(Constants.Feeder.handoffSpeed)));
+      // Right Bumper - Manual Intake OUT
+      operator.rightBumper().whileTrue(new RunCommand(() -> s_Intake.runIntake(Constants.Intake.outtakeSpeed)));
+      
+      // Up on D-Pad - Manual Feeder IN
+      operator.povUp().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(Constants.Feeder.handoffSpeed)));
 
-      // LT - Manual Feeder
+      // Down on D-Pad - Manual Feeder OUT
+      operator.povDown().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-Constants.Feeder.handoffSpeed)));
+
+      // Left Trigger - Manual Feeder
       operator.leftTrigger().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-.5)));
 
-      // Down on D-Pad - Clmbers Down
-      operator.povDown().whileTrue(new InstantCommand(() -> s_Climber.setTarget(10)));
+      // Right Stick DOWN - Clmbers Down
+      operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.setTarget(Constants.Climber.minimumExtension)));  //  TODO - need to determine target height before running
 
-      // Up on D-Pad - Climbers Up
-      operator.povUp().whileTrue(new InstantCommand(() -> s_Climber.setTarget(0)));
+      // Right Stick UP - Climbers Up
+      operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.setTarget(Constants.Climber.chainGrabHeight)));     //  TODO - need to determine target height before running
+
+      // Left Stick DOWN - Arm Down
+      operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(Constants.Shoulder.manualShoulderSpeed)));
+
+      // Left Stick UP - Arm Up
+      operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(-Constants.Shoulder.manualShoulderSpeed)));
     }
     
     public void printValues()
     {
       //s_Climber.diagnostics();
       //s_Feeder.diagnostics();
-      s_Intake.diagnostics();
+      //s_Intake.diagnostics();
       //s_Limelight.diagnostics();
-      s_Shooter.diagnostics();
-      s_Shoulder.diagnostics();
+      //s_Shooter.diagnostics();
+      //s_Shoulder.diagnostics();
       //s_Swerve.diagnostics();
     }
 

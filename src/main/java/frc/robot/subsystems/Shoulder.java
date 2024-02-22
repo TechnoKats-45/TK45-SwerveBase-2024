@@ -67,18 +67,13 @@ public class Shoulder extends SubsystemBase
 
         // Set the motor speed with the limited value
         shoulder.set(limitedSpeed);
-
-        SmartDashboard.putNumber("LIMITED SET", limitedSpeed);
-        SmartDashboard.putNumber("ARM SET", m_pidController.calculate(getAngle(), target));
-        SmartDashboard.putNumber("Set Target", target);
     }
 
     public void setAlignedAngle(double x, double z, boolean tag)
     {
-        //double dist = Math.hypot(x, z); // Calculates direct line distance from target
         if(tag) // If tag exists
         {
-            target = Math.tan(z/x);    // Calculates angle to target based on X and Z Tangent (Opposite over Adjacent)
+            target = Math.hypot(z, x) - Constants.Shoulder.groundParallelAngle;    // Calculates direct line to taget angle based on X and Z (Hypotenuse)
         }
     }
 
@@ -97,17 +92,27 @@ public class Shoulder extends SubsystemBase
 
     public void setTarget(double setPoint)  // Assigns a new target angle
     {
+        /*
+        // Checks to make sure angle is within limits
+        if(setPoint > Constants.Shoulder.maxAngle)
+        {
+            setPoint = Constants.Shoulder.maxAngle;
+        }
+        else if(setPoint < Constants.Shoulder.minAngle)
+        {
+            setPoint = Constants.Shoulder.minAngle;
+        }
+        */
         target = setPoint;
+    }
+
+    public void runShoulder(double speed) 
+    {
+        // TODO
     }
 
     public void diagnostics()
     {
-        /*
-        ShuffleboardTab tab = Shuffleboard.getTab("Shoulder");
-        tab.add("Shoulder Angle", getAngle());
-        tab.add("Shoulder Target", target);
-        */
-
         SmartDashboard.putNumber("Shoulder Angle", getAngle());
     }
 }

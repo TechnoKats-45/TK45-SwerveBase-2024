@@ -29,7 +29,6 @@ public class AutoIntake extends Command
     public void execute() 
     {
         s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
-        s_Shoulder.holdTarget();  // Hold the shoulder at the target angle
 
         if(!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece())  // Check to see if we have a gamepiece already
         {
@@ -37,9 +36,12 @@ public class AutoIntake extends Command
         }
         else
         {
+            s_Intake.runIntake(0);
             // We already have a gamepiece
             // TODO - add diagnostics
         }
+
+        s_Shoulder.holdTarget();
     }
 
     public boolean isFinished()

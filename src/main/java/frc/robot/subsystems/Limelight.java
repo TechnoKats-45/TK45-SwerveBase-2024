@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -59,7 +60,7 @@ public class Limelight extends SubsystemBase
     public double getRZ() 
     {
         refreshValues();
-        return tagPose[2];    // This does not work
+        return tagPose[2];
     }
 
     public double getPitch() 
@@ -100,14 +101,18 @@ public class Limelight extends SubsystemBase
         updates++;
     }
 
+    public boolean isAlignedX()
+    {
+        return Math.abs(getRX()) < Constants.Limelight.X_Alignment_Tolerance;
+    }
+
     public void diagnostics()
     {
-        ShuffleboardTab tab = Shuffleboard.getTab("Limelight");
-        tab.add("Limelight Updates", getUpdates());
-        tab.add("Target Detected", tagExists());
-        tab.add("LimeLight X", getRX());
-        tab.add("LimeLight Y", getRY());
-        tab.add("LimeLight Z", getRZ());
-        tab.add("LimeLight Lateral Offset", getLateralOffset());
+        SmartDashboard.putNumber("Limelight Updates", getUpdates());
+        SmartDashboard.putBoolean("Target Detected", tagExists());
+        SmartDashboard.putNumber("LimeLight X", getRX());
+        SmartDashboard.putNumber("LimeLight Y", getRY());
+        SmartDashboard.putNumber("LimeLight Z", getRZ());
+        SmartDashboard.putNumber("LimeLight Lateral Offset", getLateralOffset());
     }
 }

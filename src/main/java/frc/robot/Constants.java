@@ -35,6 +35,7 @@ public final class Constants
         public static final double LIMELIGHT_D = 0.001;
         public static final double YAW_OFFSET = 0;
         public static final double HEIGHT_OFFSET = 2; // TODO - Update this value
+        public static final double X_Alignment_Tolerance = 1;   // TODO - Update this value
     }
 
     /* Intake Constants */
@@ -43,7 +44,8 @@ public final class Constants
         public static final int IntakeID = 40;
         public static final double intakeSpeed = -.75; // TODO - Adjust intake speed
         public static final int IntakeSensor1Port = 1;   
-        public static final double hanfoffSpeed = -.25; // TODO - Adjust handoff speed
+        public static final double handoffSpeed = -.25; // TODO - Adjust handoff speed
+        public static final double outtakeSpeed = .50; // TODO - Adjust outtake speed
     }
 
     /* Feeder Constants */
@@ -60,11 +62,14 @@ public final class Constants
     public static final class Shoulder 
     {
         public static final int ShoulderID = 60;
-        public static final double handoffAngle = 28;           // TODO - Update
+        public static final double handoffAngle = 32;           // TODO - Update    - changed for 28 due to mechancial issues getting in the way of testing
         public static final double ampScoreAngle = 224.8;       // TODO - Update
-        public static final double speakerScoreAngle = 28;      // TODO - Update
+        public static final double speakerScoreAngle = handoffAngle;      // TODO - Update
         public static final int ShoulderEncoderPort = 2;
-        public static final double ShoulderEncoderOffset = 270; // TODO - Update this value
+        public static final double maxAngle = 270;
+        public static final double minAngle = handoffAngle;       // TODO - Update
+        public static final double groundParallelAngle = 79;      // TODO - Update maybe
+        public static final double manualShoulderSpeed = 20;        // TODO - Update
     }
 
     /* Shooter Constants */
@@ -79,7 +84,7 @@ public final class Constants
         public static final double kD = 0; 
         public static final double kIz = 0; 
         public static final double kFF = 0; 
-        public static final double kMaxOutput = 1; // TODO - check direction
+        public static final double kMaxOutput = 1;
         public static final double kMinOutput = 0;
     }
 
