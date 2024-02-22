@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 2.12,
-        "y": 5.55717665891467
+        "y": 4.12
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6441540635046161,
-        "y": 4.851098144818227
+        "x": 2.2107939338596565,
+        "y": 2.031467215408734
       },
       "isLocked": false,
-      "linkedName": "(Home) Two"
+      "linkedName": "(Home) Three"
     },
     {
       "anchor": {
-        "x": 2.12,
-        "y": 4.115917060571507
+        "x": 7.549052426039315,
+        "y": 0.791265747528612
       },
       "prevControl": {
-        "x": 1.6403760555913447,
-        "y": 4.851098144818227
+        "x": 5.863996083810886,
+        "y": 0.8586680012177487
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "(Home) Three"
+      "linkedName": "(Away) four"
     }
   ],
   "rotationTargets": [],
@@ -43,10 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Home",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
+  "folder": "4-Piece (Home)",
+  "previewStartingState": null,
   "useDefaultConstraints": false
 }

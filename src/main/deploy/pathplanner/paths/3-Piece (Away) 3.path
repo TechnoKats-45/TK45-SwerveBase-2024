@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.2690093167791088,
+        "y": 2.941397640212085
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.246341995271597,
+        "y": 0.8114864236353536
+      },
+      "isLocked": false,
+      "linkedName": "WingClose"
+    },
+    {
+      "anchor": {
+        "x": 8.007387751125446,
+        "y": 2.0449476661465615
+      },
+      "prevControl": {
+        "x": 7.265962960544938,
+        "y": 0.8384473251110094
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "7"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 54.782407031807494,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "3-Piece (Away)",
+  "previewStartingState": {
+    "rotation": -42.898345672328716,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
