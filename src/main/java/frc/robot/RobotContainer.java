@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -132,15 +133,32 @@ public class RobotContainer
         new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed))
       ));
 
-      driver.rightBumper().onTrue // THIS WORKS // TODO - NEEDS TUNED
+      
+      driver.rightBumper().onTrue // THIS does not WORK anymore // TODO - NEEDS TUNED
       (
         Commands.sequence
         (
           new AutoIntake(s_Intake, s_Feeder, s_Shoulder), // Also sets / holds shoulder angle
-          new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle
+          new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
         )
       );
       
+
+      /*
+      driver.rightBumper().onTrue // This works
+      (
+        new SequentialCommandGroup
+        (
+          new RunCommand(() -> s_Intake.runIntake(-.75), s_Intake).until(s_Intake::detectGamePiece),
+          new RunCommand(() -> s_Feeder.runFeeder(-.5), s_Feeder).until(s_Feeder::detectGamePiece)
+        )
+      );
+      */
+
+      
+      
+
+
       driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); // THIS WORKS
 
 

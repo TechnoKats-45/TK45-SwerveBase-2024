@@ -15,19 +15,19 @@ import com.revrobotics.CANSparkMax;
 public class Feeder extends SubsystemBase 
 {
     private CANSparkMax feeder;
-    private DigitalInput FeederSensor1Port;
+    private DigitalInput feederSensor;
     private double target;
 
     public Feeder()
     {
         feeder = new CANSparkMax(Constants.Feeder.FeederID, MotorType.kBrushless);
-        FeederSensor1Port = new DigitalInput(Constants.Feeder.FeederSensor1Port);
+        feederSensor = new DigitalInput(Constants.Feeder.FeederSensor1Port);
         feeder.setSmartCurrentLimit(40);
     }
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
     {
-        return !FeederSensor1Port.get();
+        return !feederSensor.get();
     }
 
     public void setTarget(double speed)  // For external speed setting
@@ -50,7 +50,6 @@ public class Feeder extends SubsystemBase
 
     public void diagnostics()
     {
-        ShuffleboardTab tab = Shuffleboard.getTab("Feeder");
-        tab.add("Feeder Sensor", detectGamePiece());
+        SmartDashboard.putBoolean("Feeder Sensor", detectGamePiece());
     }
 }

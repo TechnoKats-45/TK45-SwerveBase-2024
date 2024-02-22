@@ -20,7 +20,7 @@ public class AutoIntake extends Command
         this.s_Intake = s_Intake;
         this.s_Shoulder = s_Shoulder;
         
-        addRequirements(s_Feeder, s_Intake);
+        addRequirements(s_Feeder, s_Intake, s_Shoulder);
         // Called when the command is initially scheduled.
     }
 

@@ -28,20 +28,19 @@ public class Intake extends SubsystemBase
 
     public boolean detectGamePiece()   // Reads the sensor and returns true if game piece is detected
     {
-        SmartDashboard.putBoolean("Intake Sensor", !intakeSensor.get());
+        //SmartDashboard.putBoolean("Intake Sensor", !intakeSensor.get());
         return !intakeSensor.get();
     }
 
     public void setTarget(double speed)  // For external speed setting
     {
         target = speed;
-        SmartDashboard.putNumber("Intake Set Speed", speed);
     }
 
     public void holdTarget()    // For maintaining speed
     {
         intake.set(target);
-        SmartDashboard.putNumber("Intake Target", target);
+        //SmartDashboard.putNumber("Intake Target", target);
     }
 
     public void runIntake(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
