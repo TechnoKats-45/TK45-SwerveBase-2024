@@ -86,8 +86,8 @@ public class Shoulder extends SubsystemBase
     {
         if (Math.abs(getAngle() - target) <= 1) // If within 1 degree of target
         {
-            SmartDashboard.putBoolean("SHOULDER ALIGNED", isAligned());
-            return true;
+            // DO NOT PUT A PRINT STATEMENT HERE! - THIS WILL BREAK EVERYTHING... again
+            return true;    
         } 
         else 
         {
