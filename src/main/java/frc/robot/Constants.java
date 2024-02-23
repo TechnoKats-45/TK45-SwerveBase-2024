@@ -54,7 +54,7 @@ public final class Constants
         public static final int FeederID = 50;
         public static final int FeederSensor1Port = 0;
         public static final double handoffSpeed = .40;  // TODO - Adjust feeder speed
-        public static final double ampScoreSpeed = 0.5; // TODO - Adjust amp shoot speed
+        public static final double ampScoreSpeed = -1; // TODO - Adjust amp shoot speed
         public static final double speakerFeedSpeed = 1;
     }
 

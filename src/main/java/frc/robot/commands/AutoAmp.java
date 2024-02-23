@@ -10,7 +10,6 @@ import frc.robot.Constants;
 public class AutoAmp extends Command 
 {
     private Feeder s_Feeder;
-    private Intake s_Intake;
     private Shoulder s_Shoulder;
 
     /** Creates a new TeleopFeeder. */
@@ -26,7 +25,8 @@ public class AutoAmp extends Command
     @Override
     public void execute() 
     {        
-        if(s_Shoulder.getAngle() == Constants.Shoulder.ampScoreAngle)   // If shoulder angle is correct
+        // TODO - add check if we have a game piece???
+        if(Math.abs(s_Shoulder.getAngle() - Constants.Shoulder.ampScoreAngle) < 1)   // If shoulder angle is within 1 degree of target angle
         {
             s_Feeder.runFeeder(Constants.Feeder.ampScoreSpeed); // Run feeder
         }

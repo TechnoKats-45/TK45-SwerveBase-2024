@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.Auto;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -145,7 +146,11 @@ public class RobotContainer
       );
 
       // Left Bumper - Feeder Shoot
-      driver.leftBumper().whileTrue(new AutoFeed(s_Intake, s_Feeder, s_Shoulder));
+      driver.leftBumper().whileTrue(Commands.sequence
+        (
+          new AutoAmp(s_Feeder, s_Shoulder)
+        )
+      );
       
       // B Button - Zero Gyro // THIS WORKS
       driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); 
