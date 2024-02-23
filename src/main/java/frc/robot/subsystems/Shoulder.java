@@ -65,6 +65,7 @@ public class Shoulder extends SubsystemBase
         // Limit the speed to the range [-maxSpeed, maxSpeed]
         double limitedSpeed = Math.max(-maxSpeed, Math.min(maxSpeed, pidOutput));
 
+        
         // Set the motor speed with the limited value
         shoulder.set(limitedSpeed);
     }
@@ -92,7 +93,6 @@ public class Shoulder extends SubsystemBase
 
     public void setTarget(double setPoint)  // Assigns a new target angle
     {
-        /*
         // Checks to make sure angle is within limits
         if(setPoint > Constants.Shoulder.maxAngle)
         {
@@ -102,7 +102,7 @@ public class Shoulder extends SubsystemBase
         {
             setPoint = Constants.Shoulder.minAngle;
         }
-        */
+        
         target = setPoint;
     }
 

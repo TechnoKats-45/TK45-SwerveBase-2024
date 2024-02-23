@@ -204,7 +204,7 @@ public class RobotContainer
       //s_Climber.diagnostics();
       //s_Feeder.diagnostics();
       //s_Intake.diagnostics();
-      //s_Limelight.diagnostics();
+      s_Limelight.diagnostics();
       s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
       //s_Swerve.diagnostics();
