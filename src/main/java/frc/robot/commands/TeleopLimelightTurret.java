@@ -57,7 +57,7 @@ public class TeleopLimelightTurret extends Command
             {
                 rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
 
-                double rotate = rotController.calculate
+                double rotate = -rotController.calculate    // JTL 2-23-24 added negative.  maybe remove?
                 (
                     swerve.getYaw(),
                     swerve.getYaw() + limelight.getLateralOffset()

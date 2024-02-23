@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.controller.PIDController;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -41,20 +42,21 @@ public class Shooter extends SubsystemBase
         shooter.set(target);    //pidController.calculate(getSpeed(), target)   // IDK why this wasn't working // TODO
     }
 
+    public void setTarget(double speed)
+    {
+        target = speed;
+    }
+
     public void runShooter(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
     {
         setTarget(speed);
         holdTarget();
+        //System.out.print("runShooter Reached");
     }
 
     public double getSpeed()
     {
         return shooterEncoder.getVelocity();
-    }
-
-    public void setTarget(double speed)
-    {
-        target = speed;
     }
 
     public void fireWhenReady()
@@ -71,6 +73,8 @@ public class Shooter extends SubsystemBase
         tab.add("Shooter Target", target);
         */
         SmartDashboard.putNumber("Shooter Current", getCurrent());
+        SmartDashboard.putNumber("Shooter Target", target);
+        SmartDashboard.putNumber("Shoter Speed", getSpeed());
     }
 
     public double getCurrent()

@@ -115,10 +115,10 @@ public class RobotContainer
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       // Right Trigger - Automatic Fire
-      driver.rightTrigger().whileTrue(Commands.sequence
+      driver.rightTrigger().whileTrue
       (
         new AutoFire(s_Feeder, s_Limelight, s_Shoulder) // TODO - update this ???
-      ));
+      );
     
       // Left Trigger - Automatic Aim (X and Y), and spin up shooter
       driver.leftTrigger().whileTrue(Commands.parallel
@@ -143,6 +143,9 @@ public class RobotContainer
           new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
         )
       );
+
+      // Left Bumper - Feeder Shoot
+      driver.leftBumper().whileTrue(new AutoFeed(s_Intake, s_Feeder, s_Shoulder));
       
       // B Button - Zero Gyro // THIS WORKS
       driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); 
@@ -162,7 +165,7 @@ public class RobotContainer
       // A - Amp Preset X
       operator.a().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle)));     // Move to amp preset angle (when against amp wall)
 
-      // Right Tri - Spin Shooter
+      // Right Trigger - Spin Shooter
       operator.rightTrigger().whileTrue(new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed)));
 
       // Left Bumper - Manual Intake IN
@@ -187,10 +190,10 @@ public class RobotContainer
       operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.setTarget(Constants.Climber.chainGrabHeight)));     //  TODO - need to determine target height before running
 
       // Left Stick DOWN - Arm Down
-      operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(Constants.Shoulder.manualShoulderSpeed)));
+      //operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(Constants.Shoulder.manualShoulderSpeed)));
 
       // Left Stick UP - Arm Up
-      operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(-Constants.Shoulder.manualShoulderSpeed)));
+      //operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(-Constants.Shoulder.manualShoulderSpeed)));
 
       // Start Button - Cancel All Commands
       operator.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
@@ -202,8 +205,8 @@ public class RobotContainer
       //s_Feeder.diagnostics();
       //s_Intake.diagnostics();
       //s_Limelight.diagnostics();
-      //s_Shooter.diagnostics();
-      //s_Shoulder.diagnostics();
+      s_Shooter.diagnostics();
+      s_Shoulder.diagnostics();
       //s_Swerve.diagnostics();
     }
 

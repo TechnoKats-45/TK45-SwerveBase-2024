@@ -106,13 +106,9 @@ public class Shoulder extends SubsystemBase
         target = setPoint;
     }
 
-    public void runShoulder(double speed) 
-    {
-        // TODO
-    }
-
     public void diagnostics()
     {
         SmartDashboard.putNumber("Shoulder Angle", getAngle());
+        SmartDashboard.putNumber("Shoulder Targer", target);
     }
 }
