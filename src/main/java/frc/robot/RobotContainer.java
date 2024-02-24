@@ -155,9 +155,14 @@ public class RobotContainer
       // B Button - Zero Gyro // THIS WORKS
       driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); 
 
-      // Start Button - Cancel All Commands // THIS WORKS
+      // Start Button - Cancel All Commands // THIS WORKS // TODO - add PID Cancel
       driver.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
+      // D-Pad Up - Climbers Up
+      driver.povUp().onTrue(new InstantCommand(() -> s_Climber.setTargetHeight(Constants.Climber.climberMaxHeight)));
+
+      // D-Pad Down - Climbers Down
+      driver.povDown().onTrue(new InstantCommand(() -> s_Climber.setTargetHeight(Constants.Climber.climberMinHeight)));
 
 
       
@@ -189,10 +194,10 @@ public class RobotContainer
       operator.leftTrigger().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-.5)));
 
       // Right Stick DOWN - Clmbers Down
-      operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.setTarget(Constants.Climber.minimumExtension)));  //  TODO - need to determine target height before running
+      //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.manualControl(driver)));  //  TODO - need to determine target height before running
 
       // Right Stick UP - Climbers Up
-      operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.setTarget(Constants.Climber.chainGrabHeight)));     //  TODO - need to determine target height before running
+      //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.setSpeedTarget(Constants.Climber.climberSpeed)));     //  TODO - need to determine target height before running
 
       // Left Stick DOWN - Arm Down
       //operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(Constants.Shoulder.manualShoulderSpeed)));
@@ -200,7 +205,7 @@ public class RobotContainer
       // Left Stick UP - Arm Up
       //operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(-Constants.Shoulder.manualShoulderSpeed)));
 
-      // Start Button - Cancel All Commands
+      // Start Button - Cancel All Commands // TODO - add PID Cancel
       operator.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
     }
     

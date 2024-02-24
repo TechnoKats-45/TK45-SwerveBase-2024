@@ -18,6 +18,8 @@ import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 public class Climber extends SubsystemBase 
 {
     private CANSparkMax climber;
@@ -43,20 +45,44 @@ public class Climber extends SubsystemBase
         return m_absoluteEncoder.getAbsolutePosition() * 360* Constants.Climber.kInchesPerRotation;    // TODO - update InchesPerRotation
     }
 
-    public void setTarget(double height)  // For external height setting
+    public void setTargetHeight(double height)  // For external height setting
     {
+        if(height > Constants.Climber.climberMaxHeight)
+        {
+            target = Constants.Climber.climberMaxHeight;
+        }
+        else if(height < Constants.Climber.climberMinHeight)
+        {
+            target = Constants.Climber.climberMinHeight;
+        }
+        else
+        {
+            // TODO - add debug
+        }
         target = height;
     }
 
-    public void holdTarget()    // For holding the climber at the target height
+    public void holdTargetHeight()    // For holding the climber at the target height
     {
         climber.set(m_pidController.calculate(getHeight(), target));
     }
 
-    public void runClimber(double speed)
+    public void manualControl(CommandXboxController driver)
     {
-        climber.set(speed);
+        if(driver.getRightY() > Constants.STICK_DEADBAND)
+        {
+            climber.set(Constants.Climber.ClimbSpeed);
+        }
+        else if(driver.getRightY() < -Constants.STICK_DEADBAND)
+        {
+            climber.set(-Constants.Climber.ClimbSpeed);
+        }
+        else
+        {
+            climber.set(0);
+        }
     }
+    
 
     public void diagnostics()
     {

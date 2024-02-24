@@ -21,7 +21,7 @@ public class Shoulder extends SubsystemBase
     double target = 0;
     int angle;
 
-    public double kP = .01, kI = 0.0001, kD = 0, kS, kG, kV, kA, feedForward;
+    public double kP = .01, kI = 0.0001, kD = 0, kS, kG, kV, kA, feedForward;   // kp was .01
     private double position = 0, velocity = 0, acceleration = 0;
     private DutyCycleEncoder m_absoluteEncoder;
     private PIDController m_pidController;
@@ -60,12 +60,10 @@ public class Shoulder extends SubsystemBase
         //SmartDashboard.putNumber("Arm Set", ((m_pidController.calculate(m_absoluteEncoder.getAbsolutePosition(), target)) * Constants.Shoulder.speedMultiplier));
 
         double pidOutput = m_pidController.calculate(getAngle(), target);
-        double maxSpeed = 0.75; // Example maximum speed value. Adjust this to your needs.  // TODO - use constant
 
         // Limit the speed to the range [-maxSpeed, maxSpeed]
-        double limitedSpeed = Math.max(-maxSpeed, Math.min(maxSpeed, pidOutput));
+        double limitedSpeed = Math.max(-Constants.Shoulder.maxSpeed, Math.min(Constants.Shoulder.maxSpeed, pidOutput));
 
-        
         // Set the motor speed with the limited value
         shoulder.set(limitedSpeed);
     }

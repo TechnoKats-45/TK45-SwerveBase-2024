@@ -70,6 +70,7 @@ public final class Constants
         public static final double minAngle = handoffAngle;       // TODO - Update
         public static final double groundParallelAngle = 79;      // TODO - Update maybe
         public static final double manualShoulderSpeed = 20;        // TODO - Update
+        public static final double maxSpeed = 1;
     }
 
     /* Shooter Constants */
@@ -92,11 +93,14 @@ public final class Constants
     public static final class Climber
     {
         public static final int ClimberID = 45;
-        public static final double climberSpeed = 1;     // TODO - Adjust climber speed
+        public static final double climberSpeed = 1;       // TODO - Adjust climber speed
         public static final double minimumExtension = 0;
-        public static final double maxExtension = 100;   // TODO - Update this value
-        public static final double chainGrabHeight = 99; // TODO - Update this value
+        public static final double maxExtension = 100;     // TODO - Update this value
+        public static final double chainGrabHeight = 99;   // TODO - Update this value
         public static final int ClimberEncoderPort = 3;
+        public static final double ClimbSpeed = .25;       // TODO - Adjust climb speed
+        public static final double climberMaxHeight = 100; // TODO - Update this value
+        public static final double climberMinHeight = 0;   // TODO - Update this value
     
         // TODO - tune PID
         public static final double kP = 0.1;
