@@ -68,11 +68,17 @@ public class Shoulder extends SubsystemBase
         shoulder.set(limitedSpeed);
     }
 
-    public void setAlignedAngle(double x, double z, boolean tag)
+    public void setAlignedAngle(double z, double y, boolean tag)
     {
         if(tag) // If tag exists
         {
-            target = Math.hypot(z, x) - Constants.Shoulder.groundParallelAngle;    // Calculates direct line to taget angle based on X and Z (Hypotenuse)
+            setTarget((79 - (Math.tan(y/z) * (180 / Math.PI))));    // Calculates direct line to taget angle based on X and Z (Hypotenuse)  //  + Constants.Shoulder.groundParallelAngle
+            SmartDashboard.putNumber("Calculated Shoulder Angle", Math.atan2(y, z) * (180 / Math.PI));
+            SmartDashboard.putNumber("Calculated - Offset", (180 - (Math.atan2(y, z) * (180 / Math.PI)+79)));  //  + Constants.Shoulder.groundParallelAngle
+        }
+        else
+        {
+            // TODO - add diagnostics
         }
     }
 
@@ -100,8 +106,10 @@ public class Shoulder extends SubsystemBase
         {
             setPoint = Constants.Shoulder.minAngle;
         }
-        
-        target = setPoint;
+        else
+        {
+            target = setPoint;
+        }
     }
 
     public void diagnostics()

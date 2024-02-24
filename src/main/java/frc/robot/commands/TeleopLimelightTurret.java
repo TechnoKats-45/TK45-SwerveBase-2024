@@ -32,7 +32,7 @@ public class TeleopLimelightTurret extends Command
         this.s_Swerve = s_Swerve;
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
-        addRequirements(s_Limelight, s_Swerve, s_Shoulder);
+        addRequirements(s_Swerve);
     }
     
     @Override
@@ -57,7 +57,7 @@ public class TeleopLimelightTurret extends Command
             {
                 rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
 
-                double rotate = rotController.calculate
+                double rotate = -rotController.calculate
                 (
                     s_Swerve.getYaw(),
                     s_Swerve.getYaw() + s_Limelight.getLateralOffset()
@@ -70,9 +70,6 @@ public class TeleopLimelightTurret extends Command
                     rotate,
                     true
                 );
-
-                //s_Shoulder.setAlignedAngle(limelight.getRX(), limelight.getRZ(), limelight.tagExists());    // TODO - test this   // TODO - uncomment this
-                //s_Shoulder.holdTarget();  // TODO - uncomment this
             }
         }
     }

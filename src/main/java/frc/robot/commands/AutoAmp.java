@@ -26,8 +26,7 @@ public class AutoAmp extends Command
     public void execute() 
     {        
         // TODO - add April Tag Alignment
-        // TODO - add check if we have a game piece???
-        if(Math.abs(s_Shoulder.getAngle() - Constants.Shoulder.ampScoreAngle) < 1)   // If shoulder angle is within 1 degree of target angle
+        if(Math.abs(s_Shoulder.getAngle() - Constants.Shoulder.ampScoreAngle) < 3)   // If shoulder angle is within 1 degree of target angle
         {
             s_Feeder.runFeeder(Constants.Feeder.ampScoreSpeed); // Run feeder
         }

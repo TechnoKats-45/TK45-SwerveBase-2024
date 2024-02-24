@@ -28,6 +28,6 @@ public class TeleopClimber extends Command
     @Override
     public void execute() 
     {
-        s_Climber.holdTargetHeight();  // sets and holds target speed of 0
+        s_Climber.holdTargetAngle();  // sets and holds target speed of 0
     }
 }

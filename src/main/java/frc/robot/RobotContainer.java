@@ -116,10 +116,11 @@ public class RobotContainer
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       // Right Trigger - Automatic Fire
-      driver.rightTrigger().whileTrue
+      driver.rightTrigger().whileTrue(Commands.parallel
       (
-        new AutoFire(s_Feeder, s_Limelight, s_Shoulder) // TODO - update this ???
-      );
+        new AutoFire(s_Feeder, s_Limelight, s_Shoulder),
+        new AutoShoulder(s_Limelight, s_Shoulder
+      )));
     
       // Left Trigger - Automatic Aim (X and Y), and spin up shooter
       driver.leftTrigger().whileTrue(Commands.parallel
@@ -132,7 +133,7 @@ public class RobotContainer
           () -> -driver.getRawAxis(translationAxis),
           () -> -driver.getRawAxis(strafeAxis)
         ),
-        new InstantCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
+        new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
       ));
 
       // Right Bumper - Automatic Intake, Feed, and Shoulder Angle
@@ -159,12 +160,13 @@ public class RobotContainer
       driver.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
       // D-Pad Up - Climbers Up
-      driver.povUp().onTrue(new InstantCommand(() -> s_Climber.setTargetHeight(Constants.Climber.climberMaxHeight)));
+      driver.povUp().onTrue(new InstantCommand(() -> s_Climber.setTargetAngle(Constants.Climber.climberMaxAngle)));
 
       // D-Pad Down - Climbers Down
-      driver.povDown().onTrue(new InstantCommand(() -> s_Climber.setTargetHeight(Constants.Climber.climberMinHeight)));
+      driver.povDown().onTrue(new InstantCommand(() -> s_Climber.setTargetAngle(Constants.Climber.climberMinAngle)));
 
 
+      
       
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -209,6 +211,11 @@ public class RobotContainer
       operator.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
     }
     
+    public void operatorControlsPrints()
+    {
+
+    }
+
     public void printValues()
     {
       //s_Climber.diagnostics();
@@ -217,12 +224,13 @@ public class RobotContainer
       s_Limelight.diagnostics();
       s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
+      operatorControlsPrints();
       //s_Swerve.diagnostics();
     }
 
     public void subsystemInit()
     {
-      s_Shoulder.setTarget(s_Shoulder.getAngle());
+      s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
     }
 
     /**

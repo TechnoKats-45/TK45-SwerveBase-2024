@@ -30,12 +30,13 @@ public final class Constants
 
     public static final class Limelight     // TODO - TUNE THIS
     {
-        public static final double LIMELIGHT_P = 0.3;
-        public static final double LIMELIGHT_I = 0.0008;
-        public static final double LIMELIGHT_D = 0.001;
+        public static final double LIMELIGHT_P = 0.01;
+        public static final double LIMELIGHT_I = 0;
+        public static final double LIMELIGHT_D = 0;
         public static final double YAW_OFFSET = 0;
         public static final double HEIGHT_OFFSET = 2; // TODO - Update this value
-        public static final double X_Alignment_Tolerance = 1;   // TODO - Update this value
+        public static final double X_Alignment_Tolerance = 3;   // TODO - Update this value
+        public static final double PITCH_OFFSET = 35;   
     }
 
     /* Intake Constants */
@@ -99,8 +100,8 @@ public final class Constants
         public static final double chainGrabHeight = 99;   // TODO - Update this value
         public static final int ClimberEncoderPort = 3;
         public static final double ClimbSpeed = .25;       // TODO - Adjust climb speed
-        public static final double climberMaxHeight = 100; // TODO - Update this value
-        public static final double climberMinHeight = 0;   // TODO - Update this value
+        public static final double climberMaxAngle = 100; // TODO - Update this value
+        public static final double climberMinAngle = 0;   // TODO - Update this value
     
         // TODO - tune PID
         public static final double kP = 0.1;

@@ -24,11 +24,13 @@ public class Climber extends SubsystemBase
 {
     private CANSparkMax climber;
     public double kP, kI, kD;
-    private DutyCycleEncoder m_absoluteEncoder;
     private PIDController m_pidController = new PIDController(kP, kI, kD);
 
     double target = 0;
     int angle;
+
+    private final RelativeEncoder climberEncoder;
+
 
     public Climber()
     {
@@ -36,58 +38,39 @@ public class Climber extends SubsystemBase
         climber.restoreFactoryDefaults();
         climber.setSmartCurrentLimit(40);
         climber.setInverted(false);
-
-        m_absoluteEncoder = new DutyCycleEncoder(Constants.Climber.ClimberEncoderPort);
+        climberEncoder = climber.getEncoder();
     }
 
-    public double getHeight()
+    public double getAngle()
     {
-        return m_absoluteEncoder.getAbsolutePosition() * 360* Constants.Climber.kInchesPerRotation;    // TODO - update InchesPerRotation
+        return climberEncoder.getPosition();
     }
 
-    public void setTargetHeight(double height)  // For external height setting
+    public void setTargetAngle(double angle)  // For external angle setting
     {
-        if(height > Constants.Climber.climberMaxHeight)
+        if(angle > Constants.Climber.climberMaxAngle)
         {
-            target = Constants.Climber.climberMaxHeight;
+            target = Constants.Climber.climberMaxAngle;
         }
-        else if(height < Constants.Climber.climberMinHeight)
+        else if(angle < Constants.Climber.climberMinAngle)
         {
-            target = Constants.Climber.climberMinHeight;
+            target = Constants.Climber.climberMinAngle;
         }
         else
         {
             // TODO - add debug
         }
-        target = height;
+        target = angle;
     }
 
-    public void holdTargetHeight()    // For holding the climber at the target height
+    public void holdTargetAngle()    // For holding the climber at the target height
     {
-        climber.set(m_pidController.calculate(getHeight(), target));
+        climber.set(m_pidController.calculate(getAngle(), target));
     }
-
-    public void manualControl(CommandXboxController driver)
-    {
-        if(driver.getRightY() > Constants.STICK_DEADBAND)
-        {
-            climber.set(Constants.Climber.ClimbSpeed);
-        }
-        else if(driver.getRightY() < -Constants.STICK_DEADBAND)
-        {
-            climber.set(-Constants.Climber.ClimbSpeed);
-        }
-        else
-        {
-            climber.set(0);
-        }
-    }
-    
 
     public void diagnostics()
     {
-        ShuffleboardTab tab = Shuffleboard.getTab("Climber");
-        tab.add("Climber Height", getHeight());
-        tab.add("Climber Target", target);
+        SmartDashboard.putNumber("Climber Angle", getAngle());
+        SmartDashboard.putNumber("Climber Target Angle", target);
     }
 }

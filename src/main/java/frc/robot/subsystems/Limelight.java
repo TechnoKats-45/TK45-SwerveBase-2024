@@ -36,20 +36,25 @@ public class Limelight extends SubsystemBase
         return !(getTable().getEntry("tv").getDouble(0) == 0);
     }
 
+    public double tagID()
+    {
+        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
+    }
+
     public int getUpdates() 
     {
         return updates;
     }
 
     // X+ is to the right when looking at the tag
-    public double getRX() 
+    public double getRX()   // Unafected from limelight angle change
     {
         refreshValues();
         return tagPose[0];
     }
 
     // Y+ is upwards
-    public double getRY() 
+    public double getRY() // TODO
     {
         refreshValues();
         return tagPose[1] + Constants.Limelight.HEIGHT_OFFSET;  // TODO - update this
@@ -57,7 +62,7 @@ public class Limelight extends SubsystemBase
 
     // Z+ is perpendicular to the plane of the limelight (Z+ is towards tag on data
     // side, Z- is on other side of robot)
-    public double getRZ() 
+    public double getRZ() // TODO
     {
         refreshValues();
         return tagPose[2];
