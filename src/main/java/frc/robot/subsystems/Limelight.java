@@ -85,7 +85,7 @@ public class Limelight extends SubsystemBase
     public double getLateralOffset() 
     {
         refreshValues();
-        return (new Rotation2d(tagPose[2], tagPose[0]).getDegrees() + Constants.Limelight.YAW_OFFSET / tagPose[2]);
+        return (new Rotation2d(tagPose[2], tagPose[0]).getDegrees());   // Removed Constants.Limelight.YAW_OFFSET / tagPose[2]
     }
 
     public NetworkTable getTable() 

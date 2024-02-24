@@ -12,27 +12,27 @@ import frc.robot.subsystems.Shoulder;
 
 public class TeleopLimelightTurret extends Command 
 {
-    private final Limelight limelight;
+    private final Limelight s_Limelight;
     private final Shoulder s_Shoulder;
-    private final Swerve swerve;
+    private final Swerve s_Swerve;
     private final DoubleSupplier translationSup;
     private final DoubleSupplier strafeSup;
 
     public TeleopLimelightTurret
     (
-        Limelight limelight,
+        Limelight s_Limelight,
         Shoulder s_Shoulder,
-        Swerve swerve,
+        Swerve s_Swerve,
         DoubleSupplier translationSup,
         DoubleSupplier strafeSup
     ) 
     {
-        this.limelight = limelight;
+        this.s_Limelight = s_Limelight;
         this.s_Shoulder = s_Shoulder;
-        this.swerve = swerve;
+        this.s_Swerve = s_Swerve;
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
-        addRequirements(this.limelight, swerve);
+        addRequirements(s_Limelight, s_Swerve, s_Shoulder);
     }
     
     @Override
@@ -43,7 +43,7 @@ public class TeleopLimelightTurret extends Command
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.STICK_DEADBAND);
 
         /* Calculate Rotation Magnitude */
-        if(limelight.tagExists()) 
+        if(s_Limelight.tagExists()) 
         {
             try 
             (
@@ -59,21 +59,20 @@ public class TeleopLimelightTurret extends Command
 
                 double rotate = rotController.calculate
                 (
-                    swerve.getYaw(),
-                    swerve.getYaw() + limelight.getLateralOffset()
+                    s_Swerve.getYaw(),
+                    s_Swerve.getYaw() + s_Limelight.getLateralOffset()
                 );
 
                 /* Drive */
-                swerve.drive
+                s_Swerve.drive
                 (
                     new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED),
                     rotate,
                     true
                 );
 
-                s_Shoulder.setAlignedAngle(limelight.getRX(), limelight.getRZ(), limelight.tagExists());    // TODO - test this
-                s_Shoulder.holdTarget();
-
+                //s_Shoulder.setAlignedAngle(limelight.getRX(), limelight.getRZ(), limelight.tagExists());    // TODO - test this   // TODO - uncomment this
+                //s_Shoulder.holdTarget();  // TODO - uncomment this
             }
         }
     }

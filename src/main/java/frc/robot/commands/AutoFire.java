@@ -26,6 +26,7 @@ public class AutoFire extends Command
     @Override
     public void execute() 
     {
+        /*
         // Check if Shoulder is at the target angle
         // Check if swerve is at the target angle
         if(s_Shoulder.isAligned() && s_Limelight.isAlignedX())
@@ -37,6 +38,8 @@ public class AutoFire extends Command
             // TODO - add diagnostics
             // Maybe rumbles the controller   
         }
+        */
+        s_Feeder.runFeeder(Constants.Feeder.speakerFeedSpeed);
 
     }
 
