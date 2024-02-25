@@ -21,12 +21,11 @@ public final class Constants
     public static double MAXIMUM_ANGLE = 180;
 
     /* Vision Constants */
-
-    // Constants such as camera and target height stored. Change per robot and goal!
-    final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(0);        // TODO - UPDATE
-    final double TARGET_HEIGHT_METERS = Units.feetToMeters(0);            // TODO - UPDATE
-    // Angle between horizontal and the camera.
-    final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(0);     // TODO - UPDATE
+    public static final class AprilTags
+    {
+        public static final double speakerHeightOffset = 0;
+        public static final double ampHeightOffset = Units.inchesToMeters(24.25); // 78.13 - 53.88
+    }
 
     public static final class Limelight     // TODO - TUNE THIS
     {

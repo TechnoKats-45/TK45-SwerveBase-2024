@@ -116,11 +116,10 @@ public class RobotContainer
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       // Right Trigger - Automatic Fire
-      driver.rightTrigger().whileTrue(Commands.parallel
+      driver.rightTrigger().whileTrue
       (
-        new AutoFire(s_Feeder, s_Limelight, s_Shoulder),
-        new AutoShoulder(s_Limelight, s_Shoulder
-      )));
+        new AutoFire(s_Feeder, s_Limelight, s_Shoulder)
+      );
     
       // Left Trigger - Automatic Aim (X and Y), and spin up shooter
       driver.leftTrigger().whileTrue(Commands.parallel
@@ -133,6 +132,7 @@ public class RobotContainer
           () -> -driver.getRawAxis(translationAxis),
           () -> -driver.getRawAxis(strafeAxis)
         ),
+        new AutoShoulder(s_Limelight, s_Shoulder, Constants.AprilTags.speakerHeightOffset),
         new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
       ));
 

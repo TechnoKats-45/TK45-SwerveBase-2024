@@ -11,11 +11,13 @@ public class AutoShoulder extends Command
 {
     private Limelight s_Limelight;  // Probs can remove limelight from this whole command class
     private Shoulder s_Shoulder;
+    private double aprilTagHeightOffset;
 
-    public AutoShoulder(Limelight s_Limelight, Shoulder s_Shoulder) 
+    public AutoShoulder(Limelight s_Limelight, Shoulder s_Shoulder, double aprilTagHeightOffset) 
     {
         this.s_Limelight = s_Limelight;
         this.s_Shoulder = s_Shoulder;
+        this.aprilTagHeightOffset = aprilTagHeightOffset;
         addRequirements(s_Shoulder);    // adding other subsystems as requirements will cause them to be disabled
     }
 
@@ -23,7 +25,7 @@ public class AutoShoulder extends Command
     @Override
     public void execute() 
     {
-        s_Shoulder.setAlignedAngle(s_Limelight.getRZ(), s_Limelight.getRY(), s_Limelight.tagExists());    // TODO - test this   // TODO - uncomment this
+        s_Shoulder.setAlignedAngle(s_Limelight.getRZ(), s_Limelight.getRY() + aprilTagHeightOffset, s_Limelight.tagExists());    // TODO - test this
         s_Shoulder.holdTarget();
     }
 
