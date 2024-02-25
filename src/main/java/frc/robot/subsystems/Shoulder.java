@@ -73,8 +73,8 @@ public class Shoulder extends SubsystemBase
         if(tag) // If tag exists
         {
             setTarget((Constants.Shoulder.groundParallelAngle - (Math.tan(y/z) * (180 / Math.PI))));    // Calculates direct line to taget angle based on X and Z (Hypotenuse)
-            SmartDashboard.putNumber("Calculated Shoulder Angle", Math.atan2(y, z) * (180 / Math.PI));
-            SmartDashboard.putNumber("Calculated - Offset", (180 - (Math.atan2(y, z) * (180 / Math.PI)+79)));  //  + Constants.Shoulder.groundParallelAngle
+            SmartDashboard.putNumber("Calculated Shoulder Angle", (Math.tan(y/z) * (180 / Math.PI)));
+            SmartDashboard.putNumber("Calculated - Offset", (Constants.Shoulder.groundParallelAngle - (Math.tan(y/z) * (180 / Math.PI))));  //  + Constants.Shoulder.groundParallelAngle
         }
         else
         {

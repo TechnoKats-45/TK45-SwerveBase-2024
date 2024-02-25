@@ -23,8 +23,8 @@ public final class Constants
     /* Vision Constants */
     public static final class AprilTags
     {
-        public static final double speakerHeightOffset = 0;
-        public static final double ampHeightOffset = Units.inchesToMeters(24.25); // 78.13 - 53.88
+        public static final double speakerHeightOffset = Units.inchesToMeters(24.25); // 78.13 - 53.88;
+        public static final double ampHeightOffset = 0;
     }
 
     public static final class Limelight     // TODO - TUNE THIS
@@ -268,8 +268,8 @@ public final class Constants
     {
         public static final double AUTO_DRIVE_P = 0.1;
         public static final double AUTO_DRIVE_I = 0.0;
-        public static final double AUTO_DRIVE_D = 0.0;
-        public static final double AUTO_ANGLE_P = 0.1;
+        public static final double AUTO_DRIVE_D = 0.00001;
+        public static final double AUTO_ANGLE_P = 0.2;
         public static final double AUTO_ANGLE_I = 0.0;
         public static final double AUTO_ANGLE_D = 0.0;
     }

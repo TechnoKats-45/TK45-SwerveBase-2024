@@ -61,6 +61,9 @@ public class RobotContainer
       NamedCommands.registerCommand("AutoIntake", new AutoIntake(s_Intake, s_Feeder).until(() -> s_Feeder.detectGamePiece()));
       */
 
+      chooser = AutoBuilder.buildAutoChooser("Test");
+      SmartDashboard.putData("Auto Choices", chooser);
+
       s_Swerve.setDefaultCommand
       (
         new TeleopSwerve(s_Swerve, driver)
@@ -101,9 +104,6 @@ public class RobotContainer
       // Configure the button bindings
       configureButtonBindings();
       s_Swerve.gyro.setYaw(0);
-
-      chooser = AutoBuilder.buildAutoChooser("Test");
-      SmartDashboard.putData("Auto Choices", chooser);
     }
 
 
@@ -129,8 +129,7 @@ public class RobotContainer
           s_Limelight,
           s_Shoulder,
           s_Swerve,
-          () -> -driver.getRawAxis(translationAxis),
-          () -> -driver.getRawAxis(strafeAxis)
+          driver
         ),
         new AutoShoulder(s_Limelight, s_Shoulder, Constants.AprilTags.speakerHeightOffset),
         new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
@@ -147,7 +146,7 @@ public class RobotContainer
       );
 
       // Left Bumper - Feeder Shoot
-      driver.leftBumper().whileTrue(Commands.sequence
+      driver.leftBumper().whileTrue(Commands.parallel
         (
           new AutoAmp(s_Feeder, s_Shoulder)
         )

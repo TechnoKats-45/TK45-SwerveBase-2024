@@ -19,6 +19,7 @@ public class TeleopSwerve extends Command
     private double strafeSup;
     private double rotationSup;
     private CommandXboxController controller;
+    private boolean robotCentric;
 
     public TeleopSwerve(Swerve s_Swerve, CommandXboxController controller) 
     {
@@ -33,6 +34,7 @@ public class TeleopSwerve extends Command
         translationSup = -controller.getLeftY();
         strafeSup = -controller.getLeftX();
         rotationSup = -controller.getRightX();
+        robotCentric = !controller.x().getAsBoolean();
 
         /* Get Values, Deadband*/
         double translationVal = MathUtil.applyDeadband(translationSup, Constants.STICK_DEADBAND);
@@ -44,6 +46,7 @@ public class TeleopSwerve extends Command
         (
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED), 
             rotationVal * Constants.Swerve.maxAngularVelocity, 
+            robotCentric,
             true
         );
     }

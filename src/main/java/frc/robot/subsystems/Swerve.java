@@ -89,7 +89,7 @@ public class Swerve extends SubsystemBase
                         Constants.Swerve.MAX_SPEED, // Max module speed, in m/s
                         Constants.Swerve.CENTER_TO_WHEEL, // Drive base radius in meters. Distance from robot center to
                                                           // furthest module.
-                        new ReplanningConfig() // Default path replanning config. See the API for the options here
+                        new ReplanningConfig(true, true) // Default path replanning config. See the API for the options here
                 ),
                 () -> {
                     // Boolean supplier that controls when the path will be mirrored for the red alliance
@@ -121,25 +121,24 @@ public class Swerve extends SubsystemBase
         return m_field;
     }
 
-    public void drive(Translation2d translation, double rotation, boolean isOpenLoop) 
+    public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) 
     {
         SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates
         (
-            ChassisSpeeds.fromFieldRelativeSpeeds
+            fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds
             (
                 translation.getX(),
                 translation.getY(),
                 rotation,
                 getHeading()
+            ) : new ChassisSpeeds
+            (
+                translation.getX(),
+                translation.getY(),
+                rotation
             )
         );
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.MAX_SPEED);
-
-        for (SwerveModule mod : mSwerveMods)
-        {
-            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
-        }
-        rotationTarget = rotation;
+        setModuleStates(swerveModuleStates, isOpenLoop);
     }
 
     public double getYaw() 
@@ -192,7 +191,9 @@ public class Swerve extends SubsystemBase
         gyro.setYaw(0);
     }
 
-    public void setModuleStates(SwerveModuleState[] desiredStates) 
+
+
+    public void setModuleStates(SwerveModuleState[] desiredStates, boolean isOpenLoop) 
     {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.MAX_SPEED);
 
@@ -200,6 +201,11 @@ public class Swerve extends SubsystemBase
         {
             mod.setDesiredState(desiredStates[mod.moduleNumber], true);
         }
+    }
+
+    public void setModuleStates(SwerveModuleState[] desiredStates) 
+    {
+        setModuleStates(desiredStates, true);
     }
 
     public void resetOdometry(Pose2d pose) 
@@ -212,27 +218,6 @@ public class Swerve extends SubsystemBase
         for (SwerveModule mod : mSwerveMods) 
         {
             mod.resetToAbsolute();
-        }
-    }
-
-    // Rotates by a passed amount of degrees
-    public void rotateDegrees(double target) 
-    {
-        try 
-        (
-            PIDController rotController = new PIDController
-            (
-                Constants.Swerve.angleKP,
-                Constants.Swerve.angleKI,
-                Constants.Swerve.angleKD
-            )
-        ) 
-        {
-            rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
-
-            double rotate = rotController.calculate(getYaw(), getYaw() + target);
-
-            drive(new Translation2d(0, 0), rotate, true);
         }
     }
 

@@ -5,6 +5,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Swerve;
 import frc.robot.Constants;
 import frc.robot.subsystems.Limelight;
@@ -15,32 +16,37 @@ public class TeleopLimelightTurret extends Command
     private final Limelight s_Limelight;
     private final Shoulder s_Shoulder;
     private final Swerve s_Swerve;
-    private final DoubleSupplier translationSup;
-    private final DoubleSupplier strafeSup;
+    private final CommandXboxController controller;
+    private double translationSup;
+    private double strafeSup;
+    private boolean robotCentric;
+    
 
     public TeleopLimelightTurret
     (
         Limelight s_Limelight,
         Shoulder s_Shoulder,
         Swerve s_Swerve,
-        DoubleSupplier translationSup,
-        DoubleSupplier strafeSup
+        CommandXboxController controller
     ) 
     {
         this.s_Limelight = s_Limelight;
         this.s_Shoulder = s_Shoulder;
         this.s_Swerve = s_Swerve;
-        this.translationSup = translationSup;
-        this.strafeSup = strafeSup;
+        this.controller = controller;
         addRequirements(s_Swerve);
     }
     
     @Override
     public void execute() 
     {
+        translationSup = -controller.getLeftY();
+        strafeSup = -controller.getLeftX();
+        robotCentric = !controller.x().getAsBoolean();
+
         /* Apply Deadband */
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.STICK_DEADBAND);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.STICK_DEADBAND);
+        double translationVal = MathUtil.applyDeadband(translationSup, Constants.STICK_DEADBAND);
+        double strafeVal = MathUtil.applyDeadband(strafeSup, Constants.STICK_DEADBAND);
 
         /* Calculate Rotation Magnitude */
         if(s_Limelight.tagExists()) 
@@ -68,6 +74,7 @@ public class TeleopLimelightTurret extends Command
                 (
                     new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED),
                     rotate,
+                    robotCentric,
                     true
                 );
             }

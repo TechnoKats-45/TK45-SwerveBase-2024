@@ -17,6 +17,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 public class Shooter extends SubsystemBase 
 {
@@ -34,6 +35,7 @@ public class Shooter extends SubsystemBase
     {
         shooter = new CANSparkMax(Constants.Shooter.ShooterID, MotorType.kBrushless);
         shooter.setSmartCurrentLimit(60);
+        shooter.setIdleMode(IdleMode.kBrake);
         shooterEncoder = shooter.getEncoder();
     }
 
