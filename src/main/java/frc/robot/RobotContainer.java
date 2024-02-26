@@ -57,7 +57,7 @@ public class RobotContainer
     {
       
       // TODO - add registered commands here
-      registerAutoCommands();
+      //registerAutoCommands();
 
 
 
@@ -159,18 +159,21 @@ public class RobotContainer
       );
     
       // Left Trigger - Automatic Aim (X and Y), and spin up shooter
-      driver.leftTrigger().whileTrue(Commands.parallel
+      driver.leftTrigger().whileTrue
       (
-        new TeleopLimelightTurret // Auto Aim X - Swerve
+        Commands.parallel
         (
-          s_Limelight,
-          s_Shoulder,
-          s_Swerve,
-          driver
-        ),
-        new AutoShoulder(s_Limelight, s_Shoulder, Constants.AprilTags.speakerHeightOffset),
-        new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
-      ));
+          new TeleopLimelightTurret // Auto Aim X - Swerve
+          (
+            s_Limelight,
+            s_Shoulder,
+            s_Swerve,
+            driver
+          ),
+          new AutoShoulder(s_Limelight, s_Shoulder, Constants.AprilTags.speakerHeightOffset),
+          new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
+        )
+      );
 
       // Right Bumper - Automatic Intake, Feed, and Shoulder Angle
       driver.rightBumper().onTrue // THIS WORKS

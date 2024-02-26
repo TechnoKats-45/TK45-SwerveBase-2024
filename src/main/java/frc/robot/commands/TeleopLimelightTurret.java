@@ -81,14 +81,13 @@ public class TeleopLimelightTurret extends Command
             }
         }
 
-        if(s_Shoulder.isAligned() && s_Swerve.isAligned())
+        if(s_Swerve.isAligned())    // s_Shoulder.isAligned() && 
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_ON); // Alert the driver that the robot is ready to shoot
         }
-    }
-
-    public void end()
-    {
-        s_Limelight.setLEDMode(Constants.Limelight.LED_OFF);    // Turn off Limelight LEDs when command ends
+        else if(!s_Swerve.isAligned())
+        {
+            s_Limelight.setLEDMode(Constants.Limelight.LED_OFF); // Alert the driver that the robot is ready to shoot
+        }
     }
 }

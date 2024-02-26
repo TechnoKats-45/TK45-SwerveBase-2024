@@ -48,6 +48,10 @@ public class AutoFeed extends Command
         }
     }
 
+    public void andThen()
+    {
+        
+    }
 
     @Override
     public boolean isFinished()

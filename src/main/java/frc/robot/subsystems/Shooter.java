@@ -52,8 +52,8 @@ public class Shooter extends SubsystemBase
     
     public void holdTarget() 
     {
-        //shooter.set(target);                                                  // TODO - uncomment if PID does not work
-        //pidController.calculate(getSpeed(), target) // TODO
+        shooter.set(target);                                                  // TODO - uncomment if PID does not work
+        //pidController.calculate(getSpeed(), target); // TODO
     }
 
     public void runShooter(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
