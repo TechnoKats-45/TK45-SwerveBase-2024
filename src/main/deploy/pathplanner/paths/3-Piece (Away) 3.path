@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "Begin AutoIntake",
       "waypointRelativePos": 0.5,
       "command": {
         "type": "sequential",

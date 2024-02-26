@@ -1,10 +1,129 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 0.6849446477990359,
+      "y": 6.688334136763285
+    },
+    "rotation": 60.0
+  },
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAim"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4-Piece (Home) 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4-Piece (Home) 1.5"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAim"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4-Piece (Home) 1.75"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAim"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4-Piece (Home) 2"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAim"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4-Piece (Home) 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4-Piece (Home) 4"
+          }
+        }
+      ]
     }
   },
   "folder": null,

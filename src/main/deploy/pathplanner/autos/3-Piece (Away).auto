@@ -6,6 +6,25 @@
     "data": {
       "commands": [
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAim"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "3-Piece (Away) 1"
@@ -18,6 +37,25 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAim"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "3-Piece (Away) 3"
@@ -27,6 +65,25 @@
           "type": "path",
           "data": {
             "pathName": "3-Piece (Away) 4"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAim"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
           }
         }
       ]

@@ -3,34 +3,58 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.119377555339319,
-        "y": 7.007931697610803
+        "x": 0.6849446477990359,
+        "y": 6.688334136763285
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6395705503538782,
-        "y": 6.271220154522923
+        "x": 0.6849446477990359,
+        "y": 6.678584378546429
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.12,
-        "y": 5.55717665891467
+        "x": 2.586147500085975,
+        "y": 6.990576641485824
       },
       "prevControl": {
-        "x": 1.646124553910694,
-        "y": 6.286794409242648
+        "x": 2.576397741869118,
+        "y": 6.961327366835256
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "(Home) Two"
+      "linkedName": "(Home) 1.5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.45,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Begin Auto Intake",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -39,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.9710219310792204,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "4-Piece (Home)",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

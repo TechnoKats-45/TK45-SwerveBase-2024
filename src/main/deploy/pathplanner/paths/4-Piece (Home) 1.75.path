@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.007387751125446,
-        "y": 2.0449476661465615
+        "x": 1.9134141831229043,
+        "y": 5.52811290895741
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.308850958159192,
-        "y": 1.0002127339649363
+        "x": 1.9134141831229043,
+        "y": 5.52811290895741
       },
       "isLocked": false,
-      "linkedName": "7"
+      "linkedName": "(Home) 1.75"
     },
     {
       "anchor": {
-        "x": 3.2757495421480227,
-        "y": 3.1975262042308055
+        "x": 2.6251465329533996,
+        "y": 5.52811290895741
       },
       "prevControl": {
-        "x": 4.468769432445749,
-        "y": 1.4989894112645514
+        "x": 2.634896291170256,
+        "y": 5.52811290895741
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "(Home) 2"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Begin AutoAim",
+      "name": "Begin Auto Intake",
       "waypointRelativePos": 0.45,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "AutoAim"
+                "name": "AutoIntake"
               }
             }
           ]
@@ -57,11 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -35.63980919808669,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "3-Piece (Away)",
+  "folder": "4-Piece (Home)",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
