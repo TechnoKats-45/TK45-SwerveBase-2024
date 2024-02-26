@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -23,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class Climber extends SubsystemBase 
 {
     private CANSparkMax climber;
-    public double kP, kI, kD;
+    public double kP = 0.1, kI = 0, kD = 0;
     private PIDController m_pidController = new PIDController(kP, kI, kD);
 
     double target = 0;
@@ -37,6 +38,7 @@ public class Climber extends SubsystemBase
         climber = new CANSparkMax(Constants.Climber.ClimberID, MotorType.kBrushless);
         climber.restoreFactoryDefaults();
         climber.setSmartCurrentLimit(40);
+        climber.setIdleMode(IdleMode.kBrake);
         climber.setInverted(false);
         climberEncoder = climber.getEncoder();
     }

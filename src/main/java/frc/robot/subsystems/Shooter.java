@@ -23,8 +23,9 @@ public class Shooter extends SubsystemBase
 {
     private CANSparkMax shooter;
 
-    public double kP = 1, kI = 0, kD = 0;
+    public double kP = .1, kI = 0, kD = 0;
     private PIDController pidController = new PIDController(kP, kI, kD);
+    private final double NeoFreeSpeed = 5676; // RPM
 
     double target = 0;
     double speed;
@@ -39,32 +40,26 @@ public class Shooter extends SubsystemBase
         shooterEncoder = shooter.getEncoder();
     }
 
-    public void holdTarget() 
+    public double getSpeed()
     {
-        shooter.set(target);    //pidController.calculate(getSpeed(), target)   // IDK why this wasn't working // TODO
+        return shooterEncoder.getVelocity() / NeoFreeSpeed;    // Converts RPM to a percentage
     }
 
-    public void setTarget(double speed)
+    public void setTarget(double speed) // Percentage
     {
         target = speed;
+    }
+    
+    public void holdTarget() 
+    {
+        //shooter.set(target);                                                  // TODO - uncomment if PID does not work
+        //pidController.calculate(getSpeed(), target) // TODO
     }
 
     public void runShooter(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
     {
         setTarget(speed);
         holdTarget();
-        //System.out.print("runShooter Reached");
-    }
-
-    public double getSpeed()
-    {
-        return shooterEncoder.getVelocity();
-    }
-
-    public void fireWhenReady()
-    {
-        // TODO - Add code to check if shooter is ready to fire
-        // TODO - Add code to fire
     }
 
     public void diagnostics()
@@ -77,6 +72,7 @@ public class Shooter extends SubsystemBase
         SmartDashboard.putNumber("Shooter Current", getCurrent());
         SmartDashboard.putNumber("Shooter Target", target);
         SmartDashboard.putNumber("Shoter Speed", getSpeed());
+        SmartDashboard.putNumber("Shooter RPM", shooterEncoder.getVelocity());
     }
 
     public double getCurrent()
