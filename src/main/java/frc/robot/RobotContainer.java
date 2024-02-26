@@ -176,11 +176,14 @@ public class RobotContainer
       // Right Bumper - Automatic Intake, Feed, and Shoulder Angle
       driver.rightBumper().onTrue // THIS WORKS
       (
-        Commands.sequence
+        Commands.parallel
         (
-          new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
-          new AutoFeed(s_Intake, s_Feeder, s_Shoulder),    // Also holds shoulder angle  
-          new InstantCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_BLINK)) // Blink Limelight LED to alert driver of successful intake / feed
+          Commands.sequence
+          (
+            new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
+            new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
+          ),
+          new RunCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_ON)).until(s_Feeder::detectGamePiece) // Blink Limelight LED to alert driver of successful intake / feed
         )
       );
 
