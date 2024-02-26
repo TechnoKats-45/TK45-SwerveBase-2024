@@ -55,11 +55,11 @@ public class RobotContainer
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
     {
-      /*
+      
       // TODO - add registered commands here
-      NamedCommands.registerCommand("AutoFeed", new AutoFeed(s_Intake, s_Shoulder, s_Feeder));
-      NamedCommands.registerCommand("AutoIntake", new AutoIntake(s_Intake, s_Feeder).until(() -> s_Feeder.detectGamePiece()));
-      */
+      registerAutoCommands();
+
+
 
       chooser = AutoBuilder.buildAutoChooser("Test");
       SmartDashboard.putData("Auto Choices", chooser);
@@ -106,7 +106,44 @@ public class RobotContainer
       s_Swerve.gyro.setYaw(0);
     }
 
+    public void registerAutoCommands()
+    {
+      NamedCommands.registerCommand
+      (
+        "AutoIntake",
+        new SequentialCommandGroup
+        (
+          new AutoIntake(s_Intake, s_Feeder, s_Shoulder),
+          new AutoFeed(s_Intake, s_Feeder, s_Shoulder)
+        )
+      );
+      
+      NamedCommands.registerCommand
+      (
+        "AutoAim",
+        new ParallelCommandGroup
+        (
+          new TeleopLimelightTurret // Auto Aim X - Swerve
+          (
+            s_Limelight,
+            s_Shoulder,
+            s_Swerve,
+            driver
+          ),
+          new AutoShoulder(s_Limelight, s_Shoulder, Constants.AprilTags.speakerHeightOffset),
+          new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
+        )
+      );
 
+      NamedCommands.registerCommand
+      (
+        "AutoFire",
+        new ParallelCommandGroup
+        (
+          new AutoFire(s_Feeder, s_Limelight, s_Shoulder)
+        )
+      );
+    }
 
 
     
@@ -209,11 +246,6 @@ public class RobotContainer
       // Start Button - Cancel All Commands // TODO - add PID Cancel
       operator.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
     }
-    
-    public void operatorControlsPrints()
-    {
-
-    }
 
     public void printValues()
     {
@@ -223,8 +255,8 @@ public class RobotContainer
       s_Limelight.diagnostics();
       s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
-      operatorControlsPrints();
-      //s_Swerve.diagnostics();
+      //operatorControlsPrints();
+      s_Swerve.diagnostics();
     }
 
     public void subsystemInit()

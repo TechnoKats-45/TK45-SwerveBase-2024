@@ -109,10 +109,12 @@ public class Swerve extends SubsystemBase
         m_field.setRobotPose(swerveOdometry.getPoseMeters());
         for (SwerveModule mod : mSwerveMods) 
         {
+            /*
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Position", mod.getPosition().distanceMeters);
+            */
         }
     }
 
@@ -235,13 +237,7 @@ public class Swerve extends SubsystemBase
 
     public void diagnostics()
     {
-        ShuffleboardTab tab = Shuffleboard.getTab("Swerve");
-        tab.add("Gyro Yaw", getYaw());
-        tab.add("Gyro Pitch", getPitch());
-        tab.add("Gyro Roll", getRoll());
-        tab.add("Swerve X", getPose().getX());
-        tab.add("Swerve Y", getPose().getY());
-        tab.add("Swerve Heading", getPose().getRotation().getDegrees());
-        tab.add("Aligned", isAligned());
+        SmartDashboard.putNumber("Pose X", getPose().getX());
+        SmartDashboard.putNumber("Pose Y", getPose().getY());
     }
 }
