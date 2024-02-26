@@ -111,6 +111,17 @@ public class Limelight extends SubsystemBase
         return Math.abs(getRX()) < Constants.Limelight.X_Alignment_Tolerance;
     }
 
+    public void setPipeline(int pipeline) 
+    {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+    }
+
+    // Camera Controls:
+    public void setLEDMode(int mode) 
+    {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
+    }
+
     public void diagnostics()
     {
         SmartDashboard.putNumber("Limelight Updates", getUpdates());

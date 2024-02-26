@@ -40,6 +40,15 @@ public class AutoFeed extends Command
         s_Shoulder.holdTarget();
     }
 
+    public void end()
+    {
+        if(s_Feeder.detectGamePiece())
+        {
+
+        }
+    }
+
+
     @Override
     public boolean isFinished()
     {

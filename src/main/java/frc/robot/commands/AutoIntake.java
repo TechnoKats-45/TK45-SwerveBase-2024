@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shoulder;
+import frc.robot.subsystems.Limelight;
 import frc.robot.Constants;
 
 public class AutoIntake extends Command 
@@ -12,13 +13,15 @@ public class AutoIntake extends Command
     private Feeder s_Feeder;
     private Intake s_Intake;
     private Shoulder s_Shoulder;
+    Limelight s_Limelight;
 
     /** Creates a new AutoIntake Command. */
-    public AutoIntake(Intake s_Intake, Feeder s_Feeder, Shoulder s_Shoulder) 
+    public AutoIntake(Intake s_Intake, Feeder s_Feeder, Shoulder s_Shoulder, Limelight s_Limelight) 
     {
         this.s_Feeder = s_Feeder;
         this.s_Intake = s_Intake;
         this.s_Shoulder = s_Shoulder;
+        this.s_Limelight = s_Limelight;
         
         addRequirements(s_Feeder, s_Intake, s_Shoulder);
         // Called when the command is initially scheduled.
@@ -44,8 +47,18 @@ public class AutoIntake extends Command
         s_Shoulder.holdTarget();
     }
 
+    public void end()
+    {
+        if(s_Feeder.detectGamePiece())
+        {
+            // Alert driver that autoIntake is done
+            s_Limelight.setLEDMode(Constants.Limelight.LED_BLINK);  // Blink Limelight LED to alert driver
+        }
+    }
+
     public boolean isFinished()
     {
+        s_Limelight.setLEDMode(Constants.Limelight.LED_OFF);  // Turn off Limelight LED
         return s_Intake.detectGamePiece();  // End when GamePiece is detected in intake
     }
 }

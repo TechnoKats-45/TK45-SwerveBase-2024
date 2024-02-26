@@ -113,7 +113,7 @@ public class RobotContainer
         "AutoIntake",
         new SequentialCommandGroup
         (
-          new AutoIntake(s_Intake, s_Feeder, s_Shoulder),
+          new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
           new AutoFeed(s_Intake, s_Feeder, s_Shoulder)
         )
       );
@@ -177,7 +177,7 @@ public class RobotContainer
       (
         Commands.sequence
         (
-          new AutoIntake(s_Intake, s_Feeder, s_Shoulder).until(s_Intake::detectGamePiece), // Also sets shoulder angle
+          new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
           new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
         )
       );

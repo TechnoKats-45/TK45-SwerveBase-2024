@@ -35,7 +35,10 @@ public final class Constants
         public static final double YAW_OFFSET = 0;
         public static final double HEIGHT_OFFSET = 2; // TODO - Update this value
         public static final double X_Alignment_Tolerance = 3;   // TODO - Update this value
-        public static final double PITCH_OFFSET = 35;   
+        public static final double PITCH_OFFSET = 35;
+        public static final int LED_OFF = 1;
+        public static final int LED_BLINK = 2;
+        public static final int LED_ON = 3;
     }
 
     /* Intake Constants */
