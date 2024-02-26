@@ -47,18 +47,8 @@ public class AutoIntake extends Command
         s_Shoulder.holdTarget();
     }
 
-    public void end()
-    {
-        if(s_Feeder.detectGamePiece())
-        {
-            // Alert driver that autoIntake is done
-            s_Limelight.setLEDMode(Constants.Limelight.LED_BLINK);  // Blink Limelight LED to alert driver
-        }
-    }
-
     public boolean isFinished()
     {
-        s_Limelight.setLEDMode(Constants.Limelight.LED_OFF);  // Turn off Limelight LED
         return s_Intake.detectGamePiece();  // End when GamePiece is detected in intake
     }
 }

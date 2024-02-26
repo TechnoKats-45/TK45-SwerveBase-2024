@@ -94,12 +94,10 @@ public class RobotContainer
         new TeleopClimber(s_Climber)
       );
 
-      /*
       s_Limelight.setDefaultCommand
       (
         new TeleopLimelight(s_Limelight)
       );
-      */
       
       // Configure the button bindings
       configureButtonBindings();
@@ -181,7 +179,8 @@ public class RobotContainer
         Commands.sequence
         (
           new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
-          new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
+          new AutoFeed(s_Intake, s_Feeder, s_Shoulder),    // Also holds shoulder angle  
+          new InstantCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_BLINK)) // Blink Limelight LED to alert driver of successful intake / feed
         )
       );
 
@@ -194,6 +193,9 @@ public class RobotContainer
       
       // B Button - Zero Gyro // THIS WORKS
       driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); 
+
+      // X Button - Robot Centric Drive
+        // In Swerve Default Command
 
       // Start Button - Cancel All Commands // THIS WORKS // TODO - add PID Cancel
       driver.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));

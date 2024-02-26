@@ -81,7 +81,7 @@ public class TeleopLimelightTurret extends Command
             }
         }
 
-        if(s_Swerve.isAligned())    // s_Shoulder.isAligned() && 
+        if(s_Swerve.isAligned() && s_Shoulder.isAligned())  
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_ON); // Alert the driver that the robot is ready to shoot
         }
