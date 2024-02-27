@@ -91,7 +91,7 @@ public class RobotContainer
 
       s_Climber.setDefaultCommand
       (
-        new TeleopClimber(s_Climber)
+        new TeleopClimber(s_Climber, operator)
       );
 
       s_Limelight.setDefaultCommand
@@ -257,14 +257,14 @@ public class RobotContainer
 
     public void printValues()
     {
-      //s_Climber.diagnostics();
+      s_Climber.diagnostics();
       //s_Feeder.diagnostics();
       //s_Intake.diagnostics();
-      s_Limelight.diagnostics();
+      //s_Limelight.diagnostics();
       s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
       //operatorControlsPrints();
-      s_Swerve.diagnostics();
+      //s_Swerve.diagnostics();
     }
 
     public void subsystemInit()

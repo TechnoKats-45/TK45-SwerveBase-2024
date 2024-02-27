@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class Climber extends SubsystemBase 
 {
     private CANSparkMax climber;
-    public double kP = 0.1, kI = 0, kD = 0;
+    public double kP = 1, kI = 0, kD = 0;
     private PIDController m_pidController = new PIDController(kP, kI, kD);
 
     double target = 0;
@@ -67,12 +67,39 @@ public class Climber extends SubsystemBase
 
     public void holdTargetAngle()    // For holding the climber at the target height
     {
-        climber.set(m_pidController.calculate(getAngle(), target));
+        climber.set(m_pidController.calculate(getAngle(), target)); // THIS IS BROKEN
+    }
+
+    public void runClimber(CommandXboxController controller)
+    {
+        if(controller.getRightY() < -Constants.STICK_DEADBAND)  // Up
+        {
+            if(target > Constants.Climber.climberMaxAngle)
+            {
+                target = Constants.Climber.climberMaxAngle;
+            }
+            target++;
+            holdTargetAngle();
+        }
+        else if(controller.getRightY() > Constants.STICK_DEADBAND) // Down
+        {
+            if(target < Constants.Climber.climberMinAngle)
+            {
+                target = Constants.Climber.climberMinAngle;
+            }
+            target--;
+            holdTargetAngle();
+        }
+        else
+        {
+            // Hold angle
+            holdTargetAngle();
+        }
     }
 
     public void diagnostics()
     {
         SmartDashboard.putNumber("Climber Angle", getAngle());
-        SmartDashboard.putNumber("Climber Target Angle", target);
+        SmartDashboard.putNumber("Climber Target", target);
     }
 }

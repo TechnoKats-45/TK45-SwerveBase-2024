@@ -27,6 +27,8 @@ public class AutoFeed extends Command
     @Override
     public void execute() 
     {        
+        //s_Shoulder.holdTarget();  // Test that this is not needed, if it is, add s_Shoulder back to reqs
+
         if(!s_Feeder.detectGamePiece() && s_Intake.detectGamePiece() && s_Shoulder.isAligned())   // If no GP in feeder, and yes GP in intake, and yes shoulder angle correct
         {
             s_Intake.runIntake(Constants.Intake.handoffSpeed);
@@ -36,21 +38,8 @@ public class AutoFeed extends Command
         {
             // TODO - add diagnostics
         }
+
         s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
-        s_Shoulder.holdTarget();
-    }
-
-    public void end()
-    {
-        if(s_Feeder.detectGamePiece())
-        {
-
-        }
-    }
-
-    public void andThen()
-    {
-        
     }
 
     @Override

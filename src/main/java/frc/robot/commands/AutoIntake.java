@@ -23,7 +23,7 @@ public class AutoIntake extends Command
         this.s_Shoulder = s_Shoulder;
         this.s_Limelight = s_Limelight;
         
-        addRequirements(s_Feeder, s_Intake, s_Shoulder);
+        addRequirements(s_Feeder, s_Intake);
         // Called when the command is initially scheduled.
     }
 
@@ -31,7 +31,7 @@ public class AutoIntake extends Command
     @Override
     public void execute() 
     {
-        s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
+        //s_Shoulder.holdTarget();  // Test that this is not needed, if it is, add s_Shoulder back to reqs
 
         if(!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece())  // Check to see if we have a gamepiece already
         {
@@ -44,7 +44,7 @@ public class AutoIntake extends Command
             // TODO - add diagnostics
         }
 
-        s_Shoulder.holdTarget();
+        s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
     }
 
     public boolean isFinished()
