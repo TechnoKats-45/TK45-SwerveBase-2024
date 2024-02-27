@@ -73,7 +73,7 @@ public final class Constants
         public static final double minAngle = handoffAngle;       // TODO - Update
         public static final double groundParallelAngle = 79;      // TODO - Update maybe
         public static final double manualShoulderSpeed = 20;        // TODO - Update
-        public static final double maxSpeed = 1;
+        public static final double maxSpeed = .25;
     }
 
     /* Shooter Constants */

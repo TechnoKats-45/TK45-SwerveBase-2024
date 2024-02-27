@@ -24,12 +24,15 @@ public class Shooter extends SubsystemBase
     private CANSparkMax shooterBottom;
     private CANSparkMax shooterTop;
 
-    public double kP = .1, kI = 0, kD = 0;
+    public double kP = 1, kI = 0, kD = 0;
     private PIDController bottomPidController = new PIDController(kP, kI, kD);
+    private PIDController topPidController = new PIDController(kP, kI, kD);
     private final double NeoFreeSpeed = 5676; // RPM
 
-    double target = 0;
-    double speed;
+    double bottomTarget = 0;
+    double topTarget = 0;
+    double bottomSpeed;
+    double topSpeed;
 
     private final RelativeEncoder shooterBottomEncoder;
     private final RelativeEncoder shooterTopEncoder;
@@ -38,38 +41,66 @@ public class Shooter extends SubsystemBase
     {
         shooterBottom = new CANSparkMax(Constants.Shooter.ShooterBottomID, MotorType.kBrushless);
         shooterBottom.setSmartCurrentLimit(60);
-        shooterBottom.setIdleMode(IdleMode.kBrake);
+        shooterBottom.setIdleMode(IdleMode.kCoast);
         shooterBottomEncoder = shooterBottom.getEncoder();
-        shooterBottom.setInverted(false);   // TODO - maybe change this
+        shooterBottom.setInverted(true);   // TODO - maybe change this
 
         shooterTop = new CANSparkMax(Constants.Shooter.ShooterTopID, MotorType.kBrushless);
         shooterTop.setSmartCurrentLimit(60);
-        shooterTop.setIdleMode(IdleMode.kBrake);
+        shooterTop.setIdleMode(IdleMode.kCoast);
         shooterTopEncoder = shooterTop.getEncoder();
         shooterTop.setInverted(true);   // TODO - maybe change this
-        shooterTop.follow(shooterBottom);
     }
 
-    public double getSpeed()
+    public double getSpeedBottom()
     {
         return shooterBottomEncoder.getVelocity() / NeoFreeSpeed;    // Converts RPM to a percentage
     }
 
-    public void setTarget(double speed) // Percentage
+    public double getSpeedTop()
     {
-        target = speed;
+        return shooterTopEncoder.getVelocity() / NeoFreeSpeed;  // Converts RPM to a percentage
     }
-    
+
+    public void setTarget(double speed)
+    {
+        bottomTarget = speed;
+        topTarget = speed;
+    }
+
+    public void setBottomTarget(double bottomSpeed) // Percentage
+    {
+        bottomTarget = bottomSpeed;
+    }
+
+    public void setTopTarget(double topSpeed)   // Percentage
+    {
+        topTarget = topSpeed;
+    }
+
     public void holdTarget() 
     {
-        shooterBottom.set(target);
-        //pidController.calculate(getSpeed(), target); // TODO
+        shooterBottom.set(bottomTarget);
+        shooterTop.set(topTarget);
+        //shooterBottom.set(bottomPidController.calculate(getSpeedBottom(), bottomTarget));   // TODO - test
+        //shooterTop.set(topPidController.calculate(getSpeedTop(), topTarget));   // TODO - test
     }
 
     public void runShooter(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
     {
-        setTarget(speed);
+        setBottomTarget(speed);
+        setTopTarget(speed);
         holdTarget();
+    }
+
+    public double getBottomCurrent()
+    {
+        return shooterBottom.getOutputCurrent();
+    }
+
+    public double getTopCurrent()
+    {
+        return shooterTop.getOutputCurrent();
     }
 
     public void diagnostics()
@@ -79,14 +110,14 @@ public class Shooter extends SubsystemBase
         tab.add("Shooter Speed", getSpeed());
         tab.add("Shooter Target", target);
         */
-        SmartDashboard.putNumber("Shooter Current", getCurrent());
-        SmartDashboard.putNumber("Shooter Target", target);
-        SmartDashboard.putNumber("Shoter Speed", getSpeed());
-        SmartDashboard.putNumber("Shooter RPM", shooterBottomEncoder.getVelocity());
-    }
+        SmartDashboard.putNumber("Bottom Shooter Current", getBottomCurrent());
+        SmartDashboard.putNumber("Bottom Shooter Target", bottomTarget);
+        SmartDashboard.putNumber("Bottom Shooter Speed", getSpeedBottom());
+        SmartDashboard.putNumber("Bottom Shooter RPM", shooterBottomEncoder.getVelocity());
 
-    public double getCurrent()
-    {
-        return shooterBottom.getOutputCurrent();
+        SmartDashboard.putNumber("Top Shooter Current", getTopCurrent());
+        SmartDashboard.putNumber("Top Shooter Target", topTarget);
+        SmartDashboard.putNumber("Top Shooter Speed", getSpeedTop());
+        SmartDashboard.putNumber("Top Shooter RPM", shooterTopEncoder.getVelocity());
     }
 }
