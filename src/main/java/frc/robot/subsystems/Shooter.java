@@ -21,28 +21,38 @@ import com.revrobotics.CANSparkBase.IdleMode;
 
 public class Shooter extends SubsystemBase 
 {
-    private CANSparkMax shooter;
+    private CANSparkMax shooterBottom;
+    private CANSparkMax shooterTop;
 
     public double kP = .1, kI = 0, kD = 0;
-    private PIDController pidController = new PIDController(kP, kI, kD);
+    private PIDController bottomPidController = new PIDController(kP, kI, kD);
     private final double NeoFreeSpeed = 5676; // RPM
 
     double target = 0;
     double speed;
 
-    private final RelativeEncoder shooterEncoder;
+    private final RelativeEncoder shooterBottomEncoder;
+    private final RelativeEncoder shooterTopEncoder;
 
     public Shooter()
     {
-        shooter = new CANSparkMax(Constants.Shooter.ShooterID, MotorType.kBrushless);
-        shooter.setSmartCurrentLimit(60);
-        shooter.setIdleMode(IdleMode.kBrake);
-        shooterEncoder = shooter.getEncoder();
+        shooterBottom = new CANSparkMax(Constants.Shooter.ShooterBottomID, MotorType.kBrushless);
+        shooterBottom.setSmartCurrentLimit(60);
+        shooterBottom.setIdleMode(IdleMode.kBrake);
+        shooterBottomEncoder = shooterBottom.getEncoder();
+        shooterBottom.setInverted(false);   // TODO - maybe change this
+
+        shooterTop = new CANSparkMax(Constants.Shooter.ShooterTopID, MotorType.kBrushless);
+        shooterTop.setSmartCurrentLimit(60);
+        shooterTop.setIdleMode(IdleMode.kBrake);
+        shooterTopEncoder = shooterTop.getEncoder();
+        shooterTop.setInverted(true);   // TODO - maybe change this
+        shooterTop.follow(shooterBottom);
     }
 
     public double getSpeed()
     {
-        return shooterEncoder.getVelocity() / NeoFreeSpeed;    // Converts RPM to a percentage
+        return shooterBottomEncoder.getVelocity() / NeoFreeSpeed;    // Converts RPM to a percentage
     }
 
     public void setTarget(double speed) // Percentage
@@ -52,7 +62,7 @@ public class Shooter extends SubsystemBase
     
     public void holdTarget() 
     {
-        shooter.set(target);                                                  // TODO - uncomment if PID does not work
+        shooterBottom.set(target);
         //pidController.calculate(getSpeed(), target); // TODO
     }
 
@@ -72,11 +82,11 @@ public class Shooter extends SubsystemBase
         SmartDashboard.putNumber("Shooter Current", getCurrent());
         SmartDashboard.putNumber("Shooter Target", target);
         SmartDashboard.putNumber("Shoter Speed", getSpeed());
-        SmartDashboard.putNumber("Shooter RPM", shooterEncoder.getVelocity());
+        SmartDashboard.putNumber("Shooter RPM", shooterBottomEncoder.getVelocity());
     }
 
     public double getCurrent()
     {
-        return shooter.getOutputCurrent();
+        return shooterBottom.getOutputCurrent();
     }
 }

@@ -80,7 +80,8 @@ public final class Constants
     public static final class Shooter 
     {
         public static final double shooterSpeed = .8; // TODO - Adjust shooter speed
-        public static final int ShooterID = 55;
+        public static final int ShooterBottomID = 55;
+        public static final int ShooterTopID = 56;
 
         // TODO - tune PID
         public static final double kP = 0.1;
