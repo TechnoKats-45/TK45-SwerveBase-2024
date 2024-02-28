@@ -79,7 +79,7 @@ public class RobotContainer
         new TeleopFeeder(s_Feeder)
       );
       
-      s_Shoulder.setDefaultCommand  // Can be removed
+      s_Shoulder.setDefaultCommand  // Can probably be removed
       (
         new TeleopShoulder(s_Shoulder)
       );
@@ -263,7 +263,7 @@ public class RobotContainer
       //s_Intake.diagnostics();
       //s_Limelight.diagnostics();
       //s_Shooter.diagnostics();
-      //s_Shoulder.diagnostics();
+      s_Shoulder.diagnostics();
       //operatorControlsPrints();
       //s_Swerve.diagnostics();
     }

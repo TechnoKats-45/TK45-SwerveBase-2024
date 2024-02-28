@@ -21,6 +21,7 @@ public class TeleopLimelightTurret extends Command
     private double translationSup;
     private double strafeSup;
     private boolean robotCentric;
+    private PIDController rotController;
     
 
     public TeleopLimelightTurret
@@ -36,6 +37,16 @@ public class TeleopLimelightTurret extends Command
         this.s_Swerve = s_Swerve;
         this.controller = controller;
         addRequirements(s_Swerve);
+        
+
+        rotController = new PIDController
+        (
+            Constants.Limelight.LIMELIGHT_P,
+            Constants.Limelight.LIMELIGHT_I,
+            Constants.Limelight.LIMELIGHT_D
+        );
+
+        rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
     }
     
     @Override
@@ -52,35 +63,23 @@ public class TeleopLimelightTurret extends Command
         /* Calculate Rotation Magnitude */
         if(s_Limelight.tagExists()) 
         {
-            try 
+            double rotate = -rotController.calculate
             (
-                PIDController rotController = new PIDController
-                (
-                    Constants.Limelight.LIMELIGHT_P,
-                    Constants.Limelight.LIMELIGHT_I,
-                    Constants.Limelight.LIMELIGHT_D
-                )
-            )
-            {
-                rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
+                s_Swerve.getYaw(),
+                s_Swerve.getYaw() + s_Limelight.getLateralOffset()
+            );
 
-                double rotate = -rotController.calculate
-                (
-                    s_Swerve.getYaw(),
-                    s_Swerve.getYaw() + s_Limelight.getLateralOffset()
-                );
-
-                /* Drive */
-                s_Swerve.drive
-                (
-                    new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED),
-                    rotate,
-                    robotCentric,
-                    true
-                );
-            }
+            /* Drive */
+            s_Swerve.drive
+            (
+                new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED),
+                rotate,
+                robotCentric,
+                true
+            );
         }
 
+        /*
         if(s_Swerve.isAligned() && s_Shoulder.isAligned())  
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_ON); // Alert the driver that the robot is ready to shoot
@@ -89,12 +88,14 @@ public class TeleopLimelightTurret extends Command
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_OFF); // Alert the driver that the robot is ready to shoot
         }
+        */
     }
+
 
     @Override
     public void end(boolean interrupted) // I have no idea if this works!
     {
-        s_Shoulder.setTarget(s_Shoulder.getAngle());    // Maybe this will work?
+        s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);    // Maybe this will work?
         s_Shoulder.holdTarget();
     }
 }

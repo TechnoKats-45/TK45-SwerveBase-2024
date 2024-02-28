@@ -60,9 +60,8 @@ public class Climber extends SubsystemBase
         }
         else
         {
-            // TODO - add debug
+            target = angle;
         }
-        target = angle;
     }
 
     public void holdTargetAngle()    // For holding the climber at the target height

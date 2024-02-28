@@ -11,12 +11,8 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
-import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax;
 
 public class Shoulder extends SubsystemBase
 {
@@ -24,19 +20,12 @@ public class Shoulder extends SubsystemBase
 
     double target = 0;
     int angle;
-    
-    // RoboRio PID Implementation:
-        //private double kP = .01, kI = 0.0001, kD = 0, kS, kG, kV, kA, feedForward;   // kp was .01
-        //private double position = 0, velocity = 0, acceleration = 0;
 
-        //private DutyCycleEncoder m_absoluteEncoder;
-        //private PIDController m_pidController;
-        //private ArmFeedforward m_feedforward;
-
-    // Spark Max PID Implementation:
-        private double kP = 0.1, kI =0, kD = 0, kIz = 0, kFF = 0;
-        private SparkMaxAbsoluteEncoder m_absoluteEncoder;
-        private SparkMaxPIDController m_pidController;
+    public double kP = .01, kI = 0.0001, kD = 0, kS, kG, kV, kA, feedForward;   // kp was .01
+    private double position = 0, velocity = 0, acceleration = 0;
+    private DutyCycleEncoder m_absoluteEncoder;
+    private PIDController m_pidController;
+    private ArmFeedforward m_feedforward;
 
 
     public Shoulder() 
@@ -46,30 +35,18 @@ public class Shoulder extends SubsystemBase
         shoulder.setSmartCurrentLimit(40);
         shoulder.setInverted(true);
 
-        // RoboRio PID Implementation:
-            //m_feedforward = new ArmFeedforward(kS, kG, kV, kA);
-            //m_pidController = new PIDController(kP, kI, kD);
-            //m_absoluteEncoder = new DutyCycleEncoder(Constants.Shoulder.ShoulderEncoderPort);
+        m_feedforward = new ArmFeedforward(kS, kG, kV, kA);
+        m_pidController = new PIDController(kP, kI, kD);
+        m_pidController.disableContinuousInput();
 
-        target = getAngle();    // TODO - remove this?
+        m_absoluteEncoder = new DutyCycleEncoder(Constants.Shoulder.ShoulderEncoderPort);
 
-        // Spark Max PID Implementation:
-        m_absoluteEncoder = shoulder.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
-        m_pidController = shoulder.getPIDController();
-        m_pidController.setP(kP);
-        m_pidController.setI(kI);
-        m_pidController.setD(kD);
-        m_pidController.setIZone(kIz);
-        m_pidController.setFF(kFF);
-        m_pidController.setOutputRange(-Constants.Shoulder.maxSpeed, Constants.Shoulder.maxSpeed);
-        m_pidController.setPositionPIDWrappingEnabled(false);   
-        
-        shoulder.burnFlash();
+        target = getAngle();    // TODO - change to handoff angle eventually
     }
 
     public double getAngle()
     {
-        return m_absoluteEncoder.getPosition() * 360;
+        return m_absoluteEncoder.getAbsolutePosition() * 360;
     }
 
     public void moveAngle(Joystick opJoystick, Joystick drJoystick) 
@@ -77,16 +54,29 @@ public class Shoulder extends SubsystemBase
         holdTarget();   // Hold target angle // Button readings should happen in RobotContainer
     }
 
-    public void holdTarget() // Not needed with Spark MAX PID
+    public void holdTarget() 
     {
-        // RoboRio PID Implementation:
-            //double pidOutput = m_pidController.calculate(getAngle(), target);
+        // Checks to make sure angle is within limits
+        if(target >= Constants.Shoulder.maxAngle)
+        {
+            target = Constants.Shoulder.maxAngle;
+        }
+        else if(target <= Constants.Shoulder.minAngle)
+        {
+            target = Constants.Shoulder.minAngle;
+        }
+        else
+        {
+            // Do nothing
+        }
 
-            // Limit the speed to the range [-maxSpeed, maxSpeed]
-            //double limitedSpeed = Math.max(-Constants.Shoulder.maxSpeed, Math.min(Constants.Shoulder.maxSpeed, pidOutput));
+        double pidOutput = m_pidController.calculate(getAngle(), target);
 
-            // Set the motor speed with the limited value
-            //shoulder.set(limitedSpeed);
+        // Limit the speed to the range [-maxSpeed, maxSpeed]
+        double limitedSpeed = Math.max(-Constants.Shoulder.maxSpeed, Math.min(Constants.Shoulder.maxSpeed, pidOutput));
+
+        // Set the motor speed with the limited value
+        shoulder.set(limitedSpeed);
     }
 
     public void setAlignedAngle(double z, double y, boolean tag)
@@ -107,7 +97,6 @@ public class Shoulder extends SubsystemBase
     {
         if (Math.abs(getAngle() - target) <= 2) // If within 1 degree of target
         {
-            // DO NOT PUT A PRINT STATEMENT HERE! - THIS WILL BREAK EVERYTHING... again
             return true;    
         } 
         else 
@@ -116,23 +105,20 @@ public class Shoulder extends SubsystemBase
         }
     }
 
-    public void setTarget(double setPoint)  // Assigns a new target angle
+    public void setTarget(double setPoint)  // Assigns a new target angle   // TODO - somehow not catching negative numbers // I think this is now fixed - test JTL 2-28-24
     {
         // Checks to make sure angle is within limits
-        if(setPoint > Constants.Shoulder.maxAngle)
+        if(setPoint >= Constants.Shoulder.maxAngle)
         {
-            setPoint = Constants.Shoulder.maxAngle;
-            m_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
+            target = Constants.Shoulder.maxAngle;
         }
-        else if(setPoint < Constants.Shoulder.minAngle)
+        else if(setPoint <= Constants.Shoulder.minAngle)
         {
-            setPoint = Constants.Shoulder.minAngle;
-            m_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
+            target = Constants.Shoulder.minAngle;
         }
         else
         {
-            //target = setPoint;
-            m_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
+            target = setPoint;
         }
     }
 

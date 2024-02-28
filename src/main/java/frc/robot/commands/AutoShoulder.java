@@ -27,13 +27,14 @@ public class AutoShoulder extends Command
     @Override
     public void execute() 
     {
-        s_Shoulder.setAlignedAngle(s_Limelight.getRZ(), s_Limelight.getRY() + aprilTagHeightOffset, s_Limelight.tagExists());   // s_Limelight.getRY() 
-        s_Shoulder.holdTarget();
-    }
-
-    @Override
-    public boolean isFinished()
-    {
-        return false;
+        if(s_Limelight.tagExists())
+        {
+            s_Shoulder.setAlignedAngle(s_Limelight.getRZ(), s_Limelight.getRY() + aprilTagHeightOffset, s_Limelight.tagExists());   // s_Limelight.getRY() 
+            s_Shoulder.holdTarget();
+        }
+        else
+        {
+            s_Shoulder.holdTarget();
+        }
     }
 }
