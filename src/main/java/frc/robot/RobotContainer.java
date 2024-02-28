@@ -69,27 +69,27 @@ public class RobotContainer
         new TeleopSwerve(s_Swerve, driver)
       );
 
-      s_Intake.setDefaultCommand
+      s_Intake.setDefaultCommand  // Can be removed once PID is moved to Spark MAX
       (
         new TeleopIntake(s_Intake)
       );
 
-      s_Feeder.setDefaultCommand
+      s_Feeder.setDefaultCommand  // Can be removed once PID is moved to Spark MAX
       (
         new TeleopFeeder(s_Feeder)
       );
       
-      s_Shoulder.setDefaultCommand
+      s_Shoulder.setDefaultCommand  // Can be removed
       (
         new TeleopShoulder(s_Shoulder)
       );
       
-      s_Shooter.setDefaultCommand
+      s_Shooter.setDefaultCommand // Can be removed once PID is moved to Spark MAX
       (
         new TeleopShooter(s_Shooter)
       );
 
-      s_Climber.setDefaultCommand
+      s_Climber.setDefaultCommand // Can be removed once PID is moved to Spark MAX
       (
         new TeleopClimber(s_Climber, operator)
       );

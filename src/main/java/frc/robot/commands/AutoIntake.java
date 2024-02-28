@@ -31,8 +31,6 @@ public class AutoIntake extends Command
     @Override
     public void execute() 
     {
-        //s_Shoulder.holdTarget();  // Test that this is not needed, if it is, add s_Shoulder back to reqs
-
         if(!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece())  // Check to see if we have a gamepiece already
         {
             s_Intake.runIntake(Constants.Intake.intakeSpeed);
