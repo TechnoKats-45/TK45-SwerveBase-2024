@@ -41,7 +41,7 @@ public class AimBot extends Command
         this.s_Shoulder = s_Shoulder;
         this.s_Swerve = s_Swerve;
         this.controller = controller;
-        addRequirements(s_Swerve);  // TODO - add
+        addRequirements(s_Limelight, s_Shoulder, s_Swerve);  // TODO - add
 
         rotController = new PIDController
         (
