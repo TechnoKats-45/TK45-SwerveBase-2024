@@ -161,14 +161,14 @@ public class RobotContainer
       (
         Commands.parallel
         (
-          new TeleopLimelightTurret // Auto Aim X - Swerve
+          new AimBot
           (
-            s_Limelight,
-            s_Shoulder,
-            s_Swerve,
-            driver
+            s_Limelight, 
+            s_Shoulder, 
+            s_Swerve, 
+            driver, 
+            Constants.AprilTags.speakerHeightOffset
           ),
-          new AutoShoulder(s_Limelight, s_Shoulder, Constants.AprilTags.speakerHeightOffset),
           new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
         )
       );
