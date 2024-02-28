@@ -90,4 +90,11 @@ public class TeleopLimelightTurret extends Command
             s_Limelight.setLEDMode(Constants.Limelight.LED_OFF); // Alert the driver that the robot is ready to shoot
         }
     }
+
+    @Override
+    public void end(boolean interrupted) // I have no idea if this works!
+    {
+        s_Shoulder.setTarget(s_Shoulder.getAngle());    // Maybe this will work?
+        s_Shoulder.holdTarget();
+    }
 }

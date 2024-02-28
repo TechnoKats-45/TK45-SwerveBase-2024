@@ -59,6 +59,7 @@ public final class Constants
         public static final double handoffSpeed = .40;  // TODO - Adjust feeder speed
         public static final double ampScoreSpeed = -1; // TODO - Adjust amp shoot speed
         public static final double speakerFeedSpeed = 1;
+        public static final double JiggleDelay = 0.25;  // TODO - update
     }
 
     /* Shoulder Constants */   
@@ -79,7 +80,7 @@ public final class Constants
     /* Shooter Constants */
     public static final class Shooter 
     {
-        public static final double shooterSpeed = .8; // TODO - Adjust shooter speed
+        public static final double shooterSpeed = .9; // TODO - Adjust shooter speed
         public static final int ShooterBottomID = 55;
         public static final int ShooterTopID = 56;
 
@@ -270,10 +271,10 @@ public final class Constants
 
     public static final class Auto 
     {
-        public static final double AUTO_DRIVE_P = 0.1;
+        public static final double AUTO_DRIVE_P = 5;
         public static final double AUTO_DRIVE_I = 0.0;
-        public static final double AUTO_DRIVE_D = 0.00001;
-        public static final double AUTO_ANGLE_P = 0.2;
+        public static final double AUTO_DRIVE_D = 0;
+        public static final double AUTO_ANGLE_P = 5;
         public static final double AUTO_ANGLE_I = 0.0;
         public static final double AUTO_ANGLE_D = 0.0;
     }

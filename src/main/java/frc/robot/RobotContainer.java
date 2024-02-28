@@ -182,6 +182,7 @@ public class RobotContainer
           (
             new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
             new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
+            //new AutoJiggle(s_Feeder)
           ),
           new RunCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_ON)).until(s_Feeder::detectGamePiece) // Blink Limelight LED to alert driver of successful intake / feed
         )
@@ -257,12 +258,12 @@ public class RobotContainer
 
     public void printValues()
     {
-      s_Climber.diagnostics();
+      //s_Climber.diagnostics();
       //s_Feeder.diagnostics();
       //s_Intake.diagnostics();
       //s_Limelight.diagnostics();
-      s_Shooter.diagnostics();
-      s_Shoulder.diagnostics();
+      //s_Shooter.diagnostics();
+      //s_Shoulder.diagnostics();
       //operatorControlsPrints();
       //s_Swerve.diagnostics();
     }

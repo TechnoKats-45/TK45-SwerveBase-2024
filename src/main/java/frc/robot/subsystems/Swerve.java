@@ -107,15 +107,15 @@ public class Swerve extends SubsystemBase
     {
         swerveOdometry.update(getHeading(), getModulePositions());
         m_field.setRobotPose(swerveOdometry.getPoseMeters());
+        /*
         for (SwerveModule mod : mSwerveMods) 
         {
-            /*
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Position", mod.getPosition().distanceMeters);
-            */
         }
+        */
     }
 
     public Field2d getField2d() 
@@ -193,8 +193,6 @@ public class Swerve extends SubsystemBase
         gyro.setYaw(0);
     }
 
-
-
     public void setModuleStates(SwerveModuleState[] desiredStates, boolean isOpenLoop) 
     {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.MAX_SPEED);
@@ -223,7 +221,7 @@ public class Swerve extends SubsystemBase
         }
     }
 
-    public boolean isAligned() 
+    public boolean isAligned()  // PROBLEM CHILD     // TODO
     {
         if (Math.abs(getHeading().getDegrees() - rotationTarget) <= 1.5) // If within 1 degree of target
         {
