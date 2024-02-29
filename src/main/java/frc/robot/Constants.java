@@ -75,6 +75,7 @@ public final class Constants
         public static final double groundParallelAngle = 79;      // TODO - Update maybe
         public static final double manualShoulderSpeed = 20;        // TODO - Update
         public static final double maxSpeed = .25;
+        public static final double whiteLineSpeakerPreset = 30;
     }
 
     /* Shooter Constants */

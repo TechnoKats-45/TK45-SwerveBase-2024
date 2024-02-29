@@ -25,38 +25,38 @@
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntake"
-                }
-              },
               {
                 "type": "path",
                 "data": {
                   "pathName": "4-Piece (Home) 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoIntake"
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "4-Piece (Home) 1.5"
-          }
-        },
-        {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAim"
+                  "name": "FeederDown"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SpeakerPreset"
                 }
               },
               {
@@ -69,22 +69,15 @@
           }
         },
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntake"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "4-Piece (Home) 1.75"
-                }
-              }
-            ]
+            "pathName": "4-Piece (Home) 1.75"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FeederDown"
           }
         },
         {
@@ -109,6 +102,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Home",
   "choreoAuto": false
 }

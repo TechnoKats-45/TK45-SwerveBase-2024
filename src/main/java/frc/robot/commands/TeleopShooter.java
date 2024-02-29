@@ -27,6 +27,7 @@ public class TeleopShooter extends Command
     @Override
     public void execute() 
     {
-        s_Shooter.runShooter(0);
+        s_Shooter.setTarget(0);
+        s_Shooter.coastToZero();
     }
 }

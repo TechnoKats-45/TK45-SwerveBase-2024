@@ -18,7 +18,7 @@ public class AutoFire extends Command
     private Shoulder s_Shoulder;
     private boolean finished = false;
 
-    public AutoFire(Feeder s_Feeder, Limelight s_Limelight, Shoulder s_Shoulder) 
+    public AutoFire(Feeder s_Feeder, Limelight s_Limelight) 
     {
         this.s_Feeder = s_Feeder;
         this.s_Limelight = s_Limelight;

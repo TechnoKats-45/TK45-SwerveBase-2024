@@ -24,10 +24,10 @@ public class Shooter extends SubsystemBase
     private CANSparkMax shooterBottom;
     private CANSparkMax shooterTop;
 
-    public double kP = 1, kI = 0, kD = 0;
+    public double kP = 3, kI = 0, kD = .0001;  // kP of 5 seemed to work pretty well
     private PIDController bottomPidController = new PIDController(kP, kI, kD);
     private PIDController topPidController = new PIDController(kP, kI, kD);
-    private final double NeoFreeSpeed = 5676; // RPM
+    private double NeoFreeSpeed = 5676; // RPM
 
     double bottomTarget = 0;
     double topTarget = 0;
@@ -80,10 +80,15 @@ public class Shooter extends SubsystemBase
 
     public void holdTarget() 
     {
-        shooterBottom.set(bottomTarget);
-        shooterTop.set(topTarget);
-        //shooterBottom.set(bottomPidController.calculate(getSpeedBottom(), bottomTarget));   // TODO - test
-        //shooterTop.set(topPidController.calculate(getSpeedTop(), topTarget));   // TODO - test
+        //shooterBottom.set(bottomTarget);
+        //shooterTop.set(topTarget);
+        
+        shooterBottom.set(bottomPidController.calculate(getSpeedBottom(), bottomTarget));   // TODO - test
+        shooterTop.set(topPidController.calculate(getSpeedTop(), topTarget));   // TODO - test
+
+        //shooterBottom.setVoltage(bottomTarget);
+        //shooterTop.setVoltage(topTarget);
+
     }
 
     public void runShooter(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
@@ -91,6 +96,12 @@ public class Shooter extends SubsystemBase
         setBottomTarget(speed);
         setTopTarget(speed);
         holdTarget();
+    }
+
+    public void coastToZero()
+    {
+        shooterTop.set(0);
+        shooterBottom.set(0);
     }
 
     public double getBottomCurrent()
@@ -112,12 +123,14 @@ public class Shooter extends SubsystemBase
         */
         SmartDashboard.putNumber("Bottom Shooter Current", getBottomCurrent());
         SmartDashboard.putNumber("Bottom Shooter Target", bottomTarget);
+        //SmartDashboard.putNumber("Bottom Voltage", shooterBottom.getAppliedOutput() * 12);
         SmartDashboard.putNumber("Bottom Shooter Speed", getSpeedBottom());
-        SmartDashboard.putNumber("Bottom Shooter RPM", shooterBottomEncoder.getVelocity());
+        //SmartDashboard.putNumber("Bottom Shooter RPM", shooterBottomEncoder.getVelocity());
 
         SmartDashboard.putNumber("Top Shooter Current", getTopCurrent());
         SmartDashboard.putNumber("Top Shooter Target", topTarget);
+        //SmartDashboard.putNumber("Top Voltage", shooterTop.getAppliedOutput() * 12);
         SmartDashboard.putNumber("Top Shooter Speed", getSpeedTop());
-        SmartDashboard.putNumber("Top Shooter RPM", shooterTopEncoder.getVelocity());
+        //SmartDashboard.putNumber("Top Shooter RPM", shooterTopEncoder.getVelocity());
     }
 }

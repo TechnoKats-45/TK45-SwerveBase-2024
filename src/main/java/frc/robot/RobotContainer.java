@@ -108,10 +108,15 @@ public class RobotContainer
       NamedCommands.registerCommand
       (
         "AutoIntake",
-        new SequentialCommandGroup
+        Commands.parallel
         (
-          new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
-          new AutoFeed(s_Intake, s_Feeder, s_Shoulder)
+          Commands.sequence
+          (
+            new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
+            new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
+            //new AutoJiggle(s_Feeder)
+          ),
+          new RunCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_ON)).until(s_Feeder::detectGamePiece) // Blink Limelight LED to alert driver of successful intake / feed
         )
       );
       
@@ -138,9 +143,26 @@ public class RobotContainer
         new SequentialCommandGroup
         (
           new InstantCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed)),
-          new InstantCommand(() -> Timer.delay(0.5)),
-          new AutoFire(s_Feeder, s_Limelight, s_Shoulder)
+          new InstantCommand(() -> Timer.delay(0.5)), // TODO - try without delays?
+          new AutoFire(s_Feeder, s_Limelight),
+          new InstantCommand(() -> Timer.delay(0.5))  // TODO - try without delays?
         )
+      );
+
+      NamedCommands.registerCommand
+      (
+        "SpeakerPreset",
+        new SequentialCommandGroup
+        (
+          new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.whiteLineSpeakerPreset)),
+          new InstantCommand(() -> s_Shoulder.holdTarget())
+        )
+      );
+
+      NamedCommands.registerCommand
+      (
+        "FeederDown",
+        new FeederDown(s_Feeder)
       );
     }
 
@@ -154,7 +176,7 @@ public class RobotContainer
       // Right Trigger - Automatic Fire
       driver.rightTrigger().whileTrue
       (
-        new AutoFire(s_Feeder, s_Limelight, s_Shoulder)
+        new AutoFire(s_Feeder, s_Limelight)
       );
     
       // Left Trigger - Automatic Aim (X and Y), and spin up shooter
@@ -170,7 +192,7 @@ public class RobotContainer
             driver, 
             Constants.AprilTags.speakerHeightOffset
           ),
-          new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
+          new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed * 12))
         )
       );
 
@@ -263,7 +285,7 @@ public class RobotContainer
       //s_Feeder.diagnostics();
       //s_Intake.diagnostics();
       //s_Limelight.diagnostics();
-      //s_Shooter.diagnostics();
+      s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
       //operatorControlsPrints();
       //s_Swerve.diagnostics();
