@@ -21,7 +21,7 @@ public class Shoulder extends SubsystemBase
     double target = 0;
     int angle;
 
-    public double kP = .01, kI = 0.0001, kD = 0, kS, kG, kV, kA, feedForward;   // kp was .01
+    public double kP = .01, kI = 0, kD = 0, kS, kG, kV, kA, feedForward;   // kp was .01
     private double position = 0, velocity = 0, acceleration = 0;
     private DutyCycleEncoder m_absoluteEncoder;
     private PIDController m_pidController;

@@ -240,10 +240,10 @@ public class RobotContainer
       // Left Trigger - Manual Feeder
       operator.leftTrigger().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-.5)));
 
-      // Right Stick DOWN - Clmbers Down
+      // Right Stick DOWN - Clmbers Down  - not needed - default
       //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.manualControl(driver)));  //  TODO - need to determine target height before running
-
-      // Right Stick UP - Climbers Up
+      
+      // Right Stick UP - Climbers Up - note needed - default
       //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.setSpeedTarget(Constants.Climber.climberSpeed)));     //  TODO - need to determine target height before running
 
       // Left Stick DOWN - Arm Down
@@ -258,7 +258,7 @@ public class RobotContainer
 
     public void printValues()
     {
-      //s_Climber.diagnostics();
+      s_Climber.diagnostics();
       //s_Feeder.diagnostics();
       //s_Intake.diagnostics();
       //s_Limelight.diagnostics();

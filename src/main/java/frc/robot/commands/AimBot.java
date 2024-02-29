@@ -51,11 +51,15 @@ public class AimBot extends Command
         );
 
         rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
+
+        s_Shoulder.setTarget(s_Shoulder.getAngle());
     }
 
     @Override
     public void execute()
     {
+        s_Shoulder.holdTarget();
+
         translationSup = -controller.getLeftY();
         strafeSup = -controller.getLeftX();
         rotationSup = -controller.getRightX();
@@ -68,6 +72,8 @@ public class AimBot extends Command
         /* Calculate Rotation Magnitude */
         if(s_Limelight.tagExists())     // If the limelight sees a target, then use the limelight to aim
         {
+            s_Shoulder.holdTarget();
+
             // Calculate the rotation value for swerve
                 double rotate = -rotController.calculate
                 (
@@ -90,6 +96,8 @@ public class AimBot extends Command
         }
         else    // If the limelight doesn't see a target, then just drive normally
         {
+            s_Shoulder.holdTarget();
+
             // Drive Normally
             s_Swerve.drive
             (

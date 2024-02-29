@@ -73,32 +73,35 @@ public class Climber extends SubsystemBase
     {
         if(controller.getRightY() < -Constants.STICK_DEADBAND)  // Up
         {
-            if(target > Constants.Climber.climberMaxAngle)
+            if(getAngle() > Constants.Climber.maxExtension) // If at max, don't go up
             {
-                target = Constants.Climber.climberMaxAngle;
+                climber.set(0);
             }
-            target++;
-            holdTargetAngle();
+            else
+            {
+                climber.set(Constants.Climber.climberSpeed);  // Go up
+            }
         }
-        else if(controller.getRightY() > Constants.STICK_DEADBAND) // Down
+        else if(controller.getRightY() > Constants.STICK_DEADBAND) // Up
         {
-            if(target < Constants.Climber.climberMinAngle)
+            if(getAngle() < Constants.Climber.minExtension) // If at min, don't go down
             {
-                target = Constants.Climber.climberMinAngle;
+                climber.set(0);
             }
-            target--;
-            holdTargetAngle();
+            else
+            {
+                climber.set(-Constants.Climber.climberSpeed); // Go down
+            }
         }
         else
         {
             // Hold angle
-            holdTargetAngle();
+            climber.set(0);
         }
     }
 
     public void diagnostics()
     {
         SmartDashboard.putNumber("Climber Angle", getAngle());
-        SmartDashboard.putNumber("Climber Target", target);
     }
 }

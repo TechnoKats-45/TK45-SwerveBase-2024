@@ -29,7 +29,7 @@ public final class Constants
 
     public static final class Limelight     // TODO - TUNE THIS
     {
-        public static final double LIMELIGHT_P = 0.01;
+        public static final double LIMELIGHT_P = 0.02;
         public static final double LIMELIGHT_I = 0;
         public static final double LIMELIGHT_D = 0;
         public static final double YAW_OFFSET = 0;
@@ -99,8 +99,8 @@ public final class Constants
     {
         public static final int ClimberID = 45;
         public static final double climberSpeed = 1;       // TODO - Adjust climber speed
-        public static final double minimumExtension = 0;
-        public static final double maxExtension = 100;     // TODO - Update this value
+        public static final double minExtension = 0;
+        public static final double maxExtension = 110;     // TODO - Update this value
         public static final double chainGrabHeight = 99;   // TODO - Update this value
         public static final int ClimberEncoderPort = 3;
         public static final double ClimbSpeed = .25;       // TODO - Adjust climb speed
