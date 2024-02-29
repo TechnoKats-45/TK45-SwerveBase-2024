@@ -4,7 +4,8 @@
   "holonomicMode": true,
   "pathFolders": [
     "3-Piece (Away)",
-    "4-Piece (Home)"
+    "4-Piece (Home)",
+    "Shoot, Shoot, Leave"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,

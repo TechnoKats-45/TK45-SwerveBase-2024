@@ -271,10 +271,10 @@ public final class Constants
 
     public static final class Auto 
     {
-        public static final double AUTO_DRIVE_P = 5;
+        public static final double AUTO_DRIVE_P = 2.5;
         public static final double AUTO_DRIVE_I = 0.0;
-        public static final double AUTO_DRIVE_D = 0;
-        public static final double AUTO_ANGLE_P = 5;
+        public static final double AUTO_DRIVE_D = .01;
+        public static final double AUTO_ANGLE_P = 3;    // Was 5
         public static final double AUTO_ANGLE_I = 0.0;
         public static final double AUTO_ANGLE_D = 0.0;
     }

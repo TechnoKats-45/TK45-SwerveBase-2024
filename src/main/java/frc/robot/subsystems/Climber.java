@@ -103,5 +103,6 @@ public class Climber extends SubsystemBase
     public void diagnostics()
     {
         SmartDashboard.putNumber("Climber Angle", getAngle());
+        SmartDashboard.putNumber("Climber Current", climber.getOutputCurrent());
     }
 }

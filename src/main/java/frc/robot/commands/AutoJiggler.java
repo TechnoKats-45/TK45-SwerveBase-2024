@@ -6,7 +6,7 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Timer;
 
-public class AutoJiggle extends Command 
+public class AutoJiggler extends Command 
 {
     private Feeder s_Feeder;
     private double startTime;
@@ -14,7 +14,7 @@ public class AutoJiggle extends Command
 
 
     /** Creates a new AutoIntake Command. */
-    public AutoJiggle(Feeder s_Feeder) 
+    public AutoJiggler(Feeder s_Feeder) 
     {
         this.s_Feeder = s_Feeder;
         
@@ -26,21 +26,18 @@ public class AutoJiggle extends Command
     @Override
     public void execute() 
     {
-        if (!delayStarted) 
+        s_Feeder.setTarget(0.25);
+        s_Feeder.holdTarget();
+
+        Timer.delay(0.25);
+
+        s_Feeder.setTarget(-.25);
+        s_Feeder.holdTarget();
+
+        while(s_Feeder.detectGamePiece() == false)
         {
-            // Start the delay
-            startTime = Timer.getFPGATimestamp();
-            delayStarted = true;
+            s_Feeder.setTarget(0);
+            s_Feeder.holdTarget();
         }
-
-        if (Timer.getFPGATimestamp() - startTime >= Constants.Feeder.JiggleDelay) { // 25 milliseconds have passed
-            // Delay is over, do what needs to be done after the delay
-            System.out.println("25 milliseconds delay is over");
-            delayStarted = false; // Reset the flag if you need to start the delay again later
-        }
-
-        // Drive down 1"
-        // Drive down until sensor hit
-        // Repeat
     }
 }
