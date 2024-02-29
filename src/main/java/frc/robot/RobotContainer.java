@@ -1,7 +1,10 @@
 package frc.robot;
 
+import java.util.concurrent.DelayQueue;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -55,11 +58,7 @@ public class RobotContainer
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
     {
-      
-      // TODO - add registered commands here
-      //registerAutoCommands();
-
-
+      registerAutoCommands();
 
       chooser = AutoBuilder.buildAutoChooser("Test");
       SmartDashboard.putData("Auto Choices", chooser);
@@ -118,17 +117,17 @@ public class RobotContainer
       
       NamedCommands.registerCommand
       (
-        "AutoAim",
-        new ParallelCommandGroup
+        "AimBot",
+        Commands.parallel
         (
-          new TeleopLimelightTurret // Auto Aim X - Swerve
+          new AimBot
           (
-            s_Limelight,
-            s_Shoulder,
-            s_Swerve,
-            driver
+            s_Limelight, 
+            s_Shoulder, 
+            s_Swerve, 
+            driver, 
+            Constants.AprilTags.speakerHeightOffset
           ),
-          new AutoShoulder(s_Limelight, s_Shoulder, Constants.AprilTags.speakerHeightOffset),
           new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
         )
       );
@@ -136,8 +135,10 @@ public class RobotContainer
       NamedCommands.registerCommand
       (
         "AutoFire",
-        new ParallelCommandGroup
+        new SequentialCommandGroup
         (
+          new InstantCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed)),
+          new InstantCommand(() -> Timer.delay(0.5)),
           new AutoFire(s_Feeder, s_Limelight, s_Shoulder)
         )
       );
@@ -211,7 +212,7 @@ public class RobotContainer
       driver.povDown().onTrue(new InstantCommand(() -> s_Climber.setTargetAngle(Constants.Climber.climberMinAngle)));
 
 
-
+      
 
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////

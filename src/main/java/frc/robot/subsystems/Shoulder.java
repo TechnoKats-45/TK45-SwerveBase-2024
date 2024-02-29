@@ -95,7 +95,7 @@ public class Shoulder extends SubsystemBase
 
     public boolean isAligned()
     {
-        if (Math.abs(getAngle() - target) <= 2) // If within 1 degree of target
+        if (Math.abs(getAngle() - Math.abs(target)) <= 3) // If within 1 degree of target
         {
             return true;    
         } 

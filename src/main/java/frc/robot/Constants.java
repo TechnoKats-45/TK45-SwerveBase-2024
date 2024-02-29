@@ -31,7 +31,7 @@ public final class Constants
     {
         public static final double LIMELIGHT_P = 0.02;
         public static final double LIMELIGHT_I = 0;
-        public static final double LIMELIGHT_D = 0;
+        public static final double LIMELIGHT_D = 0.0001;    // Was 0
         public static final double YAW_OFFSET = 0;
         public static final double HEIGHT_OFFSET = 2; // TODO - Update this value
         public static final double X_Alignment_Tolerance = 3;   // TODO - Update this value
@@ -45,7 +45,7 @@ public final class Constants
     public static final class Intake 
     {
         public static final int IntakeID = 40;
-        public static final double intakeSpeed = -.75; // TODO - Adjust intake speed
+        public static final double intakeSpeed = -.5; // TODO - Adjust intake speed // Was -0.75
         public static final int IntakeSensor1Port = 1;   
         public static final double handoffSpeed = -.25; // TODO - Adjust handoff speed
         public static final double outtakeSpeed = .50; // TODO - Adjust outtake speed
@@ -274,7 +274,7 @@ public final class Constants
         public static final double AUTO_DRIVE_P = 2.5;
         public static final double AUTO_DRIVE_I = 0.0;
         public static final double AUTO_DRIVE_D = .01;
-        public static final double AUTO_ANGLE_P = 3;    // Was 5
+        public static final double AUTO_ANGLE_P = 2;    // Was 5    // Was 3
         public static final double AUTO_ANGLE_I = 0.0;
         public static final double AUTO_ANGLE_D = 0.0;
     }

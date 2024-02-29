@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import java.io.Console;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -7,8 +8,14 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotState;
+
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
@@ -111,14 +118,41 @@ public class AimBot extends Command
             s_Shoulder.holdTarget();
         }
 
+        SmartDashboard.putString("Text", "Reached 1");
+
         // Indicator LEDs on Limelight
         if(s_Swerve.isAligned() && s_Shoulder.isAligned())  
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_ON); // Alert the driver that the robot is ready to shoot
+            SmartDashboard.putBoolean("AIMED", true);
+
+            SmartDashboard.putString("Text", "aligned");
         }
-        else if(!s_Swerve.isAligned())
+        else if(!s_Swerve.isAligned() || !s_Shoulder.isAligned())
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_OFF); // Alert the driver that the robot is ready to shoot
+            SmartDashboard.putBoolean("AIMED", false);
+
+            SmartDashboard.putString("Text", "not aligned");
+        }
+    }
+
+    @Override
+    public void end(boolean interrupted) // I have no idea if this works!
+    {
+        SmartDashboard.putBoolean("AIMED", false);
+    }
+
+    @Override 
+    public boolean isFinished()
+    {
+        if (s_Shoulder.isAligned() && s_Swerve.isAligned() && RobotState.isAutonomous())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

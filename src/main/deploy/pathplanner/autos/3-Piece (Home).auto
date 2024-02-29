@@ -18,12 +18,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAim"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "AutoFire"
                 }
               }
@@ -31,9 +25,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "4-Piece (Home) 1"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "4-Piece (Home) 1"
+                }
+              }
+            ]
           }
         },
         {
@@ -62,34 +69,22 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "4-Piece (Home) 1.75"
-          }
-        },
-        {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoAim"
+                  "name": "AutoIntake"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "AutoFire"
+                  "pathName": "4-Piece (Home) 1.75"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4-Piece (Home) 2"
           }
         },
         {

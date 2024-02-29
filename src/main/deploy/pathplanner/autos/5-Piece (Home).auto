@@ -110,6 +110,18 @@
               }
             ]
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4-Piece (Home) 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4-Piece (Home) 4"
+          }
         }
       ]
     }

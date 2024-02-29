@@ -33,7 +33,7 @@ public class TeleopSwerve extends Command
     {
         translationSup = -controller.getLeftY();
         strafeSup = -controller.getLeftX();
-        rotationSup = -controller.getRightX();
+        rotationSup = -controller.getRightX() * 0.7;
         robotCentric = !controller.x().getAsBoolean();
 
         /* Get Values, Deadband*/

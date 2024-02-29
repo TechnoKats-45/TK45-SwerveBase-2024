@@ -73,25 +73,11 @@ public class Climber extends SubsystemBase
     {
         if(controller.getRightY() < -Constants.STICK_DEADBAND)  // Up
         {
-            if(getAngle() > Constants.Climber.maxExtension) // If at max, don't go up
-            {
-                climber.set(0);
-            }
-            else
-            {
-                climber.set(Constants.Climber.climberSpeed);  // Go up
-            }
+            climber.set(Constants.Climber.climberSpeed);  // Go up
         }
         else if(controller.getRightY() > Constants.STICK_DEADBAND) // Up
         {
-            if(getAngle() < Constants.Climber.minExtension) // If at min, don't go down
-            {
-                climber.set(0);
-            }
-            else
-            {
-                climber.set(-Constants.Climber.climberSpeed); // Go down
-            }
+            climber.set(-Constants.Climber.climberSpeed); // Go down
         }
         else
         {

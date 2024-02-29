@@ -223,7 +223,7 @@ public class Swerve extends SubsystemBase
 
     public boolean isAligned()  // PROBLEM CHILD     // TODO
     {
-        if (Math.abs(getHeading().getDegrees() - rotationTarget) <= 1.5) // If within 1 degree of target
+        if (Math.abs(getHeading().getDegrees() - Math.abs(rotationTarget)) <= 3) // If within 1 degree of target  // was 1.5
         {
             return true;
         } 

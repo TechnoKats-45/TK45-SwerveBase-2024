@@ -28,6 +28,8 @@ public class Robot extends TimedRobot
 
   private RobotContainer robotContainer;
 
+  public boolean autonomousMode;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,6 +42,7 @@ public class Robot extends TimedRobot
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
+    SmartDashboard.putBoolean("AIMED", false);
   }
 
   /**
@@ -79,6 +82,8 @@ public class Robot extends TimedRobot
     {
       autonomousCommand.schedule();
     }
+
+    autonomousMode = true;
   }
 
   /** This function is called periodically during autonomous. */
@@ -100,6 +105,7 @@ public class Robot extends TimedRobot
       autonomousCommand.cancel();
     }    
     robotContainer.subsystemInit();
+    autonomousMode = false;
   }
 
   /** This function is called periodically during operator control. */
