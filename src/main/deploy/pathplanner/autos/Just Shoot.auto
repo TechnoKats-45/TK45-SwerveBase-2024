@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.6459456149316112,
+      "y": 6.698083894980142
+    },
+    "rotation": 60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoFire"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Home",
+  "choreoAuto": false
+}
