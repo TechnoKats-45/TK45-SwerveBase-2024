@@ -7,37 +7,25 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shoulder;
 import frc.robot.Constants;
 
-public class AutoFeed extends Command 
+public class FeederDown extends Command 
 {
     private Feeder s_Feeder;
     private Intake s_Intake;
     private Shoulder s_Shoulder;
 
     /** Creates a new TeleopFeeder. */
-    public AutoFeed(Intake s_Intake, Feeder s_Feeder, Shoulder s_Shoulder) 
+    public FeederDown(Feeder s_Feeder) 
     {
         this.s_Feeder = s_Feeder;
-        this.s_Intake = s_Intake;
-        this.s_Shoulder = s_Shoulder;
         
-        addRequirements(s_Feeder, s_Intake);
+        addRequirements(s_Feeder);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() 
     {        
-        if(!s_Feeder.detectGamePiece() && s_Intake.detectGamePiece() && s_Shoulder.isAligned())   // If no GP in feeder, and yes GP in intake, and yes shoulder angle correct
-        {
-            s_Intake.runIntake(Constants.Intake.handoffSpeed);
-            s_Feeder.runFeeder(Constants.Feeder.handoffSpeed);
-        }
-        else
-        {
-            // TODO - add diagnostics
-        }
-
-        s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
+        s_Feeder.runFeeder(-Constants.Feeder.handoffSpeed);
     }
 
     @Override
@@ -49,6 +37,6 @@ public class AutoFeed extends Command
     @Override
     public void end(boolean interrupted)
     {
-        SmartDashboard.putBoolean("Feed Interupted", interrupted);
+        SmartDashboard.putBoolean("Feed Down Interupted", interrupted);
     }
 }
