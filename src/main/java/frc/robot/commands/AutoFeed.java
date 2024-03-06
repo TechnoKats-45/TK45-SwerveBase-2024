@@ -49,6 +49,7 @@ public class AutoFeed extends Command
     @Override
     public void end(boolean interrupted)
     {
-        SmartDashboard.putBoolean("Feed Interupted", interrupted);
+        s_Feeder.runFeeder(0);
+        s_Intake.runIntake(0);
     }
 }

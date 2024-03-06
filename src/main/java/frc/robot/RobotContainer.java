@@ -108,15 +108,10 @@ public class RobotContainer
       NamedCommands.registerCommand
       (
         "AutoIntake",
-        Commands.parallel
+        Commands.sequence
         (
-          Commands.sequence
-          (
-            new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
-            new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
-            //new AutoJiggle(s_Feeder)
-          ),
-          new RunCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_ON)).until(s_Feeder::detectGamePiece) // Blink Limelight LED to alert driver of successful intake / feed
+          new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
+          new AutoFeed(s_Intake, s_Feeder, s_Shoulder).until(s_Feeder::detectGamePiece)   // Also holds shoulder angle  
         )
       );
       

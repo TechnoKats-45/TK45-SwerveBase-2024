@@ -25,9 +25,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "3-Piece (Away) 1"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3-Piece (Away) 1"
+                }
+              }
+            ]
           }
         },
         {
