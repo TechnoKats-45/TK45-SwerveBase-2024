@@ -31,20 +31,7 @@ public class AutoFire extends Command
     @Override
     public void execute() 
     {
-        /*
-        // Check if Shoulder is at the target angle
-        // Check if swerve is at the target angle
-        if(s_Shoulder.isAligned() && s_Limelight.isAlignedX())
-        {
-            s_Feeder.runFeeder(Constants.Feeder.speakerFeedSpeed);  // If both true, fire
-        }
-        else    // If not, do nothing
-        {
-            // TODO - add diagnostics
-            // Maybe rumbles the controller   
-        }
-        */
-        s_Feeder.runFeeder(Constants.Feeder.speakerFeedSpeed);
+        //s_Feeder.runFeeder(Constants.Feeder.speakerFeedSpeed);
 
         if(RobotState.isAutonomous())   // If in auto, run for set time, then stop
         {
@@ -78,6 +65,6 @@ public class AutoFire extends Command
     @Override
     public void end(boolean interrupted)
     {
-        
+        s_Feeder.runFeeder(0);
     }
 }

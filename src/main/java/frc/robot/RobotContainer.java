@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -137,10 +138,7 @@ public class RobotContainer
         "AutoFire",
         new SequentialCommandGroup
         (
-          new InstantCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed)),
-          new InstantCommand(() -> Timer.delay(0.5)), // TODO - try without delays?
-          new AutoFire(s_Feeder, s_Limelight),
-          new InstantCommand(() -> Timer.delay(0.5))  // TODO - try without delays?
+          new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
         )
       );
 
