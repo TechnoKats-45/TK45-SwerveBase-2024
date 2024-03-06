@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.246341995271597,
-        "y": 0.8114864236353536
+        "x": 5.3745783501068205,
+        "y": 1.121222194938452
       },
       "isLocked": false,
       "linkedName": "WingClose"
     },
     {
       "anchor": {
-        "x": 8.007387751125446,
-        "y": 2.0449476661465615
+        "x": 8.465251704850203,
+        "y": 2.3691912466960323
       },
       "prevControl": {
-        "x": 7.265962960544938,
-        "y": 0.8384473251110094
+        "x": 6.612797643647545,
+        "y": 1.7257072043835295
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 54.782407031807494,
+    "rotation": 28.393019421382977,
     "rotateFast": false
   },
   "reversed": false,

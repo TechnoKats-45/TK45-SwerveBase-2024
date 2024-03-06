@@ -203,8 +203,8 @@ public final class Constants
 
         /* Swerve Profiling Values */
         /** Meters per Second */    // Controls the translational speed and acceleration of the robot (left joystick)
-        public static final double MAX_SPEED = 1;  // was 4.1
-        public static final double MAX_ACCEL = 1;  // was 4.1
+        public static final double MAX_SPEED = 4.1;  // was 4.1
+        public static final double MAX_ACCEL = 4.1;  // was 4.1
 
         /** Radians per Second */ // Controls the rotational speed of the robot (right joystick)
         public static final double maxAngularVelocity = 5; // was 10

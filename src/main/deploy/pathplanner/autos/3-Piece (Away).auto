@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4154473403278387,
-      "y": 3.0559814714836175
+      "x": 0.8311910210518773,
+      "y": 4.5043882961875195
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -15,12 +15,6 @@
           "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAim"
-                }
-              },
               {
                 "type": "named",
                 "data": {
