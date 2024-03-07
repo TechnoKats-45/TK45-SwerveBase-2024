@@ -1,16 +1,13 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
-import frc.robot.Constants;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Timer;
 
 public class AutoJiggler extends Command 
 {
     private Feeder s_Feeder;
-    private double startTime;
-    private boolean delayStarted = false;
 
 
     /** Creates a new AutoIntake Command. */

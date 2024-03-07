@@ -3,15 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shoulder;
 import frc.robot.Constants;
 
 public class FeederDown extends Command 
 {
     private Feeder s_Feeder;
-    private Intake s_Intake;
-    private Shoulder s_Shoulder;
 
     /** Creates a new TeleopFeeder. */
     public FeederDown(Feeder s_Feeder) 
