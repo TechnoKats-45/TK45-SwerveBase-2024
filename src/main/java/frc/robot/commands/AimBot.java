@@ -98,7 +98,7 @@ public class AimBot extends Command
                 );
 
             // Calculate the angle for the shoulder // 0.076 fudge factor (3 inches)
-                s_Shoulder.setAlignedAngle(s_Limelight.getRZ(), s_Limelight.getRY() + aprilTagHeightOffset - .076, s_Limelight.tagExists());   // s_Limelight.getRY() 
+                s_Shoulder.setAlignedAngle(s_Limelight.getRZ(), s_Limelight.getRY() + aprilTagHeightOffset - .076, s_Limelight.tagExists());   // s_Limelight.getRY()
                 s_Shoulder.holdTarget();
         }
         else    // If the limelight doesn't see a target, then just drive normally

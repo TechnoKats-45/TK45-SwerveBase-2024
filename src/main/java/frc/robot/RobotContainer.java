@@ -136,9 +136,10 @@ public class RobotContainer
       NamedCommands.registerCommand
       (
         "AutoFire",
-        new SequentialCommandGroup
+        new ParallelDeadlineGroup
         (
-          new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
+          new AutoFire(s_Feeder, s_Shooter),
+          new AimBot(s_Limelight, s_Shoulder, s_Swerve, driver, rotationAxis)
         )
       );
 
@@ -169,7 +170,7 @@ public class RobotContainer
       // Right Trigger - Automatic Fire
       driver.rightTrigger().whileTrue
       (
-        new AutoFire(s_Feeder, s_Limelight)
+        new AutoFire(s_Feeder, s_Shooter)
       );
     
       // Left Trigger - Automatic Aim (X and Y), and spin up shooter
@@ -277,7 +278,7 @@ public class RobotContainer
       s_Climber.diagnostics();
       //s_Feeder.diagnostics();
       //s_Intake.diagnostics();
-      //s_Limelight.diagnostics();
+      s_Limelight.diagnostics();
       s_Shooter.diagnostics();
       s_Shoulder.diagnostics();
       //operatorControlsPrints();
