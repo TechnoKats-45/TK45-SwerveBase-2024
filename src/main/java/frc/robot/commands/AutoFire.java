@@ -17,7 +17,8 @@ public class AutoFire extends Command
     {
         this.s_Feeder = s_Feeder;
         this.s_Shooter = s_Shooter;
-        addRequirements(s_Feeder, s_Shooter);
+        addRequirements(s_Feeder);  // Only require Feeder, only going to read from other subsystems
+                                    // adding other subsystems as requirements will cause them to be disabled
     }
 
     // Called every time the scheduler runs while the command is scheduled.

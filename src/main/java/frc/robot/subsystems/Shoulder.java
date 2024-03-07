@@ -2,12 +2,8 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 
@@ -22,10 +18,8 @@ public class Shoulder extends SubsystemBase
     int angle;
 
     public double kP = .01, kI = 0, kD = 0, kS, kG, kV, kA, feedForward;   // kp was .01
-    private double position = 0, velocity = 0, acceleration = 0;
     private DutyCycleEncoder m_absoluteEncoder;
     private PIDController m_pidController;
-    private ArmFeedforward m_feedforward;
 
 
     public Shoulder() 
@@ -35,7 +29,6 @@ public class Shoulder extends SubsystemBase
         shoulder.setSmartCurrentLimit(40);
         shoulder.setInverted(true);
 
-        m_feedforward = new ArmFeedforward(kS, kG, kV, kA);
         m_pidController = new PIDController(kP, kI, kD);
         m_pidController.disableContinuousInput();
 
