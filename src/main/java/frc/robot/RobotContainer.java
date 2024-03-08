@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -165,16 +166,20 @@ public class RobotContainer
       // Left Trigger - Automatic Aim (X and Y), and spin up shooter
       driver.leftTrigger().whileTrue
       (
-        Commands.parallel
+        new SequentialCommandGroup
         (
-          new SimpleAimBot
+          new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed), s_Shooter),
+          new ParallelCommandGroup
           (
-            s_Limelight, 
-            s_Shoulder, 
-            s_Swerve, 
-            driver
+            new SimpleAimBot
+            (
+              s_Limelight, 
+              s_Shoulder, 
+              s_Swerve, 
+              driver
+            ),
+            new RunCommand(() -> s_Shooter.holdTarget(), s_Shooter)
           )
-          //new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed * 12))
         )
       );
 
@@ -264,12 +269,12 @@ public class RobotContainer
 
     public void printValues()
     {
-      s_Climber.diagnostics();
+      //s_Climber.diagnostics();
       //s_Feeder.diagnostics();
       //s_Intake.diagnostics();
-      s_Limelight.diagnostics();
+      //s_Limelight.diagnostics();
       s_Shooter.diagnostics();
-      s_Shoulder.diagnostics();
+      //s_Shoulder.diagnostics();
       //operatorControlsPrints();
       //s_Swerve.diagnostics();
     }
