@@ -114,14 +114,14 @@ public class AimBot extends Command
         SmartDashboard.putString("Text", "Reached 1");
 
         // Indicator LEDs on Limelight
-        if(s_Swerve.isAligned() && s_Shoulder.isAligned())  
+        if(s_Swerve.isRotAligned() && s_Shoulder.isAligned())  
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_ON); // Alert the driver that the robot is ready to shoot
             SmartDashboard.putBoolean("AIMED", true);
 
             SmartDashboard.putString("Text", "aligned");
         }
-        else if(!s_Swerve.isAligned() || !s_Shoulder.isAligned())
+        else if(!s_Swerve.isRotAligned() || !s_Shoulder.isAligned())
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_OFF); // Alert the driver that the robot is ready to shoot
             SmartDashboard.putBoolean("AIMED", false);
@@ -139,7 +139,7 @@ public class AimBot extends Command
     @Override 
     public boolean isFinished()
     {
-        if (s_Shoulder.isAligned() && s_Swerve.isAligned() && RobotState.isAutonomous())
+        if (s_Shoulder.isAligned() && s_Swerve.isRotAligned() && RobotState.isAutonomous())
         {
             return true;
         }
