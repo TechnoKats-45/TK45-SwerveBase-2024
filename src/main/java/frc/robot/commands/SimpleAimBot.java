@@ -36,8 +36,7 @@ public class SimpleAimBot extends Command
         Limelight s_Limelight,
         Shoulder s_Shoulder,
         Swerve s_Swerve,
-        CommandXboxController controller,
-        double aprilTagHeightOffset
+        CommandXboxController controller
     )
     {
         this.s_Limelight = s_Limelight;
@@ -113,9 +112,11 @@ public class SimpleAimBot extends Command
                 // calculate distance   // Not Needed
                 double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches) / Math.tan(angleToGoalRadians);
 
-                double shoulderAngleToGoalDegrees = angleToGoalDegrees - Constants.Shoulder.groundParallelAngle;  // groundParallelAngle is the angle of the shoulder when it is parallel to the ground
+                double shoulderAngleToGoalDegrees = Constants.Shoulder.groundParallelAngle - angleToGoalDegrees;  // groundParallelAngle is the angle of the shoulder when it is parallel to the ground
 
                 s_Shoulder.setTarget(shoulderAngleToGoalDegrees);
+                //SmartDashboard.putNumber("Angle to Goal", angleToGoalDegrees);
+                //SmartDashboard.putNumber("Simple Shoulder angle", shoulderAngleToGoalDegrees);
 
         }
         else    // If the limelight doesn't see a target, then just drive normally

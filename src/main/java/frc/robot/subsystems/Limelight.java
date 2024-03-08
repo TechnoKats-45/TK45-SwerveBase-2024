@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -42,6 +43,15 @@ public class Limelight extends SubsystemBase
     public int getUpdates() 
     {
         return updates;
+    }
+
+    public double simpleY()
+    {
+        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");   // TK45
+        NetworkTableEntry ty = table.getEntry("ty");
+        double targetOffsetAngle_Vertical = ty.getDouble(0.0);
+        targetOffsetAngle_Vertical += 35;    // Angle Offset
+        return targetOffsetAngle_Vertical;
     }
 
     // X+ is to the right when looking at the tag
@@ -129,5 +139,7 @@ public class Limelight extends SubsystemBase
         SmartDashboard.putNumber("LimeLight Y", getRY());
         SmartDashboard.putNumber("LimeLight Z", getRZ());
         SmartDashboard.putNumber("LimeLight Lateral Offset", getLateralOffset());
+
+        SmartDashboard.putNumber("Simple Y", simpleY());
     }
 }
