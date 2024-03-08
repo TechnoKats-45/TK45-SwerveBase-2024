@@ -110,14 +110,7 @@ public class RobotContainer
         "AimBot",
         Commands.parallel
         (
-          new AimBot
-          (
-            s_Limelight, 
-            s_Shoulder, 
-            s_Swerve, 
-            driver, 
-            Constants.AprilTags.speakerHeightOffset
-          ),
+          new SimpleAimBot(s_Limelight, s_Shoulder, s_Swerve, driver, Constants.AprilTags.speakerHeightOffset),
           new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
         )
       );
