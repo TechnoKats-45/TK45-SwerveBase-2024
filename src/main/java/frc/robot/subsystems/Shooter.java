@@ -17,16 +17,16 @@ public class Shooter extends SubsystemBase
     private CANSparkMax shooterBottom;
     private CANSparkMax shooterTop;
 
-    public double kP = .0006, kI = 0, kD = 0.000001;
-    public double bkS = 0.7, bkV = 493.5;
-    public double tkS = 0.7, tkV = 493.5;   // TODO - change tkS to correct value
+    public double kP = .0006, kI = 0, kD = 0.000001;    // kP of .0006 works pretty well, .0008
+    //public double kP = 0, kI = 0, kD = 0;    // kP of .0006 works pretty well, .0008
+    public double bkS = 0.07 / 12, bkV = 0.00018;    // 0.00015 was slightly too low   // 0.0002 was slightly too high
+    public double tkS = 0.07 / 12, tkV = 0.00018;     // TODO - change tkS to tuned value
     private PIDController bottomPidController = new PIDController(kP, kI, kD);
     private PIDController topPidController = new PIDController(kP, kI, kD);
     private SimpleMotorFeedforward bottomMotorFeedforward = new SimpleMotorFeedforward(bkS, bkV);
     private SimpleMotorFeedforward topMotorFeedforward = new SimpleMotorFeedforward(tkS, tkV);
 
     private double NeoFreeSpeed = 5676; // RPM
-    private int setpoint = 0;
 
     double target;
     double bottomSpeed;
@@ -70,6 +70,7 @@ public class Shooter extends SubsystemBase
         //SmartDashboard.putNumber("Bottom Calculated", bottomPidController.calculate(getSpeedBottom(), target) + bottomMotorFeedforward.calculate(target));
         shooterBottom.set(bottomPidController.calculate(getSpeedBottom(), target) + bottomMotorFeedforward.calculate(target));
         shooterTop.set(topPidController.calculate(getSpeedTop(), target) + topMotorFeedforward.calculate(target));
+        SmartDashboard.putNumber("KP", kP);
     }
 
     public void runShooter(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
