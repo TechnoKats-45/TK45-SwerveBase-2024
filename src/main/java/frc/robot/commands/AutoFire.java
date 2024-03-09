@@ -30,7 +30,7 @@ public class AutoFire extends Command
         if(RobotState.isAutonomous())   // If in auto, run for set time, then stop
         {
             s_Shooter.runShooter(Constants.Shooter.shooterSpeed);
-            Timer.delay(0.25);
+            Timer.delay(0.5);
             s_Feeder.runFeeder(Constants.Feeder.speakerFeedSpeed);
             Timer.delay(0.25);
             s_Feeder.runFeeder(0);

@@ -80,16 +80,10 @@ public final class Constants
     /* Shooter Constants */
     public static final class Shooter 
     {
-        public static final double shooterSpeed = .9; // TODO - Adjust shooter speed
+        public static final double shooterSpeed = 0.9; // TODO - Adjust shooter speed
         public static final int ShooterBottomID = 55;
         public static final int ShooterTopID = 56;
 
-        // TODO - tune PID
-        public static final double kP = 0.1;
-        public static final double kI = 0;
-        public static final double kD = 0; 
-        public static final double kIz = 0; 
-        public static final double kFF = 0; 
         public static final double kMaxOutput = 1;
         public static final double kMinOutput = 0;
     }
@@ -107,15 +101,6 @@ public final class Constants
         public static final double climberMaxAngle = 100; // TODO - Update this value
         public static final double climberMinAngle = 0;   // TODO - Update this value
     
-        // TODO - tune PID
-        public static final double kP = 0.1;
-        public static final double kI = 1e-4;
-        public static final double kD = 1; 
-        public static final double kIz = 0; 
-        public static final double kFF = 0; 
-        public static final double kMaxOutput = .2;     // TODO - Update this to 1 after testing
-        public static final double kMinOutput = -.2;    // TODO - Update this to 1 after testing
-
         public static final double kInchesPerRotation = 2; // TODO - Update this value
     }
 
@@ -202,8 +187,8 @@ public final class Constants
 
         /* Swerve Profiling Values */
         /** Meters per Second */    // Controls the translational speed and acceleration of the robot (left joystick)
-        public static final double MAX_SPEED = 4.1;  // was 4.1
-        public static final double MAX_ACCEL = 4.1;  // was 4.1
+        public static final double MAX_SPEED = 2;  // was 4.1
+        public static final double MAX_ACCEL = 2;  // was 4.1
 
         /** Radians per Second */ // Controls the rotational speed of the robot (right joystick)
         public static final double maxAngularVelocity = 5; // was 10

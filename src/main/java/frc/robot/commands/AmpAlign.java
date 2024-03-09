@@ -56,7 +56,7 @@ public class AmpAlign extends Command
 
         rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
 
-        s_Shoulder.setTarget(s_Shoulder.getAngle());
+        s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

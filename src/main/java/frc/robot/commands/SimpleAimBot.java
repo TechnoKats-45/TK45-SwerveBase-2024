@@ -29,7 +29,6 @@ public class SimpleAimBot extends Command
     private double rotationSup;
     private boolean robotCentric;
     private PIDController rotController;
-    private double aprilTagHeightOffset;
 
     public SimpleAimBot
     (
@@ -101,23 +100,20 @@ public class SimpleAimBot extends Command
                 double limelightMountAngleDegrees = 35.0; // TK45
 
                 // distance from the center of the Limelight lens to the floor
-                double limelightLensHeightInches = 13.93; // TK45
+                    //double limelightLensHeightInches = 13.93; // TK45
 
                 // distance from the target to the floor
-                double goalHeightInches = 78.13+((82.90-78.13)/2);  // Average between top and bottom of the target opening
+                    //double goalHeightInches = 78.13+((82.90-78.13)/2);  // Average between top and bottom of the target opening   // -1 is an adjustment down by 1 inch
 
                 double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
-                double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+                    //double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
 
                 // calculate distance   // Not Needed
-                double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches) / Math.tan(angleToGoalRadians);
+                    //double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches) / Math.tan(angleToGoalRadians);
 
                 double shoulderAngleToGoalDegrees = Constants.Shoulder.groundParallelAngle - angleToGoalDegrees;  // groundParallelAngle is the angle of the shoulder when it is parallel to the ground
 
                 s_Shoulder.setTarget(shoulderAngleToGoalDegrees);
-                //SmartDashboard.putNumber("Angle to Goal", angleToGoalDegrees);
-                //SmartDashboard.putNumber("Simple Shoulder angle", shoulderAngleToGoalDegrees);
-
         }
         else    // If the limelight doesn't see a target, then just drive normally
         {
@@ -135,8 +131,6 @@ public class SimpleAimBot extends Command
             // Hold the shoulder in place
             s_Shoulder.holdTarget();
         }
-
-        SmartDashboard.putString("Text", "Reached 1");
 
         // Indicator LEDs on Limelight
         if(s_Swerve.isRotAligned() && s_Shoulder.isAligned())  
@@ -156,9 +150,11 @@ public class SimpleAimBot extends Command
     }
 
     @Override
-    public void end(boolean interrupted) // I have no idea if this works!
+    public void end(boolean interrupted)
     {
         SmartDashboard.putBoolean("AIMED", false);
+        s_Shoulder.setTarget(s_Shoulder.getAngle());
+        s_Shoulder.holdTarget();
     }
 
     @Override 

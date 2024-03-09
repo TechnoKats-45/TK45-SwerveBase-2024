@@ -17,9 +17,9 @@ public class Shooter extends SubsystemBase
     private CANSparkMax shooterBottom;
     private CANSparkMax shooterTop;
 
-    public double kP = .0006, kI = 0, kD = 0.000001;    // kP of .0006 works pretty well, .0008
-    //public double kP = 0, kI = 0, kD = 0;    // kP of .0006 works pretty well, .0008
-    public double bkS = 0.07 / 12, bkV = 0.00018;    // 0.00015 was slightly too low   // 0.0002 was slightly too high
+    public double kP = .0006, kI = 0, kD = 0.000001;
+    //public double kP = 0, kI = 0, kD = 0;
+    public double bkS = 0.07 / 12, bkV = 0.00018;
     public double tkS = 0.07 / 12, tkV = 0.00018;     // TODO - change tkS to tuned value
     private PIDController bottomPidController = new PIDController(kP, kI, kD);
     private PIDController topPidController = new PIDController(kP, kI, kD);

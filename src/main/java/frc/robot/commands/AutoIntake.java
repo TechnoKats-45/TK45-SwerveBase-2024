@@ -30,6 +30,7 @@ public class AutoIntake extends Command
     @Override
     public void execute() 
     {
+        s_Shoulder.holdTarget();
         if(!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece())  // Check to see if we have a gamepiece already
         {
             s_Intake.runIntake(Constants.Intake.intakeSpeed);
@@ -47,5 +48,12 @@ public class AutoIntake extends Command
     public boolean isFinished()
     {
         return s_Intake.detectGamePiece();  // End when GamePiece is detected in intake
+    }
+
+    @Override
+    public void end(boolean interrupted)
+    {
+        s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
+        s_Shoulder.holdTarget();
     }
 }

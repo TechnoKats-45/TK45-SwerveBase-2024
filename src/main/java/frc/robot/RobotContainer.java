@@ -125,6 +125,21 @@ public class RobotContainer
 
       NamedCommands.registerCommand
       (
+        "SimpleAimBot",
+        Commands.sequence
+        (
+          new SimpleAimBot
+          (
+              s_Limelight, 
+              s_Shoulder, 
+              s_Swerve, 
+              driver
+          )
+        )
+      );
+
+      NamedCommands.registerCommand
+      (
         "AutoFire",
         new ParallelDeadlineGroup
         (
@@ -202,7 +217,7 @@ public class RobotContainer
       driver.leftBumper().whileTrue(Commands.parallel
         (
           new AutoAmp(s_Feeder, s_Shoulder)
-          // new AmpAlign() // TODO - add AmpAlign command
+          //new AmpAlign(s_Feeder, s_Shoulder, s_Limelight, s_Swerve, driver)
         )
       );
       

@@ -50,5 +50,7 @@ public class AutoFeed extends Command
     {
         s_Feeder.runFeeder(0);
         s_Intake.runIntake(0);
+        s_Shoulder.setTarget(s_Shoulder.getAngle());
+        s_Shoulder.holdTarget();
     }
 }
