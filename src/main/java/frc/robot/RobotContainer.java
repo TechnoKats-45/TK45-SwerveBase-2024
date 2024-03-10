@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.Joystick;
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -40,6 +42,7 @@ public class RobotContainer
 
     /* Controllers */
     private final CommandXboxController driver = new CommandXboxController(0);
+    private final Joystick rumbleDriver = new Joystick(0);
     private final CommandXboxController operator = new CommandXboxController(1);
 
     /* Variables */
@@ -133,7 +136,8 @@ public class RobotContainer
               s_Limelight, 
               s_Shoulder, 
               s_Swerve, 
-              driver
+              driver,
+              rumbleDriver
           )
         )
       );
@@ -191,7 +195,8 @@ public class RobotContainer
               s_Limelight, 
               s_Shoulder, 
               s_Swerve, 
-              driver
+              driver,
+              rumbleDriver
             ),
             new RunCommand(() -> s_Shooter.holdTarget(), s_Shooter)
           )
@@ -209,7 +214,7 @@ public class RobotContainer
             new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
             //new AutoJiggle(s_Feeder)
           ),
-          new RunCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_ON)).until(s_Feeder::detectGamePiece) // Blink Limelight LED to alert driver of successful intake / feed
+          new RunCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_ON)).until(s_Intake::detectGamePiece) // Blink Limelight LED to alert driver of successful intake / feed
         )
       );
 

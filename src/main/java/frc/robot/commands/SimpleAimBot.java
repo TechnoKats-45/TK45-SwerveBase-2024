@@ -9,10 +9,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.Joystick;
 
 import edu.wpi.first.wpilibj.RobotState;
-
-
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Limelight;
@@ -24,6 +23,7 @@ public class SimpleAimBot extends Command
     private final Shoulder s_Shoulder;
     private final Swerve s_Swerve;
     private final CommandXboxController controller;
+    private final Joystick rumbleController;
     private double translationSup;
     private double strafeSup;
     private double rotationSup;
@@ -35,13 +35,15 @@ public class SimpleAimBot extends Command
         Limelight s_Limelight,
         Shoulder s_Shoulder,
         Swerve s_Swerve,
-        CommandXboxController controller
+        CommandXboxController controller,
+        Joystick rumbleController
     )
     {
         this.s_Limelight = s_Limelight;
         this.s_Shoulder = s_Shoulder;
         this.s_Swerve = s_Swerve;
         this.controller = controller;
+        this.rumbleController = rumbleController;
         addRequirements(s_Limelight, s_Shoulder, s_Swerve);  // TODO - add
 
         rotController = new PIDController
@@ -99,17 +101,7 @@ public class SimpleAimBot extends Command
                 // how many degrees back is your limelight rotated from perfectly vertical?
                 double limelightMountAngleDegrees = 35.0; // TK45
 
-                // distance from the center of the Limelight lens to the floor
-                    //double limelightLensHeightInches = 13.93; // TK45
-
-                // distance from the target to the floor
-                    //double goalHeightInches = 78.13+((82.90-78.13)/2);  // Average between top and bottom of the target opening   // -1 is an adjustment down by 1 inch
-
                 double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
-                    //double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
-
-                // calculate distance   // Not Needed
-                    //double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches) / Math.tan(angleToGoalRadians);
 
                 double shoulderAngleToGoalDegrees = Constants.Shoulder.groundParallelAngle - angleToGoalDegrees;  // groundParallelAngle is the angle of the shoulder when it is parallel to the ground
 
@@ -132,20 +124,27 @@ public class SimpleAimBot extends Command
             s_Shoulder.holdTarget();
         }
 
-        // Indicator LEDs on Limelight
-        if(s_Swerve.isRotAligned() && s_Shoulder.isAligned())  
+        // Indicator LEDs on Limelight and Vibration
+        if(s_Swerve.isRotAligned() && s_Shoulder.isAligned())   // If both are aligned - solid vibrate and solid LED
         {
-            s_Limelight.setLEDMode(Constants.Limelight.LED_ON); // Alert the driver that the robot is ready to shoot
-            SmartDashboard.putBoolean("AIMED", true);
-
-            SmartDashboard.putString("Text", "aligned");
+            s_Limelight.setLEDMode(Constants.Limelight.LED_ON);
+            // Controller vibrate ON
+            rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 1);
         }
-        else if(!s_Swerve.isRotAligned() || !s_Shoulder.isAligned())
+        else if(!s_Swerve.isRotAligned() || !s_Shoulder.isAligned())    // If 1/2 is aligned - off / on vibrate and blink LED
         {
-            s_Limelight.setLEDMode(Constants.Limelight.LED_OFF); // Alert the driver that the robot is ready to shoot
-            SmartDashboard.putBoolean("AIMED", false);
-
-            SmartDashboard.putString("Text", "not aligned");
+            s_Limelight.setLEDMode(Constants.Limelight.LED_BLINK); 
+            rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 0);
+        }
+        else if(!s_Swerve.isRotAligned() && !s_Shoulder.isAligned())    // If 0/2 are aligned - no vibrate, LEDs off
+        {
+            s_Limelight.setLEDMode(Constants.Limelight.LED_OFF);
+            // controller vibrate OFF
+            rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 0);
+        }
+        else
+        {
+            // I should not be here - ERROR
         }
     }
 
@@ -155,6 +154,7 @@ public class SimpleAimBot extends Command
         SmartDashboard.putBoolean("AIMED", false);
         s_Shoulder.setTarget(s_Shoulder.getAngle());
         s_Shoulder.holdTarget();
+        rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 0);
     }
 
     @Override 
