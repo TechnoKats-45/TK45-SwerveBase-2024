@@ -16,12 +16,14 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shoulder;
+import frc.robot.subsystems.Shooter;
 
 public class SimpleAimBot extends Command
 {
     private final Limelight s_Limelight;
     private final Shoulder s_Shoulder;
     private final Swerve s_Swerve;
+    private final Shooter s_Shooter;
     private final CommandXboxController controller;
     private final Joystick rumbleController;
     private double translationSup;
@@ -36,7 +38,8 @@ public class SimpleAimBot extends Command
         Shoulder s_Shoulder,
         Swerve s_Swerve,
         CommandXboxController controller,
-        Joystick rumbleController
+        Joystick rumbleController,
+        Shooter s_Shooter
     )
     {
         this.s_Limelight = s_Limelight;
@@ -44,7 +47,8 @@ public class SimpleAimBot extends Command
         this.s_Swerve = s_Swerve;
         this.controller = controller;
         this.rumbleController = rumbleController;
-        addRequirements(s_Limelight, s_Shoulder, s_Swerve);  // TODO - add
+        this.s_Shooter = s_Shooter;
+        addRequirements(s_Limelight, s_Shoulder, s_Swerve, s_Shooter);
 
         rotController = new PIDController
         (
@@ -62,6 +66,7 @@ public class SimpleAimBot extends Command
     public void execute()
     {
         s_Shoulder.holdTarget();
+        s_Shooter.holdTarget();
 
         translationSup = -controller.getLeftY();
         strafeSup = -controller.getLeftX();
@@ -106,6 +111,7 @@ public class SimpleAimBot extends Command
                 double shoulderAngleToGoalDegrees = Constants.Shoulder.groundParallelAngle - angleToGoalDegrees;  // groundParallelAngle is the angle of the shoulder when it is parallel to the ground
 
                 s_Shoulder.setTarget(shoulderAngleToGoalDegrees);
+                s_Shoulder.holdTarget();
         }
         else    // If the limelight doesn't see a target, then just drive normally
         {
@@ -125,11 +131,17 @@ public class SimpleAimBot extends Command
         }
 
         // Indicator LEDs on Limelight and Vibration
-        if(s_Swerve.isRotAligned() && s_Shoulder.isAligned())   // If both are aligned - solid vibrate and solid LED
+        if(s_Limelight.tagExists() && s_Swerve.isRotAligned() && s_Shoulder.isAligned() && s_Shooter.upToSpeed())    // If both aligned and up to speed
         {
             s_Limelight.setLEDMode(Constants.Limelight.LED_ON);
             // Controller vibrate ON
             rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 1);
+        }
+        else if(s_Limelight.tagExists() && s_Swerve.isRotAligned() && s_Shoulder.isAligned())   // If both are aligned, but not up to speed - NO vibrate and solid LED
+        {
+            s_Limelight.setLEDMode(Constants.Limelight.LED_ON);
+            // Controller vibrate OFF
+            rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 0);
         }
         else if(!s_Swerve.isRotAligned() || !s_Shoulder.isAligned())    // If 1/2 is aligned - off / on vibrate and blink LED
         {
@@ -155,6 +167,8 @@ public class SimpleAimBot extends Command
         s_Shoulder.setTarget(s_Shoulder.getAngle());
         s_Shoulder.holdTarget();
         rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 0);
+        s_Shooter.coastToZero();
+
     }
 
     @Override 

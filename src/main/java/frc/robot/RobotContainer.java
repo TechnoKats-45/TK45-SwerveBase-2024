@@ -137,7 +137,8 @@ public class RobotContainer
               s_Shoulder, 
               s_Swerve, 
               driver,
-              rumbleDriver
+              rumbleDriver,
+              s_Shooter
           )
         )
       );
@@ -148,7 +149,7 @@ public class RobotContainer
         new ParallelDeadlineGroup
         (
           new AutoFire(s_Feeder, s_Shooter),
-          new AimBot(s_Limelight, s_Shoulder, s_Swerve, driver, Constants.AprilTags.speakerHeightOffset)
+          new RunCommand(() -> s_Shoulder.holdTarget())
         )
       );
 
@@ -196,9 +197,9 @@ public class RobotContainer
               s_Shoulder, 
               s_Swerve, 
               driver,
-              rumbleDriver
-            ),
-            new RunCommand(() -> s_Shooter.holdTarget(), s_Shooter)
+              rumbleDriver,
+              s_Shooter
+            )
           )
         )
       );
@@ -271,6 +272,12 @@ public class RobotContainer
       // Left Trigger - Manual Feeder
       operator.leftTrigger().whileTrue(new RunCommand(() -> s_Feeder.runFeeder(-.5)));
 
+      // X Button - Shoulder Fire Forward
+      operator.x().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.groundParallelAngle)));
+
+      // B Button - Hail-Mary
+      operator.b().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.groundParallelAngle - 15)));
+
       // Right Stick DOWN - Clmbers Down  - not needed - default
       //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.manualControl(driver)));  //  TODO - need to determine target height before running
       
@@ -297,6 +304,9 @@ public class RobotContainer
       //s_Shoulder.diagnostics();
       //operatorControlsPrints();
       //s_Swerve.diagnostics();
+      SmartDashboard.putBoolean("Shoulder Aligned", s_Shoulder.isAligned());
+      SmartDashboard.putBoolean("Swerve Aligned", s_Swerve.isRotAligned());
+      SmartDashboard.putBoolean("Shooter Up-To-Speed", s_Shooter.upToSpeed());
     }
 
     public void subsystemInit()

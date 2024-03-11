@@ -26,7 +26,7 @@ public class AutoFire extends Command
     public void execute() 
     {
         //s_Feeder.runFeeder(Constants.Feeder.speakerFeedSpeed);
-
+        
         if(RobotState.isAutonomous())   // If in auto, run for set time, then stop
         {
             s_Shooter.runShooter(Constants.Shooter.shooterSpeed);

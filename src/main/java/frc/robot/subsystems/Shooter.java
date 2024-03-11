@@ -21,6 +21,7 @@ public class Shooter extends SubsystemBase
     //public double kP = 0, kI = 0, kD = 0;
     public double bkS = 0.07 / 12, bkV = 0.00018;
     public double tkS = 0.07 / 12, tkV = 0.00018;     // TODO - change tkS to tuned value
+    private double currentAverageSpeed;
     private PIDController bottomPidController = new PIDController(kP, kI, kD);
     private PIDController topPidController = new PIDController(kP, kI, kD);
     private SimpleMotorFeedforward bottomMotorFeedforward = new SimpleMotorFeedforward(bkS, bkV);
@@ -77,6 +78,20 @@ public class Shooter extends SubsystemBase
     {
         setTarget(speed);
         holdTarget();
+    }
+
+    public boolean upToSpeed()
+    {
+        // Calculate current average speed
+        currentAverageSpeed = (getSpeedTop() + getSpeedBottom()) / 2;
+        if(target - currentAverageSpeed <= 200) // Within X rpms, //TODO - tune this lower?
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void coastToZero()

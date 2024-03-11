@@ -27,6 +27,7 @@ public class Swerve extends SubsystemBase
     public final Pigeon2 gyro;
     final Field2d m_field = new Field2d();
     public double rotationTarget = 0;
+    private double difference;
 
     public Swerve() 
     {
@@ -121,6 +122,7 @@ public class Swerve extends SubsystemBase
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) 
     {
+        rotationTarget = rotation;
         SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates
         (
             fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds
@@ -219,7 +221,7 @@ public class Swerve extends SubsystemBase
 
     public boolean isRotAligned()  // PROBLEM CHILD     // TODO
     {
-        if (Math.abs(getHeading().getDegrees() - Math.abs(rotationTarget)) <= 3) // If within 1 degree of target  // was 1.5
+        if (rotationTarget <= 3)
         {
             return true;
         } 

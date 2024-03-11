@@ -14,10 +14,12 @@ public class Shoulder extends SubsystemBase
 {
     private CANSparkMax shoulder;
 
-    double target = 0;
-    int angle;
+    private double target = 0;
+    private double difference;
+    private int angle;
 
-    public double kP = .01, kI = 0, kD = 0, kS, kG, kV, kA, feedForward;   // kp was .01
+    // Was 0.01, increased to 0.015,
+    public double kP = .015, kI = 0.00000001, kD = .00001, kS, kG, kV, kA, feedForward;   // Added I and D -JTL 12:12PM 3-10-24
     private DutyCycleEncoder m_absoluteEncoder;
     private PIDController m_pidController;
 
@@ -35,6 +37,7 @@ public class Shoulder extends SubsystemBase
         m_absoluteEncoder = new DutyCycleEncoder(Constants.Shoulder.ShoulderEncoderPort);
 
         target = getAngle();    // TODO - change to handoff angle eventually
+
     }
 
     public double getAngle()
@@ -88,7 +91,8 @@ public class Shoulder extends SubsystemBase
 
     public boolean isAligned()
     {
-        if (Math.abs(getAngle() - Math.abs(target)) <= 3) // If within 1 degree of target
+        difference = getAngle() - target;
+        if (Math.abs(difference) <= 2) // If within 1 degree of target
         {
             return true;    
         } 
