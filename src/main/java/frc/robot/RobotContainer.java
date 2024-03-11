@@ -145,6 +145,16 @@ public class RobotContainer
 
       NamedCommands.registerCommand
       (
+        "SpoolUp",
+        new SequentialCommandGroup
+        (
+          new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed), s_Shooter),
+          new RunCommand(() -> s_Shooter.holdTarget(), s_Shooter)
+        )
+      );
+
+      NamedCommands.registerCommand
+      (
         "AutoFire",
         new ParallelDeadlineGroup
         (

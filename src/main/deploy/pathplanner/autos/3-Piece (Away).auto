@@ -29,25 +29,57 @@
           "data": {
             "commands": [
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 15.0
-                }
-              },
-              {
-                "type": "parallel",
+                "type": "race",
                 "data": {
                   "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 7.0
+                      }
+                    },
                     {
                       "type": "named",
                       "data": {
                         "name": "AutoIntake"
                       }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3-Piece (Away) 1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3-Piece (Away) 2"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
                     },
                     {
-                      "type": "path",
+                      "type": "named",
                       "data": {
-                        "pathName": "3-Piece (Away) 1"
+                        "name": "SpoolUp"
                       }
                     }
                   ]
@@ -57,29 +89,23 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "3-Piece (Away) 2"
-          }
-        },
-        {
           "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "deadline",
+                "type": "race",
                 "data": {
                   "commands": [
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 5.0
+                        "waitTime": 2.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "SimpleAutoAim"
+                        "name": "SimpleAimBot"
                       }
                     }
                   ]
@@ -92,7 +118,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 2.0
                       }
                     },
                     {
@@ -108,15 +134,67 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "3-Piece (Away) 3"
+            "commands": [
+              {
+                "type": "race",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 7.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoIntake"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3-Piece (Away) 3"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "3-Piece (Away) 4"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3-Piece (Away) 4"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SpoolUp"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -124,15 +202,41 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "race",
                 "data": {
-                  "name": "AutoFire"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SimpleAimBot"
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "type": "named",
+                "type": "deadline",
                 "data": {
-                  "name": "AutoFire"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoFire"
+                      }
+                    }
+                  ]
                 }
               }
             ]

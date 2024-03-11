@@ -66,6 +66,7 @@ public class SimpleAimBot extends Command
     public void execute()
     {
         s_Shoulder.holdTarget();
+        s_Shooter.setTarget(Constants.Shooter.shooterSpeed);
         s_Shooter.holdTarget();
 
         translationSup = -controller.getLeftY();

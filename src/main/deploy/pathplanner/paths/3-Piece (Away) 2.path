@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.29950581516365,
-        "y": 0.7312318662642086
+        "x": 8.69924590205475,
+        "y": 0.7897304155653457
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.587488571459568,
-        "y": 0.8121145706911749
+        "x": 6.987228658350668,
+        "y": 0.8706131199923121
       },
       "isLocked": false,
       "linkedName": "(8)"
@@ -28,11 +28,17 @@
       "linkedName": "WingClose"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.45,
+      "rotationDegrees": -38.67445318698105,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 4.5,
     "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
