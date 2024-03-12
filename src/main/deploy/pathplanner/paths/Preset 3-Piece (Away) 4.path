@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5763977418691195,
-        "y": 7.010076157919538
+        "x": 8.835742517090736,
+        "y": 2.6909332678522846
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.5763977418691195,
-        "y": 7.010076157919538
+        "x": 5.569573514443942,
+        "y": 0.2242444389876908
       },
       "isLocked": false,
-      "linkedName": "Blue 1"
+      "linkedName": "7"
     },
     {
       "anchor": {
-        "x": 6.339804413575574,
-        "y": 7.380566970160069
+        "x": 0.8311910210518773,
+        "y": 4.5043882961875195
       },
       "prevControl": {
-        "x": 5.339804413575574,
-        "y": 7.380566970160069
+        "x": 2.6836450822545364,
+        "y": 1.7452067208172428
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "SourceSideCPreset"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -32.426699962885614,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,11 +45,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -60.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Shoot, Shoot, Leave",
+  "folder": "3-Piece Preset (Away)",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

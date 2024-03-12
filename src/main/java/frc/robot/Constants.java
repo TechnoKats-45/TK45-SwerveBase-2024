@@ -66,7 +66,7 @@ public final class Constants
     {
         public static final int ShoulderID = 60;
         public static final double handoffAngle = 28;           // TODO - Update
-        public static final double ampScoreAngle = 224.8;       // TODO - Update
+        public static final double ampScoreAngle = 226.8;       // TODO - Update    // Was 224.8
         public static final double speakerScoreAngle = handoffAngle;      // TODO - Update
         public static final int ShoulderEncoderPort = 2;
         public static final double maxAngle = 270;
@@ -259,8 +259,8 @@ public final class Constants
         public static final double AUTO_DRIVE_P = 2.5;
         public static final double AUTO_DRIVE_I = 0.0;
         public static final double AUTO_DRIVE_D = .01;
-        public static final double AUTO_ANGLE_P = 2;    // Was 5    // Was 3
+        public static final double AUTO_ANGLE_P = 1;    // Was 2
         public static final double AUTO_ANGLE_I = 0.0;
-        public static final double AUTO_ANGLE_D = 0.0;
+        public static final double AUTO_ANGLE_D = 0.0000001;
     }
 }

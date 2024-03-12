@@ -4,7 +4,9 @@
   "holonomicMode": true,
   "pathFolders": [
     "3-Piece (Away)",
+    "3-Piece Preset (Away)",
     "4-Piece (Home)",
+    "5 Hail-Mary (Away)",
     "Shoot, Shoot, Leave"
   ],
   "autoFolders": [
@@ -12,7 +14,7 @@
     "Home"
   ],
   "defaultMaxVel": 4.5,
-  "defaultMaxAccel": 1.0,
+  "defaultMaxAccel": 2.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.5

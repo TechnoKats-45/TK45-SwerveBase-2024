@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.8311910210518773,
+      "y": 4.5043882961875195
+    },
+    "rotation": -60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HM C to 8"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HM 8 to 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HM 7 to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HM 6 to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HM 5 to 4"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Away",
+  "choreoAuto": false
+}

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5763977418691195,
-        "y": 7.010076157919538
+        "x": 8.280006298729937,
+        "y": 5.791356380812524
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.5763977418691195,
-        "y": 7.010076157919538
+        "x": 7.0515367634060695,
+        "y": 5.791356380812524
       },
       "isLocked": false,
-      "linkedName": "Blue 1"
+      "linkedName": "HM5"
     },
     {
       "anchor": {
-        "x": 6.339804413575574,
-        "y": 7.380566970160069
+        "x": 8.280006298729937,
+        "y": 7.448815277678062
       },
       "prevControl": {
-        "x": 5.339804413575574,
-        "y": 7.380566970160069
+        "x": 7.14903434557463,
+        "y": 7.448815277678062
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "HM4"
     }
   ],
   "rotationTargets": [],
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Shoot, Shoot, Leave",
+  "folder": "5 Hail-Mary (Away)",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
