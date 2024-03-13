@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 8.280006298729937,
-        "y": 0.7604811409147759
+        "y": 0.6044850094450789
       },
       "prevControl": {
         "x": 5.6475715801787905,
-        "y": 0.8189796902159142
+        "y": 0.6629835587462172
       },
       "nextControl": null,
       "isLocked": false,
@@ -40,7 +40,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "5 Hail-Mary (Away)",

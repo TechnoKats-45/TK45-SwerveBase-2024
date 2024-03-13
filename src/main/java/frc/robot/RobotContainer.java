@@ -145,6 +145,16 @@ public class RobotContainer
 
       NamedCommands.registerCommand
       (
+        "Feed",
+        Commands.sequence
+        (
+          new InstantCommand(() -> s_Feeder.setTarget(Constants.Feeder.speakerFeedSpeed), s_Feeder),
+          new RunCommand(() -> s_Feeder.holdTarget(), s_Feeder)
+        )
+      );
+
+      NamedCommands.registerCommand
+      (
         "SpoolUp",
         new SequentialCommandGroup
         (
