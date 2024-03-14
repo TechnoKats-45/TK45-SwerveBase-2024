@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.84939097194109,
-        "y": 4.211895549681836
+        "x": 2.7713929062062417,
+        "y": 6.844330268232984
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6641455658208244,
-        "y": 4.20214579146498
+        "x": 3.7713929062062417,
+        "y": 6.844330268232984
       },
       "isLocked": false,
-      "linkedName": "Home 3"
+      "linkedName": "Mid 1"
     },
     {
       "anchor": {
-        "x": 2.488649917917414,
-        "y": 4.211895549681836
+        "x": 4.887090439264015,
+        "y": 4.065649176428995
       },
       "prevControl": {
-        "x": 2.488649917917414,
-        "y": 4.211895549681836
+        "x": 3.839762811098777,
+        "y": 4.191328491808823
+      },
+      "nextControl": {
+        "x": 6.105810216371028,
+        "y": 3.919402803176153
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.25075702407937,
+        "y": 4.065649176428995
+      },
+      "prevControl": {
+        "x": 7.25075702407937,
+        "y": 4.065649176428995
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,11 +55,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.080597987542308,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "(Amp) All Home",
+  "folder": "(Mid) All Home",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
