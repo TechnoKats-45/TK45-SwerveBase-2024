@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.2690093167791088,
-        "y": 2.941397640212085
+        "x": 2.9858875869770753,
+        "y": 3.266169002646794
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.3745783501068205,
-        "y": 1.121222194938452
+        "x": 4.681966775196831,
+        "y": 1.865233160697973
       },
       "isLocked": false,
       "linkedName": "WingClose"
     },
     {
       "anchor": {
-        "x": 8.679746385621037,
-        "y": 2.5934356856837244
+        "x": 8.133759925477097,
+        "y": 2.554436652816299
       },
       "prevControl": {
-        "x": 6.076560941720459,
-        "y": 1.2382192935407248
+        "x": 6.213057556756446,
+        "y": 1.6184598639981143
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.4,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

@@ -221,7 +221,7 @@ public class Swerve extends SubsystemBase
 
     public boolean isRotAligned()  // PROBLEM CHILD     // TODO
     {
-        if (rotationTarget <= 3)
+        if (rotationTarget <= 2)    // Was 3 3-14-24 JTL
         {
             return true;
         } 
