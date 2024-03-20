@@ -169,7 +169,6 @@ public class SimpleAimBot extends Command
         s_Shoulder.holdTarget();
         rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 0);
         s_Shooter.coastToZero();
-
     }
 
     @Override 
@@ -177,7 +176,8 @@ public class SimpleAimBot extends Command
     {
         if (s_Shoulder.isAligned() && s_Swerve.isRotAligned() && RobotState.isAutonomous())
         {
-            return true;
+            return true;  // JTL 3-16-24 Changed to attempt to fix auto
+            //return false;
         }
         else
         {

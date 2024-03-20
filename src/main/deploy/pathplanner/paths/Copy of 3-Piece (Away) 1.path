@@ -23,9 +23,25 @@
         "x": 4.506849868806626,
         "y": 0.740981624481063
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 12.57964967236348,
+        "y": 0.19499516433712216
+      },
       "isLocked": false,
       "linkedName": "(8)"
+    },
+    {
+      "anchor": {
+        "x": 2.6251465329533996,
+        "y": 3.4806636834176286
+      },
+      "prevControl": {
+        "x": 5.749944041455784,
+        "y": 2.559311531924728
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,7 +58,25 @@
       }
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.4,
     "maxAcceleration": 3.5,

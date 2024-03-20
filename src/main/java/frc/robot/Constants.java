@@ -66,7 +66,7 @@ public final class Constants
     {
         public static final int ShoulderID = 60;
         public static final double handoffAngle = 28;           // TODO - Update
-        public static final double ampScoreAngle = 226.8;       // TODO - Update    // Was 224.8
+        public static final double ampScoreAngle = 225.8;   // 227.3 for hardstop
         public static final double speakerScoreAngle = handoffAngle;      // TODO - Update
         public static final int ShoulderEncoderPort = 2;
         public static final double maxAngle = 270;
