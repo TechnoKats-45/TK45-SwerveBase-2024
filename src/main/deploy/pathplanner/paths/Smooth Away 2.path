@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.39960252842121,
+        "y": 4.650634669440361
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.39960252842121,
+        "y": 4.650634669440361
+      },
+      "isLocked": false,
+      "linkedName": "Under Stage Shoot"
+    },
+    {
+      "anchor": {
+        "x": 8.289756056946795,
+        "y": 4.094898451079563
+      },
+      "prevControl": {
+        "x": 8.289756056946795,
+        "y": 4.408351269192242
+      },
+      "nextControl": {
+        "x": 8.289756056946795,
+        "y": 3.8609042538750167
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.1223842020130603,
+        "y": 2.983426014357968
+      },
+      "prevControl": {
+        "x": 3.8146170354098436,
+        "y": 3.168671420478233
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Podium Shot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.4,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -37.56859202882748,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "(Smooth) 3-Piece (Away)",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

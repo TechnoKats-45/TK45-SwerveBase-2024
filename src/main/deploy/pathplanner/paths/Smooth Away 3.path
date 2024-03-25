@@ -1,0 +1,92 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.1223842020130603,
+        "y": 2.983426014357968
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.8298914555073775,
+        "y": 2.07669850019035
+      },
+      "isLocked": false,
+      "linkedName": "Podium Shot"
+    },
+    {
+      "anchor": {
+        "x": 8.289756056946795,
+        "y": 0.7312318662642086
+      },
+      "prevControl": {
+        "x": 7.772118956508486,
+        "y": -0.025314665145626858
+      },
+      "nextControl": {
+        "x": 8.923490341042442,
+        "y": 1.657458896865537
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.1223842020130603,
+        "y": 2.983426014357968
+      },
+      "prevControl": {
+        "x": 4.029111716180679,
+        "y": 1.657458896865537
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Podium Shot"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 23.978006146817936,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.4,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -35.362461887069124,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "(Smooth) 3-Piece (Away)",
+  "previewStartingState": {
+    "rotation": -35.5376777919744,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

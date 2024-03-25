@@ -65,15 +65,15 @@ public final class Constants
     public static final class Shoulder 
     {
         public static final int ShoulderID = 60;
-        public static final double handoffAngle = 28;           // TODO - Update
+        public static final double handoffAngle = 28;
         public static final double ampScoreAngle = 225.8;   // 227.3 for hardstop
-        public static final double speakerScoreAngle = handoffAngle;      // TODO - Update
+        public static final double speakerScoreAngle = handoffAngle;
         public static final int ShoulderEncoderPort = 2;
         public static final double maxAngle = 270;
-        public static final double minAngle = handoffAngle;       // TODO - Update
-        public static final double groundParallelAngle = 79;      // TODO - Update maybe
-        public static final double manualShoulderSpeed = 20;        // TODO - Update
-        public static final double maxSpeed = 1;  // Was 0.25
+        public static final double minAngle = handoffAngle;
+        public static final double groundParallelAngle = 79;
+        public static final double manualShoulderSpeed = 20;
+        public static final double maxSpeed = 1;
         public static final double whiteLineSpeakerPreset = 30;
     }
 
@@ -187,8 +187,8 @@ public final class Constants
 
         /* Swerve Profiling Values */
         /** Meters per Second */    // Controls the translational speed and acceleration of the robot (left joystick)
-        public static final double MAX_SPEED = 2;  // was 4.1
-        public static final double MAX_ACCEL = 2;  // was 4.1
+        public static final double MAX_SPEED = 4.1;  // was 4.1
+        public static final double MAX_ACCEL = 3;  // was 4.1   // Was 2
 
         /** Radians per Second */ // Controls the rotational speed of the robot (right joystick)
         public static final double maxAngularVelocity = 5; // was 10

@@ -100,12 +100,12 @@ public class SimpleAimBot extends Command
                 );
 
             // Calculate the angle for the Shoulder
-                NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");   // TK45
+                NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
                 NetworkTableEntry ty = table.getEntry("ty");
                 double targetOffsetAngle_Vertical = ty.getDouble(0.0);
 
                 // how many degrees back is your limelight rotated from perfectly vertical?
-                double limelightMountAngleDegrees = 35.0; // TK45
+                double limelightMountAngleDegrees = 35.0;
 
                 double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
 

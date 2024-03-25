@@ -208,7 +208,7 @@ public class RobotContainer
       (
         new SequentialCommandGroup
         (
-          new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed), s_Shooter),
+          new InstantCommand(() -> s_Shooter.setTarget(Constants.Shooter.shooterSpeed), s_Shooter), // Need to integrate this into the aimbot to add distnance based speed compensation
           new ParallelCommandGroup
           (
             new SimpleAimBot
@@ -298,6 +298,8 @@ public class RobotContainer
       // B Button - Hail-Mary
       operator.b().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.groundParallelAngle - 15)));
 
+      operator.povRight().onTrue(new RunCommand(() -> s_Shooter.runShooter(.15)));
+
       // Right Stick DOWN - Clmbers Down  - not needed - default
       //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.manualControl(driver)));  //  TODO - need to determine target height before running
       
@@ -321,7 +323,7 @@ public class RobotContainer
       //s_Intake.diagnostics();
       s_Limelight.diagnostics();
       //s_Shooter.diagnostics();
-      s_Shoulder.diagnostics();
+      //s_Shoulder.diagnostics();
       //operatorControlsPrints();
       //s_Swerve.diagnostics();
       SmartDashboard.putBoolean("Shoulder Aligned", s_Shoulder.isAligned());

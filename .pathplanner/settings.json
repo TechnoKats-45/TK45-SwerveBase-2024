@@ -3,15 +3,17 @@
   "robotLength": 0.76,
   "holonomicMode": true,
   "pathFolders": [
+    "(Amp) All Home",
+    "(Mid) All Home",
     "3-Piece (Away)",
     "3-Piece Preset (Away)",
     "5 Hail-Mary (Away)",
-    "(Amp) All Home",
-    "(Mid) All Home"
+    "(Smooth) 3-Piece (Away)"
   ],
   "autoFolders": [
     "Away",
-    "Home"
+    "Home",
+    "Smooth"
   ],
   "defaultMaxVel": 3.4,
   "defaultMaxAccel": 3.5,
