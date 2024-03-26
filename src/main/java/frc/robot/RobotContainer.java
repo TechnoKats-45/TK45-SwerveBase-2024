@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 
 import frc.robot.commands.*;
@@ -240,12 +239,20 @@ public class RobotContainer
       );
 
       // Left Bumper - Feeder Shoot
-      driver.leftBumper().whileTrue(Commands.parallel
+      driver.leftBumper().whileTrue(Commands.sequence
         (
-          new AutoAmp(s_Feeder, s_Shoulder)
-          //new AmpAlign(s_Feeder, s_Shoulder, s_Limelight, s_Swerve, driver)
+          new InstantCommand(() -> s_Shooter.setTarget(0.15)),
+          new RunCommand(() -> s_Shooter.holdAmpTarget(), s_Shooter)
         )
       );
+
+      // POV Right - Trap Shot
+    driver.povRight().whileTrue(Commands.sequence
+      (
+        new InstantCommand(() -> s_Shooter.setTarget(0.25)),
+        new RunCommand(() -> s_Shooter.holdTrapTarget(), s_Shooter)
+      )
+    );
       
       // B Button - Zero Gyro // THIS WORKS
       driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); 
@@ -298,7 +305,7 @@ public class RobotContainer
       // B Button - Hail-Mary
       operator.b().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.groundParallelAngle - 15)));
 
-      operator.povRight().onTrue(new RunCommand(() -> s_Shooter.runShooter(.15)));
+      operator.povRight().onTrue(new RunCommand(() -> s_Shooter.runShooter(.3)));
 
       // Right Stick DOWN - Clmbers Down  - not needed - default
       //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.manualControl(driver)));  //  TODO - need to determine target height before running

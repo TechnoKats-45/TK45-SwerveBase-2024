@@ -26,7 +26,7 @@ public class AutoFeed extends Command
     @Override
     public void execute() 
     {        
-        if(!s_Feeder.detectGamePiece() && s_Intake.detectGamePiece() && s_Shoulder.isAligned())   // If no GP in feeder, and yes GP in intake, and yes shoulder angle correct
+        if(!s_Feeder.detectGamePiece() && s_Shoulder.isAligned())   // If no GP in feeder, and yes GP in intake, and yes shoulder angle correct
         {
             s_Intake.runIntake(Constants.Intake.handoffSpeed);
             s_Feeder.runFeeder(Constants.Feeder.handoffSpeed);

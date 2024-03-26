@@ -44,7 +44,7 @@ public final class Constants
     public static final class Intake 
     {
         public static final int IntakeID = 40;
-        public static final double intakeSpeed = -.5; // TODO - Adjust intake speed // Was -0.75
+        public static final double intakeSpeed = -.8; // TODO - Adjust intake speed // Was -0.75
         public static final int IntakeSensor1Port = 1;   
         public static final double handoffSpeed = -.25; // TODO - Adjust handoff speed
         public static final double outtakeSpeed = .50; // TODO - Adjust outtake speed

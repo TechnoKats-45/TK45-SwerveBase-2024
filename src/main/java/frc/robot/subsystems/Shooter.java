@@ -17,8 +17,9 @@ public class Shooter extends SubsystemBase
     private CANSparkMax shooterBottom;
     private CANSparkMax shooterTop;
 
-    public double kP = .0006, kI = 0, kD = 0.000001;
-    //public double kP = 0, kI = 0, kD = 0;
+    public double kP = .0006, kI = 0, kD = 0.000001;    // kP = .0006
+    public double amp_kP = 0.00006;
+    public double trap_kP = 0.00006;
     public double bkS = 0.07 / 12, bkV = 0.00018;
     public double tkS = 0.07 / 12, tkV = 0.00018;     // TODO - change tkS to tuned value
     private double currentAverageSpeed;
@@ -26,6 +27,12 @@ public class Shooter extends SubsystemBase
     private PIDController topPidController = new PIDController(kP, kI, kD);
     private SimpleMotorFeedforward bottomMotorFeedforward = new SimpleMotorFeedforward(bkS, bkV);
     private SimpleMotorFeedforward topMotorFeedforward = new SimpleMotorFeedforward(tkS, tkV);
+
+    private PIDController ampBottomPidController = new PIDController(amp_kP, kI, kD);
+    private PIDController ampTopPidController = new PIDController(amp_kP, kI, kD);
+
+    private PIDController trapBottomPidController = new PIDController(trap_kP, kI, kD);
+    private PIDController trapTopPidController = new PIDController(trap_kP, kI, kD);
 
     private double NeoFreeSpeed = 5676; // RPM
 
@@ -71,7 +78,18 @@ public class Shooter extends SubsystemBase
         //SmartDashboard.putNumber("Bottom Calculated", bottomPidController.calculate(getSpeedBottom(), target) + bottomMotorFeedforward.calculate(target));
         shooterBottom.set(bottomPidController.calculate(getSpeedBottom(), target) + bottomMotorFeedforward.calculate(target));
         shooterTop.set(topPidController.calculate(getSpeedTop(), target) + topMotorFeedforward.calculate(target));
-        SmartDashboard.putNumber("KP", kP);
+    }
+
+    public void holdAmpTarget()
+    {
+        shooterBottom.set(ampBottomPidController.calculate(getSpeedBottom(), target) + bottomMotorFeedforward.calculate(target));
+        shooterTop.set(ampTopPidController.calculate(getSpeedTop(), target) + topMotorFeedforward.calculate(target));
+    }
+
+    public void holdTrapTarget()
+    {
+        shooterBottom.set(trapBottomPidController.calculate(getSpeedBottom(), target) + bottomMotorFeedforward.calculate(target));
+        shooterTop.set(trapTopPidController.calculate(getSpeedTop(), target) + topMotorFeedforward.calculate(target));
     }
 
     public void runShooter(double speed) // sets and holds target speed - OPERATOR MANUAL CONTROL
