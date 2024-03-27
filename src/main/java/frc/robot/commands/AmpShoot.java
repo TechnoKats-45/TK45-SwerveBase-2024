@@ -25,6 +25,7 @@ public class AmpShoot extends Command
     @Override
     public void execute() 
     {        
+        s_Shooter.setTarget(0.17);
         s_Shooter.holdAmpTarget();
 
         if(s_Shooter.upToSpeed())

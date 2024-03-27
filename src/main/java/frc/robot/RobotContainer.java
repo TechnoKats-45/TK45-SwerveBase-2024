@@ -241,8 +241,7 @@ public class RobotContainer
       // Left Bumper - Feeder Shoot
       driver.leftBumper().whileTrue(Commands.sequence
         (
-          new InstantCommand(() -> s_Shooter.setTarget(0.15)),
-          new RunCommand(() -> s_Shooter.holdAmpTarget(), s_Shooter)
+          new AmpShoot(s_Shooter, rumbleDriver)
         )
       );
 
