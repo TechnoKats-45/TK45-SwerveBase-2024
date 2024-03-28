@@ -26,14 +26,14 @@ public final class Constants
         public static final double ampHeightOffset = 0;
     }
 
-    public static final class Limelight     // TODO - TUNE THIS
+    public static final class Limelight
     {
-        public static final double LIMELIGHT_P = 0.02;
-        public static final double LIMELIGHT_I = 0.0000001; // JTL 12:12PM 3-10-24
-        public static final double LIMELIGHT_D = 0.0001;    // Was 0
+        public static final double LIMELIGHT_P = 0.1;
+        public static final double LIMELIGHT_I = 0.0001;
+        public static final double LIMELIGHT_D = 0.0001;
         public static final double YAW_OFFSET = 0;
-        public static final double HEIGHT_OFFSET = 2; // TODO - Update this value
-        public static final double X_Alignment_Tolerance = 3;   // TODO - Update this value
+        public static final double HEIGHT_OFFSET = 2;
+        public static final double X_Alignment_Tolerance = 3;
         public static final double PITCH_OFFSET = 35;
         public static final int LED_OFF = 1;
         public static final int LED_BLINK = 2;

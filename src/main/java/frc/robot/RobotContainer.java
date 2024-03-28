@@ -329,7 +329,7 @@ public class RobotContainer
       //s_Intake.diagnostics();
       s_Limelight.diagnostics();
       //s_Shooter.diagnostics();
-      //s_Shoulder.diagnostics();
+      s_Shoulder.diagnostics();
       //operatorControlsPrints();
       //s_Swerve.diagnostics();
       SmartDashboard.putBoolean("Shoulder Aligned", s_Shoulder.isAligned());

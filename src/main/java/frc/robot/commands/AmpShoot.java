@@ -17,15 +17,13 @@ public class AmpShoot extends Command
         this.rumbleController = rumbleController;
         
         addRequirements(s_Shooter);
-
-        s_Shooter.setTarget(0.15);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() 
     {        
-        s_Shooter.setTarget(0.17);
+        s_Shooter.setTarget(0.19);
         s_Shooter.holdAmpTarget();
 
         if(s_Shooter.upToSpeed())

@@ -19,7 +19,7 @@ public class Shoulder extends SubsystemBase
     private int angle;
 
     // Was 0.01, increased to 0.015,
-    public double kP = .015, kI = 0.00000001, kD = .00001, kS, kG, kV, kA, feedForward;   // Added I and D -JTL 12:12PM 3-10-24
+    public double kP = .015, kI = 0.000001, kD = .00001, kS, kG, kV, kA, feedForward;   // Deleted 2 0s from I
     private DutyCycleEncoder m_absoluteEncoder;
     private PIDController m_pidController;
 
