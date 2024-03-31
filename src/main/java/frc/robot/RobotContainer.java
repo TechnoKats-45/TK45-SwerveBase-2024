@@ -107,23 +107,6 @@ public class RobotContainer
           new AutoFeed(s_Intake, s_Feeder, s_Shoulder).until(s_Feeder::detectGamePiece)   // Also holds shoulder angle  
         )
       );
-      
-      NamedCommands.registerCommand
-      (
-        "AimBot",
-        Commands.parallel
-        (
-          new AimBot
-          (
-            s_Limelight, 
-            s_Shoulder, 
-            s_Swerve, 
-            driver, 
-            Constants.AprilTags.speakerHeightOffset
-          ),
-          new RunCommand(() -> s_Shooter.runShooter(Constants.Shooter.shooterSpeed))
-        )
-      );
 
       NamedCommands.registerCommand
       (
@@ -180,12 +163,6 @@ public class RobotContainer
           new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.whiteLineSpeakerPreset)),
           new InstantCommand(() -> s_Shoulder.holdTarget())
         )
-      );
-
-      NamedCommands.registerCommand
-      (
-        "FeederDown",
-        new FeederDown(s_Feeder)
       );
     }
 
