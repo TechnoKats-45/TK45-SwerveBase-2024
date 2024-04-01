@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -63,6 +64,7 @@ public class AmpAlign extends Command
     @Override
     public void execute() 
     {        
+        // TODO - switch pipeline
         s_Shoulder.holdTarget();
 
         translationSup = -controller.getLeftY();
@@ -77,52 +79,13 @@ public class AmpAlign extends Command
 
         if(s_Limelight.tagExists()) // If April Tag exists
         {
-            s_Shoulder.holdTarget();
+            // Caculate April Tag / Bot Parallel Angle
+            double aprilTagYaw = s_Limelight.getYaw();  // Get the yaw value of the AprilTag as perceived by the Limelight
+            double robotCurrentYaw = s_Swerve.getYaw();
+            double desiredParallelAngle = robotCurrentYaw - aprilTagYaw;    // Calculate the desired orientation to maintain parallelism.
+            desiredParallelAngle = Rotation2d.fromDegrees(desiredParallelAngle).getDegrees();   // Normalize the desired angle to the range [-180, 180] for consistency
 
-            // Calculate the rotation value for swerve
-                rotate = -rotController.calculate
-                (
-                    s_Swerve.getYaw(),
-                    s_Swerve.getYaw() + s_Limelight.getLateralOffset()
-                );
-
-            // Strafe target Computation
-                double tx = s_Limelight.getRX();  // Get horizontal offset from the target
-                double targetTx = 0;    // The goal is to have the target centered, hence targetTx is 0
-
-            // Calculate the strafe value for swerve
-                strafeVal = -strafeController.calculate
-                (
-                    tx,
-                    targetTx
-                );
-
-            /* Drive */
-                s_Swerve.drive
-                (
-                    new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED),
-                    rotate,
-                    robotCentric,
-                    true
-                );
-
-                if(s_Swerve.isRotAligned() && s_Limelight.isAlignedX())    // Check if swerve is aligned with the target
-                {
-                    s_Shoulder.setTarget(Constants.Shoulder.ampScoreAngle);
-                    s_Shoulder.holdTarget();
-
-                    if(s_Shoulder.isAligned())
-                    {
-                        s_Feeder.runFeeder(Constants.Feeder.ampScoreSpeed);
-                        Timer.delay(0.25);
-                        s_Feeder.runFeeder(0);
-                        finished = true;
-                    }
-                }
-                else
-                {
-                    s_Shoulder.holdTarget();
-                }
+            // TODO - Do stuff
         }
         else
         {

@@ -18,15 +18,33 @@
           }
         },
         {
+          "type": "race",
+          "data": {
+            "commands": []
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Smooth Away 2"
           }
         },
         {
+          "type": "race",
+          "data": {
+            "commands": []
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Smooth Away 3"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": []
           }
         }
       ]
