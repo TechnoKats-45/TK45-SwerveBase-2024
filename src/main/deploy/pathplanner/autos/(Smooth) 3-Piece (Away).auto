@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6946944060158917,
-      "y": 4.455639505103239
+      "x": 0.5581977909799064,
+      "y": 4.796881042693202
     },
     "rotation": -60.0
   },
@@ -18,33 +18,15 @@
           }
         },
         {
-          "type": "race",
-          "data": {
-            "commands": []
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Smooth Away 2"
           }
         },
         {
-          "type": "race",
-          "data": {
-            "commands": []
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Smooth Away 3"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": []
           }
         }
       ]

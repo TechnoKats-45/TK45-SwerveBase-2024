@@ -27,7 +27,8 @@ public class Swerve extends SubsystemBase
     public final Pigeon2 gyro;
     final Field2d m_field = new Field2d();
     public double rotationTarget = 0;
-    private double difference;
+    public Translation2d translationTarget = new Translation2d(0, 0);
+    private double inchToMeterCoefficient = 0.0254;
 
     public Swerve() 
     {
@@ -104,15 +105,6 @@ public class Swerve extends SubsystemBase
     {
         swerveOdometry.update(getHeading(), getModulePositions());
         m_field.setRobotPose(swerveOdometry.getPoseMeters());
-        /*
-        for (SwerveModule mod : mSwerveMods) 
-        {
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Position", mod.getPosition().distanceMeters);
-        }
-        */
     }
 
     public Field2d getField2d() 
@@ -123,6 +115,7 @@ public class Swerve extends SubsystemBase
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) 
     {
         rotationTarget = rotation;
+        translationTarget = translation;
         SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates
         (
             fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds
@@ -219,13 +212,25 @@ public class Swerve extends SubsystemBase
         }
     }
 
-    public boolean isRotAligned()  // PROBLEM CHILD     // TODO
+    public boolean isRotAligned()
     {
-        if (rotationTarget <= 2)    // Was 3 3-14-24 JTL
+        if (rotationTarget <= 2)
         {
             return true;
         } 
         else 
+        {
+            return false;
+        }
+    }
+
+    public boolean isTranslationAligned()
+    {
+        if(translationTarget.getX() <= (6 * inchToMeterCoefficient) && translationTarget.getY() <= (6 * inchToMeterCoefficient))  // If translation is aligned within 6 inches
+        {
+            return true;
+        }
+        else
         {
             return false;
         }
