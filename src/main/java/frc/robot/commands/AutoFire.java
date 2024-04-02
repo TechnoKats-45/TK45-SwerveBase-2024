@@ -35,7 +35,7 @@ public class AutoFire extends Command
             Timer.delay(0.25);
             s_Feeder.runFeeder(0);
             s_Shooter.runShooter(0);
-            finished = true;
+            finished = true; 
         }
         else if (RobotState.isTeleop())
         {

@@ -3,59 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1223842020130603,
-        "y": 2.983426014357968
+        "x": 3.8243667936267003,
+        "y": 4.913878141295476
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8298914555073775,
-        "y": 2.07669850019035
+        "x": 5.023587054300002,
+        "y": 3.5294124745019095
       },
       "isLocked": false,
-      "linkedName": "Podium Shot"
+      "linkedName": "Smooth Home - End 3"
     },
     {
       "anchor": {
-        "x": 8.289756056946795,
-        "y": 0.7312318662642086
+        "x": 8.094760892609672,
+        "y": 4.046149659995282
       },
       "prevControl": {
-        "x": 7.772118956508486,
-        "y": -0.025314665145626858
+        "x": 8.094760892609672,
+        "y": 3.4608392652687745
       },
       "nextControl": {
-        "x": 8.923490341042442,
-        "y": 1.657458896865537
+        "x": 8.094760892609672,
+        "y": 4.699383460524641
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1223842020130603,
-        "y": 2.983426014357968
+        "x": 4.263105913385225,
+        "y": 4.913878141295476
       },
       "prevControl": {
-        "x": 4.029111716180679,
-        "y": 1.657458896865537
+        "x": 5.433076899407957,
+        "y": 3.2174202115625135
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Podium Shot"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 23.978006146817936,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "parallel",
         "data": {
@@ -72,7 +66,7 @@
     },
     {
       "name": "Spool Shooter",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -96,13 +90,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -35.362461887069124,
+    "rotation": -18.004161605913477,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "(Smooth) 3-Piece (Away)",
+  "folder": "(Smooth) All Home",
   "previewStartingState": {
-    "rotation": -35.5376777919744,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

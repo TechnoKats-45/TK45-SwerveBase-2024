@@ -109,11 +109,14 @@ public class SimpleAimBot extends Command
 
                 double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
 
+                /* This doesn't work correctly */
+                /*
                 if(targetOffsetAngle_Vertical == 0)    // If angle is erroneous (Limelight missing / not working)
                 {
                     // Set to preset angle
                     angleToGoalDegrees = 35;    // TODO - change to actual value
                 }
+                */
 
                 double shoulderAngleToGoalDegrees = Constants.Shoulder.groundParallelAngle - angleToGoalDegrees;  // groundParallelAngle is the angle of the shoulder when it is parallel to the ground
 

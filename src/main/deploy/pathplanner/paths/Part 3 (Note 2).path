@@ -3,59 +3,65 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1223842020130603,
-        "y": 2.983426014357968
+        "x": 2.040161039942034,
+        "y": 5.479364117873128
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8298914555073775,
-        "y": 2.07669850019035
+        "x": 2.2546557207128677,
+        "y": 5.489113876089985
       },
       "isLocked": false,
-      "linkedName": "Podium Shot"
+      "linkedName": "Smooth Home - End 2"
     },
     {
       "anchor": {
-        "x": 8.289756056946795,
-        "y": 0.7312318662642086
+        "x": 2.888390004808514,
+        "y": 5.479364117873128
       },
       "prevControl": {
-        "x": 7.772118956508486,
-        "y": -0.025314665145626858
+        "x": 2.639457699206737,
+        "y": 5.598418698813107
       },
       "nextControl": {
-        "x": 8.923490341042442,
-        "y": 1.657458896865537
+        "x": 3.1126344437962032,
+        "y": 5.372116777487712
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1223842020130603,
-        "y": 2.983426014357968
+        "x": 3.8243667936267003,
+        "y": 4.913878141295476
       },
       "prevControl": {
-        "x": 4.029111716180679,
-        "y": 1.657458896865537
+        "x": 3.6098721128558657,
+        "y": 4.923627899512334
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Podium Shot"
+      "linkedName": "Smooth Home - End 3"
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 23.978006146817936,
-      "rotateFast": false
+      "name": "Slow Zone",
+      "minWaypointRelativePos": 1.1,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
     }
   ],
-  "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.4,
+      "name": "Intake and Spool",
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "parallel",
         "data": {
@@ -65,18 +71,7 @@
               "data": {
                 "name": "AutoIntake"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Spool Shooter",
-      "waypointRelativePos": 0.1,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
@@ -96,13 +91,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -35.362461887069124,
+    "rotation": -9.727578551401704,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "(Smooth) 3-Piece (Away)",
+  "folder": "(Smooth) All Home",
   "previewStartingState": {
-    "rotation": -35.5376777919744,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
