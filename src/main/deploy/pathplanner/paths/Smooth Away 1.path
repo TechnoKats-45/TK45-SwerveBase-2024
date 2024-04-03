@@ -8,24 +8,40 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3131542700140035,
-        "y": 0.8287294484327685
+        "x": 2.0791600728094584,
+        "y": 3.071173838309672
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.270256540513081,
-        "y": 2.466688828864594
+        "x": 4.116859540132383,
+        "y": 1.3064676010587188
       },
       "prevControl": {
-        "x": 8.153259441910809,
-        "y": -0.4289893615416674
+        "x": 2.9492491163517407,
+        "y": 1.6783731434481086
       },
       "nextControl": {
-        "x": 8.31830257800524,
-        "y": 3.655828256795516
+        "x": 5.433076899407956,
+        "y": 0.8872279977339068
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.338504848031073,
+        "y": 2.417940037780313
+      },
+      "prevControl": {
+        "x": 8.257488714507081,
+        "y": 1.2026980349204517
+      },
+      "nextControl": {
+        "x": 8.397003397332211,
+        "y": 3.2954182772973626
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +52,8 @@
         "y": 4.650634669440361
       },
       "prevControl": {
-        "x": 5.696320371263072,
-        "y": 4.153397000380699
+        "x": 4.857841164613448,
+        "y": 4.075398934645852
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,8 +62,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.8,
-      "rotationDegrees": 44.26701652501593,
+      "waypointRelativePos": 1.7999999999999998,
+      "rotationDegrees": 35.16940259549339,
       "rotateFast": false
     }
   ],
@@ -55,7 +71,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -72,7 +88,7 @@
     },
     {
       "name": "Spool Shooter",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "parallel",
         "data": {
@@ -89,8 +105,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

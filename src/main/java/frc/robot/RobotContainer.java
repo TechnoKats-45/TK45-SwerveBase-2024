@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.time.Instant;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -161,7 +163,16 @@ public class RobotContainer
         new SequentialCommandGroup
         (
           new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.whiteLineSpeakerPreset)),
-          new InstantCommand(() -> s_Shoulder.holdTarget())
+          new RunCommand(() -> s_Shoulder.holdTarget())
+        )
+      );
+
+      NamedCommands.registerCommand
+      (
+        "36Preset",
+        new SequentialCommandGroup
+        (
+          new ArmSetTilTarget(s_Shoulder, 36)
         )
       );
     }

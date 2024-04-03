@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7141939224496041,
-      "y": 4.455639505103239
+      "x": 1.2796798990272578,
+      "y": 5.372116777487712
     },
-    "rotation": -60.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -46,7 +46,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Smooth Away 1"
+            "pathName": "Part 1 (Note 3)"
           }
         },
         {
@@ -60,7 +60,83 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "36Preset"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 2 (Note 1)"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "race",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "36Preset"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoFire"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Part 3 (Note 2)"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "race",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
                       }
                     },
                     {
@@ -84,7 +160,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Smooth Away 2"
+            "pathName": "Part 4 (Note 6)"
           }
         },
         {
@@ -98,45 +174,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SimpleAimBot"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoFire"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Smooth Away 3"
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "race",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.0
+                        "waitTime": 1.0
                       }
                     },
                     {
