@@ -172,7 +172,7 @@ public class RobotContainer
         "36Preset",
         new SequentialCommandGroup
         (
-          new ArmSetTilTarget(s_Shoulder, 36)
+          new ArmSetTilTarget(s_Shoulder, 40) // Was 36
         )
       );
     }
@@ -292,7 +292,7 @@ public class RobotContainer
       // B Button - Hail-Mary
       operator.b().onTrue(new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.groundParallelAngle - 15)));
 
-      operator.povRight().onTrue(new RunCommand(() -> s_Shooter.runShooter(.3)));
+      operator.povRight().onTrue(new RunCommand(() -> s_Shooter.runShooter(.28)));
 
       // Right Stick DOWN - Clmbers Down  - not needed - default
       //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.manualControl(driver)));  //  TODO - need to determine target height before running

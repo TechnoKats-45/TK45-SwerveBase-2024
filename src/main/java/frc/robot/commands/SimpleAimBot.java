@@ -59,7 +59,8 @@ public class SimpleAimBot extends Command
 
         rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
 
-        s_Shoulder.setTarget(s_Shoulder.getAngle());
+        //s_Shoulder.setTarget(s_Shoulder.getAngle());
+        s_Shoulder.setTarget(55);
     }
 
     @Override
@@ -109,16 +110,7 @@ public class SimpleAimBot extends Command
 
                 double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
 
-                /* This doesn't work correctly */
-                /*
-                if(targetOffsetAngle_Vertical == 0)    // If angle is erroneous (Limelight missing / not working)
-                {
-                    // Set to preset angle
-                    angleToGoalDegrees = 35;    // TODO - change to actual value
-                }
-                */
-
-                double shoulderAngleToGoalDegrees = Constants.Shoulder.groundParallelAngle - angleToGoalDegrees;  // groundParallelAngle is the angle of the shoulder when it is parallel to the ground
+                double shoulderAngleToGoalDegrees = Constants.Shoulder.groundParallelAngle - angleToGoalDegrees;    // groundParallelAngle is the angle of the shoulder when it is parallel to the ground
 
                 s_Shoulder.setTarget(shoulderAngleToGoalDegrees);
                 s_Shoulder.holdTarget();
@@ -185,8 +177,7 @@ public class SimpleAimBot extends Command
     {
         if (s_Shoulder.isAligned() && s_Swerve.isRotAligned() && RobotState.isAutonomous())
         {
-            return true;  // JTL 3-16-24 Changed to attempt to fix auto
-            //return false;
+            return true;
         }
         else
         {
