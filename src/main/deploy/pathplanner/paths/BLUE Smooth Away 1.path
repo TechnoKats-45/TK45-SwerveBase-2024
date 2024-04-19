@@ -3,77 +3,67 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.39960252842121,
-        "y": 4.650634669440361
+        "x": 0.7921919881844527,
+        "y": 4.5043882961875195
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.179583185769698,
-        "y": 3.7926559463570237
-      },
-      "isLocked": false,
-      "linkedName": "Under Stage Shoot"
-    },
-    {
-      "anchor": {
-        "x": 8.338504848031073,
-        "y": 4.309393131850397
-      },
-      "prevControl": {
-        "x": 8.330306341951285,
-        "y": 3.645314139387562
-      },
-      "nextControl": {
-        "x": 8.348254606247929,
-        "y": 5.099123547415743
+        "x": 2.154215902787019,
+        "y": 3.1229068970906297
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.73,
-        "y": 3.76
+        "x": 4.116859540132383,
+        "y": 1.3064676010587188
       },
       "prevControl": {
-        "x": 5.379969513528403,
-        "y": 4.439072626074451
+        "x": 2.9492491163517407,
+        "y": 1.6783731434481086
       },
       "nextControl": {
-        "x": 4.066549093971562,
-        "y": 3.066842336985212
+        "x": 5.433076899407956,
+        "y": 0.8872279977339068
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1223842020130603,
-        "y": 2.983426014357968
+        "x": 8.29950581516365,
+        "y": 2.3886907631297456
       },
       "prevControl": {
-        "x": 3.7561184861087074,
-        "y": 3.139422145827665
+        "x": 8.218489681639658,
+        "y": 1.1734487602698844
+      },
+      "nextControl": {
+        "x": 8.358004364464788,
+        "y": 3.266169002646796
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.39960252842121,
+        "y": 4.650634669440361
+      },
+      "prevControl": {
+        "x": 4.857841164613448,
+        "y": 4.075398934645852
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Podium Shot"
+      "linkedName": "Under Stage Shoot"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 2.2,
-      "rotationDegrees": -1.6328218702119548,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 30.73548770192007,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.35,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 1.7999999999999998,
+      "rotationDegrees": 35.16940259549339,
       "rotateFast": false
     }
   ],
@@ -81,7 +71,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -98,7 +88,7 @@
     },
     {
       "name": "Spool Shooter",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.15000000000000002,
       "command": {
         "type": "parallel",
         "data": {
@@ -122,13 +112,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -37.56859202882748,
+    "rotation": -14.036243467926477,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "(Smooth) 3-Piece (Away)",
+  "folder": "BLUE (Smooth) 3-Piece (Away)",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -58.29857033049434,
     "velocity": 0
   },
   "useDefaultConstraints": true

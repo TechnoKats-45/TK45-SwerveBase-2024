@@ -16,32 +16,32 @@
     },
     {
       "anchor": {
-        "x": 8.338504848031073,
-        "y": 4.309393131850397
+        "x": 8.2215077494288,
+        "y": 4.124147725730131
       },
       "prevControl": {
-        "x": 8.330306341951285,
-        "y": 3.645314139387562
+        "x": 8.182508716561376,
+        "y": 4.787131284476346
       },
       "nextControl": {
-        "x": 8.348254606247929,
-        "y": 5.099123547415743
+        "x": 8.289075463446041,
+        "y": 2.975496587437067
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.73,
-        "y": 3.76
+        "x": 4.731094307794318,
+        "y": 3.763406671706455
       },
       "prevControl": {
-        "x": 5.379969513528403,
-        "y": 4.439072626074451
+        "x": 5.384328108323675,
+        "y": 4.445889746886382
       },
       "nextControl": {
-        "x": 4.066549093971562,
-        "y": 3.066842336985212
+        "x": 4.06764340176588,
+        "y": 3.0702490086916674
       },
       "isLocked": false,
       "linkedName": null
@@ -68,7 +68,7 @@
     },
     {
       "waypointRelativePos": 1,
-      "rotationDegrees": 30.73548770192007,
+      "rotationDegrees": -14.995079129175997,
       "rotateFast": false
     },
     {
@@ -126,7 +126,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "(Smooth) 3-Piece (Away)",
+  "folder": "BLUE (Smooth) 3-Piece (Away)",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

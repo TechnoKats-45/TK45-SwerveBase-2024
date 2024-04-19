@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6459456149316112,
-      "y": 6.698083894980142
+      "x": 0.6556953731484674,
+      "y": 6.659084862112717
     },
     "rotation": 60.0
   },
@@ -34,6 +34,18 @@
           "type": "named",
           "data": {
             "name": "AutoFire"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 10.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot and Leave AMP"
           }
         }
       ]

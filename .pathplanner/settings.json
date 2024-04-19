@@ -7,14 +7,16 @@
     "(Mid) All Home",
     "(Smooth) 3-Piece (Away)",
     "(Smooth) All Home",
-    "3-Piece (Away)"
+    "3-Piece (Away)",
+    "BLUE (Smooth) 3-Piece (Away)",
+    "Shoot And Leave"
   ],
   "autoFolders": [
     "Away",
     "Home",
     "Smooth"
   ],
-  "defaultMaxVel": 4.5,
+  "defaultMaxVel": 3.5,
   "defaultMaxAccel": 4.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,

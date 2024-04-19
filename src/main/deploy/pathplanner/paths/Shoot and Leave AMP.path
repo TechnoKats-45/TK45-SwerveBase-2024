@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.777243967789598,
-        "y": 2.5739361692500116
+        "x": 0.6556953731484674,
+        "y": 6.659084862112717
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.078707174823344,
-        "y": 1.5292012370683863
+        "x": 1.6599204694846459,
+        "y": 7.097823981871242
       },
       "isLocked": false,
-      "linkedName": "7"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.839641213724234,
-        "y": 3.4806636834176286
+        "x": 6.291055622491293,
+        "y": 7.000326399702681
       },
       "prevControl": {
-        "x": 4.032661104021962,
-        "y": 1.7821268904513745
+        "x": 5.291055622491293,
+        "y": 7.000326399702681
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "WingClose"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -24.863696571751746,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "3-Piece (Away)",
+  "folder": "Shoot And Leave",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 58.39249775375106,
     "velocity": 0
   },
   "useDefaultConstraints": true

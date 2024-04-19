@@ -105,8 +105,8 @@ public class RobotContainer
         "AutoIntake",
         Commands.sequence
         (
-          new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
-          new AutoFeed(s_Intake, s_Feeder, s_Shoulder).until(s_Feeder::detectGamePiece)   // Also holds shoulder angle  
+          new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight, rumbleDriver).until(s_Intake::detectGamePiece), // Also sets shoulder angle
+          new AutoFeed(s_Intake, s_Feeder, s_Shoulder, s_Limelight, rumbleDriver).until(s_Feeder::detectGamePiece)   // Also holds shoulder angle  
         )
       );
 
@@ -218,8 +218,8 @@ public class RobotContainer
         (
           Commands.sequence
           (
-            new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight).until(s_Intake::detectGamePiece), // Also sets shoulder angle
-            new AutoFeed(s_Intake, s_Feeder, s_Shoulder)    // Also holds shoulder angle  
+            new AutoIntake(s_Intake, s_Feeder, s_Shoulder, s_Limelight, rumbleDriver).until(s_Intake::detectGamePiece), // Also sets shoulder angle
+            new AutoFeed(s_Intake, s_Feeder, s_Shoulder, s_Limelight, rumbleDriver)    // Also holds shoulder angle  
             //new AutoJiggle(s_Feeder)
           ),
           new RunCommand(() -> s_Limelight.setLEDMode(Constants.Limelight.LED_ON)).until(s_Intake::detectGamePiece) // Blink Limelight LED to alert driver of successful intake / feed
@@ -227,19 +227,28 @@ public class RobotContainer
       );
 
       // Left Bumper - Feeder Shoot
-      driver.leftBumper().whileTrue(Commands.sequence
+      driver.a().whileTrue(Commands.sequence
         (
+          new InstantCommand(() -> s_Shoulder.setTarget(Constants.Shoulder.handoffAngle)),
           new AmpShoot(s_Shooter, rumbleDriver)
         )
       );
 
+      // Y Button - Driver outtake command
+      driver.y().whileTrue(new RunCommand(() -> s_Intake.runIntake(Constants.Intake.outtakeSpeed)));
+
+      // A Button - Driver Pass Command -> To be followed with RT to fire
+      driver.leftBumper().whileTrue(new LoftedPass(s_Shooter, rumbleDriver, s_Shoulder));
+
       // POV Right - Trap Shot
+      /*
     driver.povRight().whileTrue(Commands.sequence
       (
         new InstantCommand(() -> s_Shooter.setTarget(0.25)),
         new RunCommand(() -> s_Shooter.holdTrapTarget(), s_Shooter)
       )
     );
+    */
       
       // B Button - Zero Gyro // THIS WORKS
       driver.b().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro())); 

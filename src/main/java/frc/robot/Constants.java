@@ -75,6 +75,7 @@ public final class Constants
         public static final double manualShoulderSpeed = 20;
         public static final double maxSpeed = 1;
         public static final double whiteLineSpeakerPreset = 30;
+        public static final double loftedPassAngle = 45;
     }
 
     /* Shooter Constants */
@@ -187,7 +188,7 @@ public final class Constants
 
         /* Swerve Profiling Values */
         /** Meters per Second */    // Controls the translational speed and acceleration of the robot (left joystick)
-        public static final double MAX_SPEED = 4.1;  // was 4.1
+        public static final double MAX_SPEED = 4.671;  // was 4.1
         public static final double MAX_ACCEL = 3;  // not implemented
 
         /** Radians per Second */ // Controls the rotational speed of the robot (right joystick)

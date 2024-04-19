@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
@@ -12,18 +13,22 @@ public class AutoIntake extends Command
     private Feeder s_Feeder;
     private Intake s_Intake;
     private Shoulder s_Shoulder;
+    private final Joystick rumbleController;
+
     Limelight s_Limelight;
 
     /** Creates a new AutoIntake Command. */
-    public AutoIntake(Intake s_Intake, Feeder s_Feeder, Shoulder s_Shoulder, Limelight s_Limelight) 
+    public AutoIntake(Intake s_Intake, Feeder s_Feeder, Shoulder s_Shoulder, Limelight s_Limelight, Joystick rumbleController) 
     {
         this.s_Feeder = s_Feeder;
         this.s_Intake = s_Intake;
         this.s_Shoulder = s_Shoulder;
         this.s_Limelight = s_Limelight;
+        this.rumbleController = rumbleController;
         
         addRequirements(s_Feeder, s_Intake);
         // Called when the command is initially scheduled.
+        s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -55,5 +60,7 @@ public class AutoIntake extends Command
     {
         s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
         s_Shoulder.holdTarget();
+        s_Limelight.setLEDMode(Constants.Limelight.LED_BLINK);
+        rumbleController.setRumble(Joystick.RumbleType.kBothRumble, 1);
     }
 }

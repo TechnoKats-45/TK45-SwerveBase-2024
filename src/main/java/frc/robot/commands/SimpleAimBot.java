@@ -60,7 +60,7 @@ public class SimpleAimBot extends Command
         rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
 
         //s_Shoulder.setTarget(s_Shoulder.getAngle());
-        s_Shoulder.setTarget(55);
+        //s_Shoulder.setTarget(55); // Causing arm to go up during auto
     }
 
     @Override
