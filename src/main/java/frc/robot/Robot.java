@@ -19,11 +19,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 public class Robot extends TimedRobot 
 {
   private Command autonomousCommand;
-
   public static CTREConfigs ctreConfigs;
-
   private RobotContainer robotContainer;
-
   public boolean autonomousMode;
 
   /**
@@ -41,6 +38,9 @@ public class Robot extends TimedRobot
     CameraServer.startAutomaticCapture();
 
     SmartDashboard.putBoolean("AIMED", false);
+    
+    // Add a periodic task to run fastRobotPeriodic method at a 5ms interval
+    addPeriodic(() -> {fastRobotPeriodic();}, 0.005);
   }
 
   /**
@@ -60,6 +60,11 @@ public class Robot extends TimedRobot
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     robotContainer.printValues();
+  }
+
+  public void fastRobotPeriodic()
+  {
+    robotContainer.fastRobotPeriodic();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

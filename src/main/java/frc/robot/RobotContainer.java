@@ -177,7 +177,11 @@ public class RobotContainer
       );
     }
 
-
+    public void fastRobotPeriodic()
+    {
+      // Functions that need a faster update here: (5ms instead of the typical 20ms)
+        // Intake check?
+    }
     
     private void configureButtonBindings()
     {
