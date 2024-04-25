@@ -62,16 +62,15 @@ public class Limelight extends SubsystemBase
     }
 
     // Y+ is upwards
-    public double getRY() // TODO
+    public double getRY()
     {
         refreshValues();
         return 1.3;
-        //return tagPose[1] + Constants.Limelight.HEIGHT_OFFSET;  // TODO - update this
     }
 
     // Z+ is perpendicular to the plane of the limelight (Z+ is towards tag on data
     // side, Z- is on other side of robot)
-    public double getRZ() // TODO
+    public double getRZ()
     {
         refreshValues();
         return tagPose[2];
@@ -137,7 +136,7 @@ public class Limelight extends SubsystemBase
         SmartDashboard.putBoolean("Target Detected", tagExists());
         SmartDashboard.putNumber("LimeLight X", getRX());
         SmartDashboard.putNumber("LimeLight Y", getRY());
-        SmartDashboard.putNumber("LimeLight Z", getRZ());
+        //SmartDashboard.putNumber("LimeLight Z", getRZ());
         SmartDashboard.putNumber("LimeLight Lateral Offset", getLateralOffset());
 
         SmartDashboard.putNumber("Simple Y", simpleY());

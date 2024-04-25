@@ -1,7 +1,5 @@
 package frc.robot;
 
-import java.time.Instant;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -176,12 +174,6 @@ public class RobotContainer
         )
       );
     }
-
-    public void fastRobotPeriodic()
-    {
-      // Functions that need a faster update here: (5ms instead of the typical 20ms)
-        // Intake check?
-    }
     
     private void configureButtonBindings()
     {
@@ -263,14 +255,6 @@ public class RobotContainer
       // Start Button - Cancel All Commands // THIS WORKS // TODO - add PID Cancel
       driver.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
-      // D-Pad Up - Climbers Up
-      driver.povUp().onTrue(new InstantCommand(() -> s_Climber.setTargetAngle(Constants.Climber.climberMaxAngle)));
-
-      // D-Pad Down - Climbers Down
-      driver.povDown().onTrue(new InstantCommand(() -> s_Climber.setTargetAngle(Constants.Climber.climberMinAngle)));
-
-
-      
 
       // Operator Buttons
       ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -307,18 +291,6 @@ public class RobotContainer
 
       operator.povRight().onTrue(new RunCommand(() -> s_Shooter.runShooter(.28)));
 
-      // Right Stick DOWN - Clmbers Down  - not needed - default
-      //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.manualControl(driver)));  //  TODO - need to determine target height before running
-      
-      // Right Stick UP - Climbers Up - note needed - default
-      //operator.rightStick().whileTrue(new RunCommand(() -> s_Climber.setSpeedTarget(Constants.Climber.climberSpeed)));     //  TODO - need to determine target height before running
-
-      // Left Stick DOWN - Arm Down
-      //operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(Constants.Shoulder.manualShoulderSpeed)));
-
-      // Left Stick UP - Arm Up
-      //operator.leftStick().whileTrue(new RunCommand(() -> s_Shoulder.runShoulder(-Constants.Shoulder.manualShoulderSpeed)));
-
       // Start Button - Cancel All Commands // TODO - add PID Cancel
       operator.start().onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
     }
@@ -345,8 +317,6 @@ public class RobotContainer
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * 
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() 

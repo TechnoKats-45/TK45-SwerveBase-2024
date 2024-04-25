@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
@@ -14,6 +15,8 @@ public class AutoIntake extends Command
     private Intake s_Intake;
     private Shoulder s_Shoulder;
     private final Joystick rumbleController;
+    private Timer timer;
+    private final double interval = 0.005; // 5ms
 
     Limelight s_Limelight;
 
@@ -25,38 +28,51 @@ public class AutoIntake extends Command
         this.s_Shoulder = s_Shoulder;
         this.s_Limelight = s_Limelight;
         this.rumbleController = rumbleController;
-        
+        timer = new Timer();
+
         addRequirements(s_Feeder, s_Intake);
         // Called when the command is initially scheduled.
         s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
+    }
+
+    @Override
+    public void initialize() 
+    {
+        timer.reset();
+        timer.start();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() 
     {
-        s_Shoulder.holdTarget();
-        if(!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece())  // Check to see if we have a gamepiece already
+        if (timer.get() >= interval) // TODO - test if this actually works (Should allow intake speed up to 100%)
         {
-            s_Intake.runIntake(Constants.Intake.intakeSpeed);
-        }
-        else
-        {
-            s_Intake.runIntake(0);
-            // We already have a gamepiece
-            // TODO - add diagnostics
-        }
+            timer.reset();  // Reset the timer after checking the interval
 
-        s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
+            s_Shoulder.holdTarget();
+            if (!s_Intake.detectGamePiece() && !s_Feeder.detectGamePiece()) 
+            {  // Check if we have a game piece already
+                s_Intake.runIntake(Constants.Intake.intakeSpeed);
+            } 
+            else 
+            {
+                s_Intake.runIntake(0);
+                // We already have a game piece
+                // TODO - add diagnostics
+            }
+
+            s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
+        }
     }
 
-    public boolean isFinished()
+    public boolean isFinished() 
     {
-        return s_Intake.detectGamePiece();  // End when GamePiece is detected in intake
+        return s_Intake.detectGamePiece();  // End when a GamePiece is detected in intake
     }
 
     @Override
-    public void end(boolean interrupted)
+    public void end(boolean interrupted) 
     {
         s_Shoulder.setTarget(Constants.Shoulder.handoffAngle);
         s_Shoulder.holdTarget();

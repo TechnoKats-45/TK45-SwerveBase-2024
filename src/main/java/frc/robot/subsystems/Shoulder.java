@@ -16,10 +16,9 @@ public class Shoulder extends SubsystemBase
 
     private double target = 0;
     private double difference;
-    private int angle;
 
     // Was 0.01, increased to 0.015,
-    public double kP = .015, kI = 0.000001, kD = .00001, kS, kG, kV, kA, feedForward;   // Deleted 2 0s from I
+    public double kP = .015, kI = 0.000001, kD = .00001, kS, kG, kV, kA, feedForward;
     private DutyCycleEncoder m_absoluteEncoder;
     private PIDController m_pidController;
 
@@ -36,7 +35,7 @@ public class Shoulder extends SubsystemBase
 
         m_absoluteEncoder = new DutyCycleEncoder(Constants.Shoulder.ShoulderEncoderPort);
 
-        target = getAngle();    // TODO - change to handoff angle eventually
+        target = getAngle();
 
     }
 
@@ -85,7 +84,7 @@ public class Shoulder extends SubsystemBase
         }
         else
         {
-            // TODO - add diagnostics
+
         }
     }
 
@@ -102,7 +101,7 @@ public class Shoulder extends SubsystemBase
         }
     }
 
-    public void setTarget(double setPoint)  // Assigns a new target angle   // TODO - somehow not catching negative numbers // I think this is now fixed - test JTL 2-28-24
+    public void setTarget(double setPoint)  // Assigns a new target angle
     {
         // Checks to make sure angle is within limits
         if(setPoint >= Constants.Shoulder.maxAngle)

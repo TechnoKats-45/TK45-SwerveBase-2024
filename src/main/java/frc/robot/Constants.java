@@ -44,10 +44,10 @@ public final class Constants
     public static final class Intake 
     {
         public static final int IntakeID = 40;
-        public static final double intakeSpeed = -.8; // TODO - Adjust intake speed // Was -0.75
+        public static final double intakeSpeed = -.8;
         public static final int IntakeSensor1Port = 1;   
-        public static final double handoffSpeed = -.25; // TODO - Adjust handoff speed
-        public static final double outtakeSpeed = .50; // TODO - Adjust outtake speed
+        public static final double handoffSpeed = -.25;
+        public static final double outtakeSpeed = .50;
     }
 
     /* Feeder Constants */
@@ -55,10 +55,9 @@ public final class Constants
     {
         public static final int FeederID = 50;
         public static final int FeederSensor1Port = 0;
-        public static final double handoffSpeed = .40;  // TODO - Adjust feeder speed
-        public static final double ampScoreSpeed = -1; // TODO - Adjust amp shoot speed
+        public static final double handoffSpeed = .40;
+        public static final double ampScoreSpeed = -1;
         public static final double speakerFeedSpeed = 1;
-        public static final double JiggleDelay = 0.25;  // TODO - update
     }
 
     /* Shoulder Constants */   
@@ -66,7 +65,7 @@ public final class Constants
     {
         public static final int ShoulderID = 60;
         public static final double handoffAngle = 28;
-        public static final double ampScoreAngle = 225.8;   // 227.3 for hardstop
+        public static final double ampScoreAngle = 225.8;
         public static final double speakerScoreAngle = handoffAngle;
         public static final int ShoulderEncoderPort = 2;
         public static final double maxAngle = 270;
@@ -81,7 +80,8 @@ public final class Constants
     /* Shooter Constants */
     public static final class Shooter 
     {
-        public static final double shooterSpeed = 0.9; // TODO - Adjust shooter speed
+        public static final double shooterSpeed = 0.9;
+        public static final double loftedPassSpeed = 0.45;
         public static final int ShooterBottomID = 55;
         public static final int ShooterTopID = 56;
 
@@ -93,16 +93,7 @@ public final class Constants
     public static final class Climber
     {
         public static final int ClimberID = 45;
-        public static final double climberSpeed = 1;       // TODO - Adjust climber speed
-        public static final double minExtension = 0;
-        public static final double maxExtension = 110;     // TODO - Update this value
-        public static final double chainGrabHeight = 99;   // TODO - Update this value
-        public static final int ClimberEncoderPort = 3;
-        public static final double ClimbSpeed = .25;       // TODO - Adjust climb speed
-        public static final double climberMaxAngle = 100; // TODO - Update this value
-        public static final double climberMinAngle = 0;   // TODO - Update this value
-    
-        public static final double kInchesPerRotation = 2; // TODO - Update this value
+        public static final double climberSpeed = 1;
     }
 
     /* Gyro Constants */
@@ -168,14 +159,14 @@ public final class Constants
         public static final double angleKF = chosenModule.angleKF;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = 0.05; //TODO: This must be tuned to specific robot
+        public static final double driveKP = 0.05; // This must be tuned to specific robot
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
 
         /* Drive Motor Characterization Values 
         * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.16861 / 12); //TODO: This must be tuned to specific robot
+        public static final double driveKS = (0.16861 / 12); // This must be tuned to specific robot
         public static final double driveKV = (2.6686 / 12);
         public static final double driveKA = (0.34757 / 12);
 
@@ -208,7 +199,7 @@ public final class Constants
             public static final int angleMotorID = 23;
             public static final int canCoderID = 33;
             //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(102.48+180-0.703);      // FOR PRACTICE BOT
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(6.15+180-12);  // FOR COMP BOT  // TODO - UPDATE THIS
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(6.15+180-12);  // FOR COMP BOT
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
@@ -219,7 +210,7 @@ public final class Constants
             public static final int angleMotorID = 20;
             public static final int canCoderID = 30;
             //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(25.84+180);   // PRACTICE BOT
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-73.04+180);  // FOR COMP BOT  // TODO - UPDATE THIS
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-73.04+180);  // FOR COMP BOT
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
         
@@ -230,7 +221,7 @@ public final class Constants
             public static final int angleMotorID = 22;
             public static final int canCoderID = 32;
             //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-50.889+180-18.281);  // PRACTICE BOT
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-92.9+180);  // FOR COMP BOT  // TODO - UPDATE THIS
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-92.9+180);  // FOR COMP BOT
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
@@ -241,7 +232,7 @@ public final class Constants
             public static final int angleMotorID = 21;
             public static final int canCoderID = 31;
             //public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-170.508+180);    // PRACTICE BOT
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(134.21+180);  // FOR COMP BOT  // TODO - UPDATE THIS
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(134.21+180);  // FOR COMP BOT
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 

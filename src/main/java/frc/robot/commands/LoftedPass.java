@@ -26,7 +26,7 @@ public class LoftedPass extends Command
     @Override
     public void execute() 
     {
-        s_Shooter.setTarget(0.45);
+        s_Shooter.setTarget(Constants.Shooter.loftedPassSpeed);
         s_Shooter.holdAmpTarget();
 
         s_Shoulder.setTarget(Constants.Shoulder.groundParallelAngle - Constants.Shoulder.loftedPassAngle);
